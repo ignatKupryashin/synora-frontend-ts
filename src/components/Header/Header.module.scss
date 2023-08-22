@@ -1,0 +1,39 @@
+@import 'styles/variables';
+
+.header {
+	margin-right: 18px;
+	padding: 24px 0px;
+	display: flex;
+	justify-content: flex-end;
+	gap: 48px;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	background-color: white;
+
+	&__item {
+		font-family: $font-mulish-regular;
+		font-size: 14px;
+		line-height: 1.7; 
+		color: #3C4346;
+
+
+		&__title:first-child {
+			font-weight: bold;
+		}
+
+		&__text {
+			font-family: $font-mulish-light;
+			font-size: 12px;
+			display: flex;
+
+			&::after {
+				content: url('../../assets/svg/Files.svg');
+				display: block;
+				margin-left: 8px;
+				cursor: pointer;
+			}
+		}
+	}
+
+}

@@ -1,0 +1,55 @@
+@import 'styles/variables';
+
+.navbar_elem {
+	padding: 16px 0px;
+	display: flex;
+	align-items: center;
+	
+	&::before {
+		content: '';
+		display: block;
+		width: 24px;
+		height: 24px;
+		margin-right: 16px;
+	}
+
+	&:nth-child(1)::before {
+		content: url('../../assets/svg/Mainpage_logo.svg');
+	}
+
+	&:nth-child(2)::before {
+		content: url('../../assets/svg/Eventpage_logo.svg');
+	}
+
+	&:nth-child(3)::before {
+		content: url('../../assets/svg/Patternspage_logo.svg');
+	}
+
+	&:nth-child(4)::before {
+		content: url('../../assets/svg/Transportspage_logo.svg');
+	}
+
+	&:last-child {
+		margin-bottom: 30px;
+	}
+
+	:hover {
+		color: #0093F0;
+		cursor: pointer;
+	}
+
+	&_active {
+		border-right: 6px solid $color-blue-btn;
+	}
+}
+
+.link {
+	font-family: $font-mulish-light;
+	font-size: 14px;
+	color: $color-white;
+
+	&_active {
+		font-family: $font-mulish-bold;
+		color: $color-blue-btn;
+	}
+}

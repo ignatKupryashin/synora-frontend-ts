@@ -1,0 +1,9 @@
+<svg width="200" height="170" viewBox="0 0 200 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Button">
+<rect width="200" height="170" rx="16" fill="#0093F0"/>
+<g id="Group">
+<path id="Vector" fill-rule="evenodd" clip-rule="evenodd" d="M76 61V77.25H124.75V61H76ZM119.333 66.4167H81.4167V72.875H119.333V66.4167ZM76 82.6667V109.75H97.6667V82.6667H76ZM92.25 88.0833H81.4167V104.333H92.25V88.0833Z" fill="#FAFDFF"/>
+<path id="Vector_2" d="M124.75 82.6665H103.083V88.0832H124.75V82.6665ZM103.083 93.4998H124.75V98.9165H103.083V93.4998ZM124.75 104.333H103.083V109.75H124.75V104.333Z" fill="#FAFDFF"/>
+</g>
+</g>
+</svg>

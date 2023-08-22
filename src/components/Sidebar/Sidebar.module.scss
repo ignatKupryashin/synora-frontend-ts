@@ -1,0 +1,54 @@
+@import 'styles/variables';
+
+.sidebar {
+	padding: 40px 0px 40px;
+	flex: 0 0 200px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: $font-mulish-light;
+	font-size: 12px;
+	border-radius: 20px;
+	background: linear-gradient(180deg, #778395 0%, #555F70 100%);
+	box-shadow: 4px 0px 10px 0px rgba(56, 55, 58, 0.30);
+	color: $color-white;
+	overflow-y: hidden;
+
+	&__user {
+		padding: 8px 32px 24px 24px;
+		align-self: flex-start;
+		display: flex;
+		align-items: center;
+		font-family: $font-mulish-light;
+		font-size: 14px;
+		color: $color-white;
+
+		&::before {
+			content: url('../../assets/svg/Ellipse.svg');
+			display: block;
+			width: 28px;
+			height: 28px;
+			margin-right: 16px;
+		}
+	}
+
+	&__navbar {
+		width: 100%;
+		padding-left: 28px;
+		flex: 1 1 auto;
+	}
+
+	&__footer {
+
+		:hover {
+			color: #0093F0;
+			cursor: pointer;
+		}
+
+		&_text {
+			font-family: $font-mulish-regular;
+			font-size: 14px;
+			color: $color-white;
+		}
+	}
+}

@@ -1,0 +1,26 @@
+@import 'styles/_variables';
+
+.notfoundage {
+	margin-top: 100px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 30px;
+	
+	&__text {
+		padding-bottom: 30px;
+		font-family: $font-mulish-light;
+		font-size: 28px;
+		color: $color-black-dark;
+
+		&_link {
+			padding: 20px 60px;
+			font-family: $font-roboto-bold;
+			font-size: 18px;
+			color: $color-white;
+			border-radius: 16px;
+			background: $color-blue-btn;
+			box-shadow: 4px 4px 6px 0px rgba(60, 61, 64, 0.25);
+		}
+	}
+}
