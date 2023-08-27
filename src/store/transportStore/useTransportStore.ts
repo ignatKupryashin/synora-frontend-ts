@@ -2,7 +2,6 @@ import {create} from "zustand";
 import {ITransport} from "../../models/ITransport";
 import {BASE_URL} from "../../BASE_URL";
 import axios from "axios";
-import {json} from "react-router-dom";
 
 type transportStore = {
     transports: ITransport[],
@@ -13,7 +12,6 @@ type transportStore = {
     fetchTransports: (userId: string, projectId: string) => Promise<void>;
     sendTransport: (transport: ITransport) => Promise<ITransport>;
 }
-
 
 export const useTransportStore = create<transportStore>((set) => ({
         transports: [],
@@ -44,16 +42,23 @@ export const useTransportStore = create<transportStore>((set) => ({
             }
         },
 
-        sendTransport: async (transport: ITransport) => {
+
+    /**
+     * Функция для отправки транспорта на сервер
+     * @param transport - Входящий транспорт
+     */
+    sendTransport: async (transport: ITransport) => {
             const url = `https://${BASE_URL}/transport/project/${transport.project_identifier}/user/${transport.user_identifier}/`;
             try {
-                const data = await axios.post(url, {
-                    transport_name: transport.transport_name,
-                    protocol_name: "telegram",
-                    transport_configs: {
-                        TOKEN: transport.transport_configs.TOKEN
-                    }
-                })
+                const data = await axios.post(url, transport
+                    // {
+                    // transport_name: transport.transport_name,
+                    // protocol_name: "telegram",
+                    // transport_configs: {
+                    //     TOKEN: transport.transport_configs.TOKEN
+                    // }
+                // }
+                )
                 return data.data;
             }
             catch (e) {
