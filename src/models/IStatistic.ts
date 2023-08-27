@@ -1,6 +1,6 @@
 export interface IStatistic {
     id: number,
-    rate: string,
+    rate: number,
     amount: number,
     text: string,
 }

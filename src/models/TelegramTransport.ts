@@ -1,0 +1,29 @@
+import {ITransport} from "./ITransport";
+
+interface ITelegramTransportConfig {
+    TOKEN: string;
+}
+
+
+class TelegramTransport implements ITransport{
+    id?: string;
+    project_identifier: string;
+    protocol_name: string;
+    transport_configs: ITelegramTransportConfig;
+    transport_name: string;
+    user_identifier: string;
+
+    constructor(project_identifier: string, transport_name: string, user_identifier: string, telegramToken: string) {
+        this.project_identifier = project_identifier;
+        this.protocol_name = 'telegram';
+        this.transport_name = transport_name;
+        this.user_identifier = user_identifier;
+        this.transport_configs = {
+            TOKEN: telegramToken
+        };
+    }
+}
+
+export default TelegramTransport;
+
+

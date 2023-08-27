@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {loadActions, loadStatistics} from "../../tools/loaders";
 import {IStatistic} from "../../models/IStatistic";
 import {IAction} from "../../models/IAction";
+import {CircularProgressWithLabel} from "../../components/UI/CircleProgressBar/CircularProgressWithLabel";
 
 const HomePage: FC = () => {
 
@@ -39,7 +40,15 @@ const HomePage: FC = () => {
 						<div className={styles.homepage__infoblock_statistic}>
 							{statisticData.map(data => (
 									<div key={data.id} className={styles.homepage__infoblock_info}>
-										<div className={styles.homepage__infoblock_rate}>{data.rate}</div>
+										<CircularProgressWithLabel
+												sx={{
+													color: '#0093F0',
+													fontColor:'100'
+												}}
+													size={100}
+													thickness={7}
+											value={data.rate}
+										/>
 										<div className={styles.homepage__infoblock_digit}>{data.amount}</div>
 										<div className={styles.homepage__infoblock_text}>{data.text}</div>
 									</div>

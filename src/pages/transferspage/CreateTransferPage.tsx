@@ -1,19 +1,23 @@
-import React, {FC, useState} from 'react';
+import React, {ChangeEventHandler, FC, useState} from 'react';
 import styles from './TransferPage.module.scss';
 import InputText from "../../components/Input/InputText";
 import {Link} from "react-router-dom";
+import {InputLabel} from "@mui/material";
+import createTelegramTransport from "./CreateTelegramTransportPage";
+import CreateTelegramTransportPage from "./CreateTelegramTransportPage";
+import CreateEmailTransportPage from "./CreateEmailTransportPage";
 
-const TransferPage:FC = () => {
+const CreateTransferPage:FC = () => {
 
 
 	const [transport, setTransport] = useState('');
 	const [telegram, setTelegram] = useState({transferName: '', transferBot: '', transferToken: ''});
 
 
-	//разобраться зачем вообще данная функция
-		// @ts-ignore
-	const transportChangeHandler = ({target: {value}}) => {
-			setTransport(value);
+
+	//Функция для изменения вида транспорта. Мб как то иначе сделать.
+	const transportChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+			setTransport(e.currentTarget.value);
 		}
 
 		const formSubmit = (e: { preventDefault: () => void; }) => {
@@ -21,7 +25,7 @@ const TransferPage:FC = () => {
 		}
 
 		return (
-			<div className={styles.transfer}>
+			<div>
 				<Link to='/transfers' className={styles.transfer_back}>Назад</Link>
 				<h1 className={styles.transfer__title}>Создать транспорт</h1>
 				<div className={styles.transfer__form_radio}>
@@ -54,43 +58,15 @@ const TransferPage:FC = () => {
 						</label>
 					</div>
 				</div>
-				{transport === 'email' && <></>}
+				{transport === 'email' && (
+					<CreateEmailTransportPage/>)
+				}
 				{transport === 'telegram' && (
-					<>
-						<form onSubmit={formSubmit} className={styles.transfer__create}>
-							<InputText
-								id="transfer_name"
-								name="transfer_name"
-								value={telegram.transferName}
-								// onChange={}
-								label="Название транспорта"
-								styleName="transfer"
-							/>
-							<InputText
-								id="transfer_bot"
-								name="transfer_bot"
-								value={telegram.transferBot}
-								// onChange={}
-								label="Бот Telegram"
-								styleName="transfer"
-							/>
-							<InputText
-								id="transfer_token"
-								name="transfer_token"
-								value={telegram.transferToken}
-								// onChange={}
-								label="Токен бота"
-								styleName="transfer"
-							/>
-							<div className={styles.transfer__create_btn}>
-								<button type="submit" className={styles.transfer__create_btn_link}>Создать</button>
-							</div>
-						</form>
-					</>
+					<CreateTelegramTransportPage/>
 				)
 				}
 			</div>
 		)
 };
 
-export default TransferPage;
+export default CreateTransferPage;

@@ -5,7 +5,7 @@ import HomePage from "../../pages/homepage/HomePage";
 import EventsPage from "../../pages/eventspage/EventsPage";
 import EventPage from "../../pages/eventspage/EventPage";
 import TransfersPage from "../../pages/transferspage/TransfersPage";
-import TransferPage from "../../pages/transferspage/TransferPage";
+import CreateTransferPage from "../../pages/transferspage/CreateTransferPage";
 import NotFoundPage from "../../pages/notfoundpage/NotFoundPage";
 
 const AppRouter = () => {
@@ -16,7 +16,7 @@ const AppRouter = () => {
                 <Route path='events' element={<EventsPage/>} />
                 <Route path='events/new_event' element={<EventPage />}/>
                 <Route path='transfers' element={<TransfersPage />}/>
-                <Route path='transfers/new_transfer' element={<TransferPage />}/>
+                <Route path='transfers/new_transfer' element={<CreateTransferPage />}/>
                 <Route path='*' element={<NotFoundPage/>} />
                 </Route>
             </Routes>
