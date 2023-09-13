@@ -13,7 +13,7 @@ const ACTION_MOCKS = [
         action: 'Создать шаблон',
         actionText: 'Напишите текст сообщения, добавьте переменные для персонализации и прикрепите его к событию.',
         actionBtn: 'Создать шаблон',
-        actionLink: '#'
+        actionLink: '/templates'
     },
     {
         id: 3,

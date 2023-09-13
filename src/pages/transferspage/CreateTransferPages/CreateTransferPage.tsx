@@ -1,27 +1,15 @@
-import React, {ChangeEventHandler, FC, useState} from 'react';
-import styles from './TransferPage.module.scss';
-import InputText from "../../components/Input/InputText";
+import React, {FC, useState} from 'react';
+import styles from '../TransferPage.module.scss';
 import {Link} from "react-router-dom";
-import {InputLabel} from "@mui/material";
-import createTelegramTransport from "./CreateTelegramTransportPage";
 import CreateTelegramTransportPage from "./CreateTelegramTransportPage";
 import CreateEmailTransportPage from "./CreateEmailTransportPage";
 
 const CreateTransferPage:FC = () => {
 
-
 	const [transport, setTransport] = useState('');
-	const [telegram, setTelegram] = useState({transferName: '', transferBot: '', transferToken: ''});
 
-
-
-	//Функция для изменения вида транспорта. Мб как то иначе сделать.
 	const transportChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
 			setTransport(e.currentTarget.value);
-		}
-
-		const formSubmit = (e: { preventDefault: () => void; }) => {
-			e.preventDefault();
 		}
 
 		return (

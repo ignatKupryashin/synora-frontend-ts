@@ -1,0 +1,18 @@
+.appModal {
+  &__wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color:rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__content {
+    background: white;
+    border-radius: 15px;
+    width: 200px;
+    height: 200px;
+  }
+}

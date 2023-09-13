@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import styles from "./TransferPage.module.scss";
-import AppInput from "../../components/Input/AppInput";
-import {useTransportStore} from "../../store/transportStore/useTransportStore";
-import TelegramTransport from "../../models/TelegramTransport";
-import {useUserStore} from "../../store/userStore/useUserStore";
-import {ITransport} from "../../models/ITransport";
+import styles from "../TransferPage.module.scss";
+import AppInput from "components/Input/AppInput";
+import {useTransportStore} from "store/transportStore/useTransportStore";
+import TelegramTransport from "models/Transport/TelegramTransport";
+import {useUserStore} from "store/userStore/useUserStore";
+import {useNavigate} from "react-router-dom";
+import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 
 const CreateTelegramTransportPage = () => {
 
@@ -12,8 +13,9 @@ const CreateTelegramTransportPage = () => {
     const [telegramToken, setTelegramToken] = useState('');
     const sendTransport = useTransportStore(state => state.sendTransport);
     const addTransport = useTransportStore(state => state.addTransport);
-    const userId = useUserStore(state => state.userId);
-    const projectId = useUserStore(state => state.projectId);
+    const userId = useUserStore(state => state.user?.id) || '';
+    const projectId = useProjectStore(state => state.currentProject?.id) || '';
+    const navigate = useNavigate();
 
     const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -27,7 +29,7 @@ const CreateTelegramTransportPage = () => {
             console.log((error as Error).message)
         }
         finally {
-            e.currentTarget.reset();
+            navigate('/transfers')
         }
     }
 

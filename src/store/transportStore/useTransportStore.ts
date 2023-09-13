@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import {ITransport} from "../../models/ITransport";
+import {ITransport} from "../../models/Transport/ITransport";
 import {BASE_URL} from "../../BASE_URL";
 import axios from "axios";
 
@@ -11,6 +11,7 @@ type transportStore = {
     removeTransport: (id:string) => void,
     fetchTransports: (userId: string, projectId: string) => Promise<void>;
     sendTransport: (transport: ITransport) => Promise<ITransport>;
+    deleteTransport: (transport: ITransport) => Promise<ITransport>;
 }
 
 export const useTransportStore = create<transportStore>((set) => ({
@@ -18,6 +19,11 @@ export const useTransportStore = create<transportStore>((set) => ({
         isLoading: false,
         errors: [],
 
+
+        /**
+         * Add transport to store
+         * @param transport
+         */
         addTransport: (transport) => {
             set((state) => ({
                 transports: [...state.transports, transport]
@@ -43,27 +49,35 @@ export const useTransportStore = create<transportStore>((set) => ({
         },
 
 
-    /**
-     * Функция для отправки транспорта на сервер
-     * @param transport - Входящий транспорт
-     */
-    sendTransport: async (transport: ITransport) => {
+        /**
+         * Функция для отправки транспорта на сервер
+         * @param transport - Входящий транспорт
+         */
+        sendTransport: async (transport: ITransport) => {
             const url = `https://${BASE_URL}/transport/project/${transport.project_identifier}/user/${transport.user_identifier}/`;
             try {
-                const data = await axios.post(url, transport
-                    // {
-                    // transport_name: transport.transport_name,
-                    // protocol_name: "telegram",
-                    // transport_configs: {
-                    //     TOKEN: transport.transport_configs.TOKEN
-                    // }
-                // }
-                )
+                const data = await axios.post(url, transport)
                 return data.data;
             }
             catch (e) {
                 console.log((e as Error).message)
             }
-        }
-    })
+        },
+
+        deleteTransport: async (transport: ITransport) => {
+            const url = `https://${BASE_URL}/transport/project/${transport.project_identifier}/user/${transport.user_identifier}/id/${transport.id}/`;
+            try {
+                const data = await axios.delete(url)
+                return data.data;
+            }
+            catch (e) {
+                console.log((e as Error).message)
+            }
+        },
+
+
+    }),
+
+
+
 )

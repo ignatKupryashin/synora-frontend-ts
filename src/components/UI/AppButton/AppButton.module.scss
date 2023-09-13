@@ -1,0 +1,13 @@
+@import 'styles/variables';
+
+.app-button {
+    padding: 12px 52px;
+    display: inline-block;
+    font-family: $font-roboto-bold;
+    font-size: 18px;
+    color: $color-white;
+    border-radius: 16px;
+    background: $color-blue-btn;
+    box-shadow: 4px 4px 6px 0 rgba(60, 61, 64, 0.25);
+  }
+
