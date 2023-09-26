@@ -1,7 +1,9 @@
 import {ISynoraEvent} from "../../models/SynoraEvent/ISynoraEvent";
 import {create} from "zustand";
-import {BASE_URL} from "../../BASE_URL";
-import axios, {AxiosResponse} from "axios";
+import {AxiosResponse} from "axios";
+import {$mainApi} from "../../http";
+import {ITransport} from "../../models/Transport/ITransport";
+import {ITemplate} from "../../models/Template/ITemplate";
 
 type eventStore = {
     events: ISynoraEvent[];
@@ -12,6 +14,8 @@ type eventStore = {
     fetchEvents: (userId: string, projectId: string) => Promise<void>;
     sendEvent: (event: ISynoraEvent) => Promise<AxiosResponse<ISynoraEvent>>;
     deleteEvent: (event: ISynoraEvent) => Promise<ISynoraEvent>;
+    addConfigToEvent: (event: ISynoraEvent, transport: ITransport, template: ITemplate) => Promise<ISynoraEvent>;
+    getEventWithConfig: (event: ISynoraEvent) => Promise<AxiosResponse<ISynoraEvent>>
 }
 
 export const useSynoraEventStore = create<eventStore>((set) => ({
@@ -32,9 +36,8 @@ export const useSynoraEventStore = create<eventStore>((set) => ({
     },
 
     fetchEvents: async (userId: string, projectId: string) => {
-        const url = `https://${BASE_URL}/event/project/${projectId}/user/${userId}/`;
         try {
-            const data = await axios.get(url).then(
+            const data = await $mainApi.get(`/event/project/${projectId}/user/${userId}/`).then(
                 (response) => (response.data));
             set({events: data})
         } catch (e) {
@@ -43,13 +46,26 @@ export const useSynoraEventStore = create<eventStore>((set) => ({
     },
 
     sendEvent: async (event: ISynoraEvent) => {
-        const url = `https://${BASE_URL}/event/project/${event.project_identifier}/user/${event.user_identifier}/`;
-        return await axios.post(url, event);
+        return $mainApi.post(`/event/project/${event.project_identifier}/user/${event.user_identifier}/`, event);
     },
 
     deleteEvent: async (event: ISynoraEvent) => {
-        const url = `https://${BASE_URL}/event/project/${event.project_identifier}/user/${event.user_identifier}/id/${event.id}/`;
-        const data = await axios.delete(url)
+        const data = await $mainApi.delete(`/event/project/${event.project_identifier}/user/${event.user_identifier}/id/${event.id}/`)
         return data.data;
     },
+
+    getEventWithConfig: async (event: ISynoraEvent) => {
+        return await $mainApi.get(`/event/project/${event.project_identifier}/user/${event.user_identifier}/event_code/${event.event_code}/`);
+        },
+
+    addConfigToEvent: async (event: ISynoraEvent, transport: ITransport, template: ITemplate) => {
+        const data = await $mainApi.post(`/event_connections/project/${event.project_identifier}/user/${event.user_identifier}/`,
+            {
+                "event_code": event.event_code,
+                "template_id": template.id,
+                "transport_id": transport.id
+            }
+            )
+        return data.data;
+    }
 }));

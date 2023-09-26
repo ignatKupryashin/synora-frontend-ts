@@ -14,6 +14,12 @@
 	color: $color-white;
 	overflow-y: hidden;
 
+	&__logoImg {
+		width: 80px;
+		margin-top: 12px;
+		margin-bottom: 40px;
+	}
+
 	&__user {
 		padding: 8px 32px 24px 24px;
 		align-self: flex-start;

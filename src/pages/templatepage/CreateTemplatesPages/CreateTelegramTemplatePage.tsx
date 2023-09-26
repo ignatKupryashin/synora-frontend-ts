@@ -6,6 +6,7 @@ import AppInput from "../../../components/Input/AppInput";
 import {useTemplateStore} from "../../../store/templateStore/useTemplateStore";
 import {TelegramTemplate} from "../../../models/Template/TelegramTemplate";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
+import AppTextArea from "../../../components/UI/AppTextArea/AppTextArea";
 
 const CreateTelegramTemplatePage = () => {
     const [templateName, setTemplateName] = useState('');
@@ -42,7 +43,7 @@ const CreateTelegramTemplatePage = () => {
         setTemplateName(e.currentTarget.value);
     }
 
-    const changeTemplateBody = (e: React.FormEvent<HTMLInputElement>) => {
+    const changeTemplateBody = (e: React.FormEvent<HTMLTextAreaElement>) => {
         setTemplateBody(e.currentTarget.value);
     }
 
@@ -58,15 +59,14 @@ const CreateTelegramTemplatePage = () => {
                     placeholder={'Введите наименование шаблона'}
                     onChange={changeTemplatetName}
                     maxLength={40}
-
                 />
-                <AppInput
+                <AppTextArea
                     id={'templateBody'}
                     label={'Текст шаблона'}
-                    type={'textarea'}
                     name={'templateBody'}
                     placeholder={'Введите текст шаблона'}
                     onChange={changeTemplateBody}
+                    className={styles.createTransfer__textInput}
                 />
                 <div className={styles.transfer__create_btn}>
                     <button type="submit" className={styles.transfer__create_btn_link}>Создать</button>

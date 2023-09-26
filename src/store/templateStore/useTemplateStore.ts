@@ -1,7 +1,6 @@
 import {create} from "zustand";
 import {ITemplate} from "../../models/Template/ITemplate";
-import {BASE_URL} from "../../BASE_URL";
-import axios from "axios";
+import {$mainApi} from "../../http";
 
 type templateStore = {
     templates: ITemplate[];
@@ -36,9 +35,9 @@ export const useTemplateStore = create<templateStore>((set) => ({
     },
 
     fetchTemplates: async (userId: string, projectId: string) => {
-        const url = `https://${BASE_URL}/template/project/${projectId}/user/${userId}/`;
         try {
-            const data = await axios.get(url).then(
+            const data = await $mainApi.get(`/template/project/${projectId}/user/${userId}/`)
+                    .then(
                 (response) => (response.data));
             set({templates: data})
         } catch (e) {
@@ -47,9 +46,8 @@ export const useTemplateStore = create<templateStore>((set) => ({
     },
 
     sendTemplate: async (template: ITemplate) => {
-        const url = `https://${BASE_URL}/template/project/${template.project_identifier}/user/${template.user_identifier}/`;
         try {
-            const data = await axios.post(url, template)
+            const data = await $mainApi.post(`/template/project/${template.project_identifier}/user/${template.user_identifier}/`, template);
             return data.data;
         }
         catch (e) {
@@ -58,9 +56,8 @@ export const useTemplateStore = create<templateStore>((set) => ({
     },
 
     deleteTemplate: async (template: ITemplate) => {
-        const url = `https://${BASE_URL}/template/project/${template.project_identifier}/user/${template.user_identifier}/id/${template.id}/`;
         try {
-            const data = await axios.delete(url)
+            const data = await $mainApi.delete(`/template/project/${template.project_identifier}/user/${template.user_identifier}/id/${template.id}/`)
             return data.data;
         }
         catch (e) {

@@ -1,5 +1,5 @@
 import React, {FC, MouseEventHandler} from 'react';
-import styles from "./AppButton.module.scss";
+import styles from './AppButton.module.scss';
 
 interface IAppButton {
     id?: string;

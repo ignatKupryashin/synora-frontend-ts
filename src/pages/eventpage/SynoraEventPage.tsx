@@ -3,9 +3,28 @@ import styles from "./EventPage.module.scss";
 import {Link} from "react-router-dom";
 import {ISynoraEvent} from "../../models/SynoraEvent/ISynoraEvent";
 import {useSynoraEventStore} from "../../store/eventStore/useSynoraEventStore";
+import SynoraEventItem from "./CreateSynoraEventPage/SynoraEventItem";
+import {successful, unsuccessful} from "../../components/UI/Toast/Toast";
 
 const SynoraEventPage = () => {
 	const eventsList: ISynoraEvent[] = useSynoraEventStore(state => state.events);
+	const deleteEvent = useSynoraEventStore(state => state.deleteEvent);
+	const removeEvent = useSynoraEventStore(state => state.removeEvent);
+
+	const deleteSynoraEventHandler = (synoraEvent: ISynoraEvent) => {
+		try {
+			deleteEvent(synoraEvent).then((response) => {
+					if (response) {
+						removeEvent(synoraEvent.id);
+						successful(`Событие "${synoraEvent.event_code}" успешно удалено`)
+					}
+				}
+			)
+		} catch (e) {
+			unsuccessful((e as Error).message);
+		}
+	}
+
 
 
 	return (
@@ -17,9 +36,7 @@ const SynoraEventPage = () => {
 			<div className={styles.events__list}>
 				{eventsList.length > 0 ?
 					eventsList.map(event => (
-						<div key={event.id} className={styles.events__item}>
-							<div className={styles.events__item_title}>{event.event_code}</div>
-						</div>
+						<SynoraEventItem synoraEvent={event} onDelete={() => deleteSynoraEventHandler(event)}/>
 					))
 						:
 					"У вас нет созданных событий"

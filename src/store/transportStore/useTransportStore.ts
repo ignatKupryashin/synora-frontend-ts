@@ -1,7 +1,6 @@
 import {create} from "zustand";
 import {ITransport} from "../../models/Transport/ITransport";
-import {BASE_URL} from "../../BASE_URL";
-import axios from "axios";
+import {$mainApi} from "../../http";
 
 type transportStore = {
     transports: ITransport[],
@@ -37,10 +36,9 @@ export const useTransportStore = create<transportStore>((set) => ({
         },
 
         fetchTransports: async (userId: string, projectId: string) => {
-            const url = `https://${BASE_URL}/transport/project/${projectId}/user/${userId}/`;
-            console.log(url)
             try {
-                const data = await axios.get(url).then(
+                const data = await $mainApi.get(`/transport/project/${projectId}/user/${userId}/`)
+                    .then(
                     (response) => (response.data));
                 set({transports: data})
             } catch (e) {
@@ -54,9 +52,9 @@ export const useTransportStore = create<transportStore>((set) => ({
          * @param transport - Входящий транспорт
          */
         sendTransport: async (transport: ITransport) => {
-            const url = `https://${BASE_URL}/transport/project/${transport.project_identifier}/user/${transport.user_identifier}/`;
             try {
-                const data = await axios.post(url, transport)
+                const data =
+                    await $mainApi.post(`/transport/project/${transport.project_identifier}/user/${transport.user_identifier}/`, transport)
                 return data.data;
             }
             catch (e) {
@@ -65,9 +63,8 @@ export const useTransportStore = create<transportStore>((set) => ({
         },
 
         deleteTransport: async (transport: ITransport) => {
-            const url = `https://${BASE_URL}/transport/project/${transport.project_identifier}/user/${transport.user_identifier}/id/${transport.id}/`;
             try {
-                const data = await axios.delete(url)
+                const data = await $mainApi.delete(`/transport/project/${transport.project_identifier}/user/${transport.user_identifier}/id/${transport.id}/`)
                 return data.data;
             }
             catch (e) {

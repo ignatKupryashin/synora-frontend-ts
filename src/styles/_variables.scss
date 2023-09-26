@@ -20,3 +20,8 @@ $color-black-dark: #181818;
 
 //layout colors
 $color-hover: $color-white;
+
+:export {
+  mainColor: $color-blue-btn;
+  fontMulishLight:$font-mulish-light;
+}

@@ -12,15 +12,6 @@ import {unsuccessful} from "./components/UI/Toast/Toast";
 
 function App() {
 
-	//Скорее всего можно удалить
-
-	// const setUserId = useUserStore(state => state.setUserId);
-	// const setProjectId = useUserStore(state => state.setProjectId);
-
-	//Установить учетную запись по умолчанию
-	// setUserId(userIdMock);
-	// setProjectId(projectIdMock);
-
 	const fetchTransports = useTransportStore(state => state.fetchTransports);
 	const fetchTemplates = useTemplateStore(state => state.fetchTemplates);
 	const fetchEvents = useSynoraEventStore(state => state.fetchEvents);
@@ -44,7 +35,6 @@ function App() {
 			unsuccessful((e as Error).message)
 		}
 	}, [userId]);
-
 
 	useEffect(() => {
 		if (userId !== undefined && projectId !== undefined) {

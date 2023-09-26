@@ -1,0 +1,41 @@
+@import 'styles/variables';
+
+.synoraEventItemPage {
+    font-family: $font-roboto-bold;
+
+  &__heading {
+    font-size: 24px;
+    color: $color-black;
+  }
+
+  &__eventId {
+    font-size: 12px;
+    color: $color-grey-mid;
+    padding-bottom: 80px;
+  }
+
+  &__protocols {
+    display: flex;
+    gap: 60px;
+    padding-bottom: 50px;
+
+  }
+
+  &__divider {
+    width: 1px;
+    background: $color-grey-mid;
+  }
+
+&__protocolHeading{
+  font-size: 20px;
+}
+
+  &__protocolWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+
+
+}

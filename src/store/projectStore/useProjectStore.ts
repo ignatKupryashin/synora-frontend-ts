@@ -1,7 +1,7 @@
 import {create} from "zustand";
 import {IProject} from "../../models/Project/IProject";
-import {REGISTRY_URL} from "../../BASE_URL";
-import axios, {AxiosResponse} from "axios";
+import {AxiosResponse} from "axios";
+import {$registryApi} from "../../http";
 
 interface IProjectStore {
     currentProject: IProject | undefined;
@@ -50,11 +50,9 @@ export const useProjectStore = create<IProjectStore>((set) => ({
     },
 
     fetchLinks: async (userId: string) => {
-        const url = `${REGISTRY_URL}/links/?object1=${userId}`;
-        const response = await axios.get(url);
+        const response = await $registryApi.get(`/links/?object1=${userId}`)
 
         if (response.status >= 200 && response.status < 300) {
-            // console.log(response)
             return (response as AxiosResponse<Link[]>).data.map(element => element.object2);
         } else {
             throw new Error('Invalid response status');
@@ -62,14 +60,17 @@ export const useProjectStore = create<IProjectStore>((set) => ({
     },
 
     fetchProjects: async  (projectIds) => {
-        const url = `${REGISTRY_URL}/projects/?id=${projectIds.toString()}`;
-        const response = await axios.get(url);
-        if (response.status >= 200 && response.status < 300) {
-            console.log(response.data);
-            return (response as AxiosResponse<IProject[]>).data;
+        if (projectIds.length > 0) {
+            const response = await $registryApi.get(`/projects/?id=${projectIds.toString()}`);
+            if (response.status >= 200 && response.status < 300) {
+                console.log(response.data);
+                return (response as AxiosResponse<IProject[]>).data;
+            } else {
+                throw new Error('Invalid response status (projects))');
+            }
         }
         else {
-            throw new Error('Invalid response status (projects))');
+            return [];
         }
     }
 

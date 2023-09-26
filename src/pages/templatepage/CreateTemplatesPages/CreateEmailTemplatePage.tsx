@@ -7,6 +7,7 @@ import {useTemplateStore} from "../../../store/templateStore/useTemplateStore";
 import EmailTemplate from "../../../models/Template/EmailTemplate";
 import {ITemplate} from "../../../models/Template/ITemplate";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
+import AppTextArea from "../../../components/UI/AppTextArea/AppTextArea";
 
 const CreateEmailTemplatePage = () => {
 
@@ -30,7 +31,7 @@ const CreateEmailTemplatePage = () => {
         setLetterTopic(e.currentTarget.value);
     }
 
-    const changeBodyDataMiddleware = (e: React.FormEvent<HTMLInputElement>) => {
+    const changeBodyDataMiddleware = (e: React.FormEvent<HTMLTextAreaElement>) => {
         setBodyData(e.currentTarget.value);
     }
 
@@ -80,13 +81,13 @@ const CreateEmailTemplatePage = () => {
                     maxLength={80}
                 />
 
-                <AppInput
+                <AppTextArea
                     id={'bodyData'}
                     label={'Текст шаблона:'}
-                    type={'textarea'}
                     name={'bodyData'}
                     placeholder={'Текст шаблона'}
                     onChange={changeBodyDataMiddleware}
+                    className={styles.createTransfer__textInput}
                 />
                 <div className={styles.transfer__create_btn}>
                     <button type="submit" className={styles.transfer__create_btn_link}>Создать</button>

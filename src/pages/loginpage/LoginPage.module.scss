@@ -1,0 +1,32 @@
+@import 'styles/variables';
+
+.loginPage {
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  background: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  &__image {
+    width: 365px;
+  }
+
+  &__title {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    font-family: $font-roboto-bold;
+    font-size: 24px;
+    letter-spacing: 0.96px;
+    color: white;
+    position: sticky;
+    top: 0px;
+    z-index: 11;
+  }
+}

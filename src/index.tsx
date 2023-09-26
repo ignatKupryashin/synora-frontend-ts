@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 import './index.scss';
 import App from "./App";
-import styles from "*.scss";
+import {ThemeProvider} from "@mui/material";
+import {synoraTheme} from "./themes";
 
 
 const root = ReactDOM.createRoot(
@@ -13,6 +14,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
 		<BrowserRouter>
-			<App />
+			<ThemeProvider theme={synoraTheme}>
+				<App />
+			</ThemeProvider>
 		</BrowserRouter>
 );

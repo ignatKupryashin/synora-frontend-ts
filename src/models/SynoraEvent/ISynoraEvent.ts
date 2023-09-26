@@ -4,4 +4,6 @@ export interface ISynoraEvent {
     transport_default: any;
     project_identifier: string;
     user_identifier: string;
+    transports?: string[],
+    templates?: string[]
 }

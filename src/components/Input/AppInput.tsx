@@ -8,6 +8,7 @@ interface IAppInput {
     height?: string;
     type: string;
     name: string;
+    value?: string;
     defaultValue?: string;
     placeholder?: string;
     onChange?: ChangeEventHandler<HTMLInputElement>;
@@ -27,7 +28,8 @@ const AppInput: FC<IAppInput>= (props: IAppInput) => {
             height={props.height}
             type={props.type}
             name={props.name}
-            defaultValue={(props.defaultValue ? props.defaultValue : '')}
+            value={props.value}
+            defaultValue={(props.defaultValue)}
             placeholder={(props.placeholder ? props.placeholder : '')}
             onChange={(props.onChange ? props.onChange : undefined)}
             className={props.className ? props.className : styles.appInput}

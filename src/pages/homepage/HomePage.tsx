@@ -1,14 +1,12 @@
 import React, {FC} from 'react';
 import styles from "./HomePage.module.scss";
 import {Link} from "react-router-dom";
-import {loadActions, loadStatistics} from "../../tools/loaders";
-import {IStatistic} from "../../models/IStatistic";
+import {loadActions} from "../../tools/loaders";
 import {IAction} from "../../models/IAction";
 
 const HomePage: FC = () => {
 
 	const actionArr:IAction[] = loadActions();
-	const statisticData: IStatistic[] = loadStatistics();
 
 	return (
 		<div className={styles.homepage}>

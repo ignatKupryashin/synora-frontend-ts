@@ -1,9 +1,9 @@
 import {useState} from "react";
 import {AxiosError, AxiosResponse} from "axios";
 
-export const useFetching = (callback: () => Promise<AxiosResponse>):
+export const useFetching = (callback: (...props: any) => Promise<AxiosResponse>):
     [
-        () => Promise<AxiosResponse<any, any> | undefined>,
+        (...props: any) => Promise<AxiosResponse<any, any> | undefined>,
         boolean,
     ] => {
     const [isLoading, setIsLoading] = useState(false);
