@@ -65,7 +65,10 @@ const HomePage: FC = () => {
 					<div className={styles.homepage__infoblock_contact}>
 						<h3 className={styles.homepage__infoblock_contact_title}>Свяжись с нами</h3>
 						<p className={styles.homepage__infoblock_contact_text}>Если у вас возникли вопросы, напишите нам в телеграм:</p>
-						<p className={styles.homepage__infoblock_contact_email}>@sinora_help</p>
+						{/*<a href={''} target={"_blank"} children={*/}
+							<p className={styles.homepage__infoblock_contact_email}>@synora_help</p>
+						{/*}*/}
+						{/*/>*/}
 					</div>
 				</section>
 			</div>

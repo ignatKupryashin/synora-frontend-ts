@@ -4,6 +4,7 @@ import styles from "./AppInput.module.scss"
 interface IAppInput {
     id: string;
     label?: string;
+    labelClassName? : string;
     width?: string;
     height?: string;
     type: string;
@@ -21,7 +22,9 @@ interface IAppInput {
 const AppInput: FC<IAppInput>= (props: IAppInput) => {
     return (
         <div className={styles.inputWrapper}>
-            <label htmlFor={props.id} className={styles.appLabel}>{props.label}</label>
+            { props.label &&
+            <label className={props.labelClassName ? props.labelClassName : styles.appLabel} htmlFor={props.id}>{props.label}</label>
+            }
         <input
             id={props.id}
             width={props.width}

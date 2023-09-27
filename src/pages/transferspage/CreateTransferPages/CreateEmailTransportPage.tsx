@@ -7,6 +7,7 @@ import styles from "../TransferPage.module.scss";
 import AppInput from "components/Input/AppInput";
 import {useNavigate} from "react-router-dom";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
+import {unsuccessful} from "../../../components/UI/Toast/Toast";
 
 const CreateEmailTransportPage = () => {
 
@@ -71,7 +72,7 @@ const CreateEmailTransportPage = () => {
         try {
             sendTransport(newEmailTransport).then((response: ITransport) => addTransport(response));
         } catch (e) {
-            console.log((e as Error).message)
+            unsuccessful((e as Error).message)
         } finally {
             navigate('/transfers')
         }
@@ -93,9 +94,9 @@ const CreateEmailTransportPage = () => {
                 />
 
                 <div className={styles.transfer__flexWrapper}>
-                    <div>
+                    <div className={styles.transfer__flexWrapperItem}>
                         <AppInput
-                            id={'transportName'}
+                            id={'senderName'}
                             label={'Имя отправителя'}
                             type={'text'}
                             name={'transportName'}
@@ -106,7 +107,7 @@ const CreateEmailTransportPage = () => {
                         />
 
                         <AppInput
-                            id={'transportName'}
+                            id={'senderEmail'}
                             label={'E-mail отправителя'}
                             type={'text'}
                             name={'transportName'}
@@ -117,7 +118,7 @@ const CreateEmailTransportPage = () => {
                         />
 
                         <AppInput
-                            id={'transportName'}
+                            id={'name'}
                             label={'Отображаемое имя:'}
                             type={'text'}
                             name={'transportName'}
@@ -127,9 +128,9 @@ const CreateEmailTransportPage = () => {
                         />
 
                     </div>
-                    <div>
+                    <div className={styles.transfer__flexWrapperItem}>
                         <AppInput
-                            id={'transportName'}
+                            id={'server'}
                             label={'Сервер'}
                             type={'text'}
                             name={'transportEmailServer'}
@@ -141,7 +142,7 @@ const CreateEmailTransportPage = () => {
                         />
 
                         <AppInput
-                            id={'transportName'}
+                            id={'port'}
                             label={'Порт'}
                             type={'number'}
                             name={'transportName'}
@@ -152,7 +153,7 @@ const CreateEmailTransportPage = () => {
                             />
 
                         <AppInput
-                            id={'transportName'}
+                            id={'password'}
                             label={'Пароль'}
                             type={'password'}
                             name={'transportName'}

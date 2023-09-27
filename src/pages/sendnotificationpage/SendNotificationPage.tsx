@@ -12,12 +12,10 @@ import styles from "./SendNotificationPage.module.scss"
 
 const SendNotificationPage: FC = () => {
     const {currentEventId} = useParams<string>();
-    console.log(currentEventId)
     const userId = useUserStore.getState().userId();
     const projectId = useProjectStore.getState().currentProject?.id;
     const emailExpression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const currentEvent = useSynoraEventStore.getState().events.filter((item) => item.id == currentEventId)[0];
-    console.log(currentEvent)
 
 
     const [emailInput, setEmailInput] = useState('');
@@ -33,7 +31,6 @@ const SendNotificationPage: FC = () => {
             .split(',')
             .filter((item) => emailExpression.test(item))
         setEmailOutput(data)
-        console.log(emailOutput)
     }, [emailInput]);
 
     //написать дебаунс
@@ -46,7 +43,6 @@ const SendNotificationPage: FC = () => {
         // data.forEach((item) => {
         //     +item && setTelegramOutput([...telegramOutput, item]);
         // })
-        console.log(telegramOutput)
     }, [telegramInput]);
 
     const sendNotification = async () => {
@@ -56,7 +52,7 @@ const SendNotificationPage: FC = () => {
             const notification = new SynoraNotification(currentEvent.event_code, projectId, userId);
             if (telegramOutput.length > 0) {
                 telegramOutput.forEach((item) => notification.message_recipients.push({
-                    telegram_chat_id: item
+                    telegram_chat_id: Number(item)
                 }))
             }
             if (emailOutput.length > 0) {
@@ -64,7 +60,6 @@ const SendNotificationPage: FC = () => {
                     email: item
                 }))
             }
-                console.log(notification)
             const response = await $notificationApi.post('/notification', notification);
             if (response.status >= 200 && response.status < 300) {
                 successful('Рассылка успешно отправлена')

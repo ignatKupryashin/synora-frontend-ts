@@ -1,6 +1,7 @@
 import {create} from "zustand";
 import {ITransport} from "../../models/Transport/ITransport";
 import {$mainApi} from "../../http";
+import {unsuccessful} from "../../components/UI/Toast/Toast";
 
 type transportStore = {
     transports: ITransport[],
@@ -42,7 +43,7 @@ export const useTransportStore = create<transportStore>((set) => ({
                     (response) => (response.data));
                 set({transports: data})
             } catch (e) {
-                console.log((e as Error).message) // Вывод ошибки если не получены транспорты
+                unsuccessful((e as Error).message) // Вывод ошибки если не получены транспорты
             }
         },
 
@@ -58,7 +59,7 @@ export const useTransportStore = create<transportStore>((set) => ({
                 return data.data;
             }
             catch (e) {
-                console.log((e as Error).message)
+                unsuccessful((e as Error).message)
             }
         },
 
@@ -68,7 +69,7 @@ export const useTransportStore = create<transportStore>((set) => ({
                 return data.data;
             }
             catch (e) {
-                console.log((e as Error).message)
+                unsuccessful((e as Error).message)
             }
         },
 

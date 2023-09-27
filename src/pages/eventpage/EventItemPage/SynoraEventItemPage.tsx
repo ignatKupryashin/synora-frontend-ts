@@ -10,20 +10,16 @@ import AppSelect, {AppSelectOption} from "../../../components/UI/AppSelect/AppSe
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import styles from "./SynoraEventItemPage.module.scss"
 import AppButton from "../../../components/UI/AppButton/AppButton";
-import {useUserStore} from "../../../store/userStore/useUserStore";
 import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 
 
 const SynoraEventItemPage: FC = () => {
-
-    const userId = useUserStore.getState().userId;
 
     const currentProject = useProjectStore.getState().currentProject;
     const navigate = useNavigate();
     let firstRender = useRef(true);
 
     const {synoraEventId} = useParams();
-    console.log(synoraEventId);
     const synoraEvent: ISynoraEvent = useSynoraEventStore.getState().events.filter((item) => item.id === synoraEventId)[0];
     const telegramTransports: ITransport[] = useTransportStore.getState().transports.filter((item) => item.protocol_name === "telegram");
     const emailTransports: ITransport[] = useTransportStore.getState().transports.filter((item) => item.protocol_name === "email");

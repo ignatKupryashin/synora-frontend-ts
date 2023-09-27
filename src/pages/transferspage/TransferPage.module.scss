@@ -108,6 +108,12 @@
 		justify-content: space-between;
 	}
 
+	&__flexWrapperItem {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
 	&__create {
 		@extend %flex-column;
 		gap: 40px;
@@ -198,7 +204,7 @@
 	&__textInput {
 		width: 100%;
 		height: 300px;
-		text-align: top-left;
+		//text-align: top-left;
 		font-family: $font-mulish-light;
 		font-size: 18px;
 		color: $color-black-dark;

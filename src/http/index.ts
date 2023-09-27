@@ -2,8 +2,7 @@ import axios, {AxiosRequestConfig} from "axios";
 
 export const MAIN_API_URL = 'https://test.restoratika.notification.skroy.ru';
 export const REGISTRY_API_URL = 'https://test.raida.notification.skroy.ru/api';
-
-export const NOTIFICATION_API_URL = 'https://notification.skroy.ru/notification'
+export const NOTIFICATION_API_URL = 'https://restoratika.notification.skroy.ru'
 
 
 

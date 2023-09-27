@@ -1,5 +1,5 @@
 export interface Recipient {
-    telegram_chat_id?: string;
+    telegram_chat_id?: number;
     email?: string;
 }
 

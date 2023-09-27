@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {ITransport} from "../../models/Transport/ITransport";
 import {useTransportStore} from "../../store/transportStore/useTransportStore";
 import TransferItem from "./TransferItem";
+import {unsuccessful} from "../../components/UI/Toast/Toast";
 
 
 const TransfersPage = () => {
@@ -20,7 +21,7 @@ const TransfersPage = () => {
                 }
             )
         } catch (e) {
-            console.log((e as Error).message);
+            unsuccessful((e as Error).message);
         }
     }
 
@@ -34,7 +35,7 @@ const TransfersPage = () => {
                 {
                     transportList.length > 0
                         ? transportList.map(transport => (
-                            <TransferItem key={transport.id} transport={transport} onDelete={(e) => deleteTransportHandler(transport)}/>
+                            <TransferItem key={transport.id} transport={transport} onDelete={() => deleteTransportHandler(transport)}/>
                         ))
                         : <div className={styles.transfers__item_text}>Пока что у Вас нет созданных шаблонов</div>
                 }

@@ -41,7 +41,6 @@ export const useUserStore = create<IUserStore>((set) => ({
                     const response = await AuthService.login(login, password);
                     localStorage.setItem('token', response.data.access_token);
                     useUserStore.getState().setUser(response.data.user[0]);
-                    console.log(useUserStore.getState().user);
                 }
                 catch (e) {
                     unsuccessful((e as Error).message)

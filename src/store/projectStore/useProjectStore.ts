@@ -37,7 +37,6 @@ export const useProjectStore = create<IProjectStore>((set) => ({
         set((state) => ({currentProject: newProject})),
 
     setProjects: function (inputProjects) {
-        console.log(inputProjects);
         set({projects: []});
         inputProjects.forEach((element) => {
                 set(state => (
@@ -63,7 +62,6 @@ export const useProjectStore = create<IProjectStore>((set) => ({
         if (projectIds.length > 0) {
             const response = await $registryApi.get(`/projects/?id=${projectIds.toString()}`);
             if (response.status >= 200 && response.status < 300) {
-                console.log(response.data);
                 return (response as AxiosResponse<IProject[]>).data;
             } else {
                 throw new Error('Invalid response status (projects))');

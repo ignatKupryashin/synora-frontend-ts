@@ -8,6 +8,7 @@ import EmailTemplate from "../../../models/Template/EmailTemplate";
 import {ITemplate} from "../../../models/Template/ITemplate";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import AppTextArea from "../../../components/UI/AppTextArea/AppTextArea";
+import {unsuccessful} from "../../../components/UI/Toast/Toast";
 
 const CreateEmailTemplatePage = () => {
 
@@ -51,7 +52,7 @@ const CreateEmailTemplatePage = () => {
         try {
             sendTemplate(newEmailTemplate).then((response: ITemplate) => addTemplate(response));
         } catch (e) {
-            console.log((e as Error).message)
+           unsuccessful((e as Error).message)
         } finally {
             navigate('/templates')
         }

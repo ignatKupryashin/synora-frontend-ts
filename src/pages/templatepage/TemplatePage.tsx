@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {useTemplateStore} from "../../store/templateStore/useTemplateStore";
 import {ITemplate} from "../../models/Template/ITemplate";
 import TemplateItem from "./TemplateItem";
+import {unsuccessful} from "../../components/UI/Toast/Toast";
 
 const TemplatePage = () => {
 
@@ -20,7 +21,7 @@ const TemplatePage = () => {
                 }
             )
         } catch (e) {
-            console.log((e as Error).message);
+            unsuccessful((e as Error).message);
         }
     }
 
@@ -34,7 +35,7 @@ const TemplatePage = () => {
                 {
                     templateList.length > 0
                         ? templateList.map(template => (
-                            <TemplateItem key={template.id} template={template} onDelete={(e) => deleteTemplateHandler(template)}/>
+                            <TemplateItem key={template.id} template={template} onDelete={() => deleteTemplateHandler(template)}/>
                         ))
                         : <div className={styles.transfers__item_text}>Пока что у Вас нет созданных шаблонов</div>
                 }

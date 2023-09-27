@@ -1,6 +1,7 @@
 import {create} from "zustand";
 import {ITemplate} from "../../models/Template/ITemplate";
 import {$mainApi} from "../../http";
+import {unsuccessful} from "../../components/UI/Toast/Toast";
 
 type templateStore = {
     templates: ITemplate[];
@@ -41,7 +42,7 @@ export const useTemplateStore = create<templateStore>((set) => ({
                 (response) => (response.data));
             set({templates: data})
         } catch (e) {
-            console.log((e as Error).message) // Вывод ошибки если не получены транспорты
+            unsuccessful((e as Error).message) // Вывод ошибки если не получены транспорты
         }
     },
 
@@ -51,7 +52,7 @@ export const useTemplateStore = create<templateStore>((set) => ({
             return data.data;
         }
         catch (e) {
-            console.log((e as Error).message)
+            unsuccessful((e as Error).message)
         }
     },
 
@@ -61,7 +62,7 @@ export const useTemplateStore = create<templateStore>((set) => ({
             return data.data;
         }
         catch (e) {
-            console.log((e as Error).message)
+            unsuccessful((e as Error).message)
         }
     },
 }));

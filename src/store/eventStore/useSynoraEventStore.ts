@@ -4,6 +4,7 @@ import {AxiosResponse} from "axios";
 import {$mainApi} from "../../http";
 import {ITransport} from "../../models/Transport/ITransport";
 import {ITemplate} from "../../models/Template/ITemplate";
+import {unsuccessful} from "../../components/UI/Toast/Toast";
 
 type eventStore = {
     events: ISynoraEvent[];
@@ -41,7 +42,7 @@ export const useSynoraEventStore = create<eventStore>((set) => ({
                 (response) => (response.data));
             set({events: data})
         } catch (e) {
-            console.log((e as Error).message) // Вывод ошибки если не получены события
+            unsuccessful((e as Error).message) // Вывод ошибки если не получены события
         }
     },
 
