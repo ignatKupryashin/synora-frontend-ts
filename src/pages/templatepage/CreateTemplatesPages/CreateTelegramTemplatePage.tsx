@@ -7,7 +7,7 @@ import {useTemplateStore} from "../../../store/templateStore/useTemplateStore";
 import {TelegramTemplate} from "../../../models/Template/TelegramTemplate";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import AppTextArea from "../../../components/UI/AppTextArea/AppTextArea";
-import {unsuccessful} from "../../../components/UI/Toast/Toast";
+import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 
 const CreateTelegramTemplatePage = () => {
     const [templateName, setTemplateName] = useState('');
@@ -27,7 +27,7 @@ const CreateTelegramTemplatePage = () => {
             userId
         );
         try {
-            sendTemplate(newTelegramTransport).then((response) => addTemplate(response))
+            sendTemplate(newTelegramTransport).then((response) => addTemplate(response)).then(() => successful('Шаблон успешно создан'))
         }
         catch (error) {
             unsuccessful((error as Error).message)

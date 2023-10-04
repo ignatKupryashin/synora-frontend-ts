@@ -20,7 +20,7 @@ export interface AppSelectOption<T> {
 const AppSelect = (props: AppSelectProps<any>) => {
 
     return (
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             {props.label &&
             <InputLabel>
                 {props.label}
@@ -35,7 +35,7 @@ const AppSelect = (props: AppSelectProps<any>) => {
             placeholder={props.placeholder}
             className={styles.AppSelect}
             sx={{
-                borderRadius: '16px',
+                // borderRadius: '16px',
                 width: props.width || '300px'
             }}
 

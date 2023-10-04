@@ -36,7 +36,12 @@ const SynoraEventPage = () => {
 			<div className={styles.events__list}>
 				{eventsList.length > 0 ?
 					eventsList.map(event => (
-						<SynoraEventItem key={event.id} synoraEvent={event} onDelete={() => deleteSynoraEventHandler(event)}/>
+						<SynoraEventItem key={event.id} synoraEvent={event}
+										 onDelete={
+							(e) => {
+								e.stopPropagation()
+								deleteSynoraEventHandler(event)
+							}}/>
 					))
 						:
 					"У вас нет созданных событий"

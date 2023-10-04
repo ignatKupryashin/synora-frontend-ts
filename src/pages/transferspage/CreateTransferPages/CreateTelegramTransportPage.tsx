@@ -6,7 +6,7 @@ import TelegramTransport from "models/Transport/TelegramTransport";
 import {useUserStore} from "store/userStore/useUserStore";
 import {useNavigate} from "react-router-dom";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
-import {unsuccessful} from "../../../components/UI/Toast/Toast";
+import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 
 const CreateTelegramTransportPage = () => {
 
@@ -24,7 +24,7 @@ const CreateTelegramTransportPage = () => {
             projectId, transportName, userId, telegramToken
         );
         try {
-            sendTransport(newTelegramTransport).then((response) => addTransport(response))
+            sendTransport(newTelegramTransport).then((response) => addTransport(response)).then(() => successful('Транспорт успешно создан'))
         }
         catch (error) {
             unsuccessful((error as Error).message)

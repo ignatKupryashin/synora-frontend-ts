@@ -42,10 +42,10 @@ const Header = () => {
 			:
 				<p className={styles.header__item__text}>У вас нет проектов</p>
 			}
-			<div className={styles.header__item}>
-				<p className={styles.header__item__title}>Пользователь:</p>
-				<p className={styles.header__item__text}>{userName ? userName : 'нет юзера'}</p>
-			</div>
+			{/*<div className={styles.header__item}>*/}
+			{/*	<p className={styles.header__item__title}>Пользователь:</p>*/}
+			{/*	<p className={styles.header__item__text}>{userName ? userName : 'нет юзера'}</p>*/}
+			{/*</div>*/}
 
 			<AppButton type={"button"} value={'Выйти'} onClick={logoutHandler}/>
 		</div>

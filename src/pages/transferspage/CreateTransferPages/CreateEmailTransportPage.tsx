@@ -7,7 +7,7 @@ import styles from "../TransferPage.module.scss";
 import AppInput from "components/Input/AppInput";
 import {useNavigate} from "react-router-dom";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
-import {unsuccessful} from "../../../components/UI/Toast/Toast";
+import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 
 const CreateEmailTransportPage = () => {
 
@@ -70,7 +70,7 @@ const CreateEmailTransportPage = () => {
             password
         );
         try {
-            sendTransport(newEmailTransport).then((response: ITransport) => addTransport(response));
+            sendTransport(newEmailTransport).then((response: ITransport) => addTransport(response)).then(() => successful('Транспорт успешно создан'));
         } catch (e) {
             unsuccessful((e as Error).message)
         } finally {

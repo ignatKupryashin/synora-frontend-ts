@@ -35,7 +35,12 @@ const TransfersPage = () => {
                 {
                     transportList.length > 0
                         ? transportList.map(transport => (
-                            <TransferItem key={transport.id} transport={transport} onDelete={() => deleteTransportHandler(transport)}/>
+                            <TransferItem key={transport.id} transport={transport} onDelete={
+                                (event) => {
+                                    event.stopPropagation();
+                                    deleteTransportHandler(transport)}
+                            }
+                            />
                         ))
                         : <div className={styles.transfers__item_text}>Пока что у Вас нет созданных шаблонов</div>
                 }

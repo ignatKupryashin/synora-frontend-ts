@@ -8,7 +8,7 @@ const TOAST_PARAMS: ToastOptions = {
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
-    theme: 'colored',
+    theme: 'light',
 };
 
 export const unsuccessful = (text: string) => toast.error(text, TOAST_PARAMS);

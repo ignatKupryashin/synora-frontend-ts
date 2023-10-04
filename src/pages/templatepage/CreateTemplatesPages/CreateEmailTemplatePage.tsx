@@ -8,7 +8,7 @@ import EmailTemplate from "../../../models/Template/EmailTemplate";
 import {ITemplate} from "../../../models/Template/ITemplate";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import AppTextArea from "../../../components/UI/AppTextArea/AppTextArea";
-import {unsuccessful} from "../../../components/UI/Toast/Toast";
+import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 
 const CreateEmailTemplatePage = () => {
 
@@ -50,7 +50,7 @@ const CreateEmailTemplatePage = () => {
             userId
         );
         try {
-            sendTemplate(newEmailTemplate).then((response: ITemplate) => addTemplate(response));
+            sendTemplate(newEmailTemplate).then((response: ITemplate) => addTemplate(response)).then(() => successful('Шаблон успешно создан'));
         } catch (e) {
            unsuccessful((e as Error).message)
         } finally {

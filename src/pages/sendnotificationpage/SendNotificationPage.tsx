@@ -1,5 +1,5 @@
-import React, {FC, useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import React, {FC, useEffect, useLayoutEffect, useRef, useState} from 'react';
+import {useNavigate, useParams} from "react-router-dom";
 import {useUserStore} from "../../store/userStore/useUserStore";
 import {useProjectStore} from "../../store/projectStore/useProjectStore";
 import AppTextArea from "../../components/UI/AppTextArea/AppTextArea";
@@ -16,19 +16,20 @@ const SendNotificationPage: FC = () => {
     const projectId = useProjectStore.getState().currentProject?.id;
     const emailExpression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const currentEvent = useSynoraEventStore.getState().events.filter((item) => item.id == currentEventId)[0];
-
+    const navigate = useNavigate();
 
     const [emailInput, setEmailInput] = useState('');
     const [telegramInput, setTelegramInput] = useState('');
 
     const [emailOutput, setEmailOutput] = useState<string[]>([]);
     const [telegramOutput, setTelegramOutput] = useState<string[]>([]);
+    const firstUpdate = useRef(true);
 
     //написать дебаунс
     useEffect(() => {
         const data = emailInput
-            .replace(/\s/g, "")
-            .split(',')
+            // .replace(/\s/g, "")
+            .split(/\r?\n/)
             .filter((item) => emailExpression.test(item))
         setEmailOutput(data)
     }, [emailInput]);
@@ -36,7 +37,7 @@ const SendNotificationPage: FC = () => {
     //написать дебаунс
     useEffect(() => {
 
-        const data = telegramInput.split(',')
+        const data = telegramInput.split(/\r?\n/)
             .filter((item) => (+item))
             .filter((item) => (Math.floor(Number(item)) === Number(item)));
         setTelegramOutput([...data])
@@ -44,6 +45,15 @@ const SendNotificationPage: FC = () => {
         //     +item && setTelegramOutput([...telegramOutput, item]);
         // })
     }, [telegramInput]);
+
+    //разобраться как сделать так, чтобы при первом рендере не изменялось
+    useLayoutEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return
+        }
+        navigate('/events')
+    }, [projectId]);
 
     const sendNotification = async () => {
         try {
@@ -82,7 +92,7 @@ const SendNotificationPage: FC = () => {
             <h1 className={styles.sendNotificationPage__heading}>Отправка рассылки</h1>
             <div className={styles.sendNotificationPage__protocolWrapper}>
                 <div>
-                    <h2 className={styles.sendNotificationPage__protocolHeading}>Введите список email</h2>
+                    <h2 className={styles.sendNotificationPage__protocolHeading}>Введите список email. Каждый email c новой строки</h2>
                     <AppTextArea
                         className={styles.sendNotificationPage__textarea}
                         id={'email'}
@@ -105,7 +115,7 @@ const SendNotificationPage: FC = () => {
                    </div>
                 </div>
                 <div>
-                    <h2 className={styles.sendNotificationPage__protocolHeading}>Введите список telegram chat</h2>
+                    <h2 className={styles.sendNotificationPage__protocolHeading}>Введите список telegram chat. Каждый чат с новой строки</h2>
                     <AppTextArea
                         className={styles.sendNotificationPage__textarea}
                         id={'telegram'}

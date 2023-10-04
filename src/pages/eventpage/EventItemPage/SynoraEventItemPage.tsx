@@ -19,12 +19,16 @@ const SynoraEventItemPage: FC = () => {
     const navigate = useNavigate();
     let firstRender = useRef(true);
 
+
+    const templates = useTemplateStore.getState().templates;
+    const transports = useTransportStore.getState().transports;
+
     const {synoraEventId} = useParams();
     const synoraEvent: ISynoraEvent = useSynoraEventStore.getState().events.filter((item) => item.id === synoraEventId)[0];
-    const telegramTransports: ITransport[] = useTransportStore.getState().transports.filter((item) => item.protocol_name === "telegram");
-    const emailTransports: ITransport[] = useTransportStore.getState().transports.filter((item) => item.protocol_name === "email");
-    const telegramTemplates: ITemplate[] = useTemplateStore.getState().templates.filter((item) => item.protocol_name === "telegram");
-    const emailTemplates: ITemplate[] = useTemplateStore.getState().templates.filter((item) => item.protocol_name === "email");
+    const telegramTransports: ITransport[] = transports ? transports.filter((item) => item.protocol_name === "telegram") : [];
+    const emailTransports: ITransport[] = transports ? transports.filter((item) => item.protocol_name === "email") : [];
+    const telegramTemplates: ITemplate[] = templates ? templates.filter((item) => item.protocol_name === "telegram") : [];
+    const emailTemplates: ITemplate[] = templates ? templates.filter((item) => item.protocol_name === "email") : [];
 
 
     const telegramTemplateOptions: AppSelectOption<ITemplate | undefined>[] = [];
