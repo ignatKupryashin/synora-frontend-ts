@@ -1,7 +1,7 @@
 import React, {MouseEventHandler} from 'react';
 import {ITemplate} from "../../models/Template/ITemplate";
-import styles from "../transferspage/TransferPage.module.scss";
-import deleteIcon from "../../assets/svg/delete-icon.svg";
+import styles from "../TransportPage/TransportPage.module.scss";
+import DeleteButton from "../../components/UI/FunctionalButtons/DeleteButton/DeleteButton";
 
 interface templateItemProps {
     template: ITemplate;
@@ -18,8 +18,7 @@ const TemplateItem = (props: templateItemProps) => {
                     {props.template.protocol_name}
                 </div>
             </div>
-            <button className={styles.transferItem__deleteButton} onClick={(e) => props.onDelete(e)}><img
-                src={deleteIcon} alt='удалить'/></button>
+            <DeleteButton onDelete={props.onDelete}/>
         </div>
     );
 };

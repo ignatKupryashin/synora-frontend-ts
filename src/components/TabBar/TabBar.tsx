@@ -1,12 +1,19 @@
-import React, {FC} from 'react';
+import React, {FC, ReactNode, useState} from 'react';
+import {BarItem} from "./BarItem";
 
-interface TabBoxProps {
-    heading: string;
-    children: React.ReactNode;
+interface TabBarProps {
+    barArray: BarItem[];
+
 }
 
 
-const TabBar: FC<TabBoxProps> = (props) => {
+const TabBar: FC<TabBarProps> = (props) => {
+
+
+
+    const [showedContent, setShowedContent] = useState<ReactNode>();
+    const currentBar = props.barArray.length > 0 ? props.barArray[0] : null;
+
     return (
         <div className="tab-bar">
             <div className="tab-labels">

@@ -1,8 +1,8 @@
 import React, {MouseEventHandler} from 'react';
 import {ISynoraEvent} from "../../../models/SynoraEvent/ISynoraEvent";
 import styles from "../EventPage.module.scss";
-import deleteIcon from "../../../assets/svg/delete-icon.svg";
 import {useNavigate} from "react-router-dom";
+import DeleteButton from "../../../components/UI/FunctionalButtons/DeleteButton/DeleteButton";
 
 interface synoraEventItemProps {
     synoraEvent: ISynoraEvent;
@@ -19,9 +19,7 @@ const SynoraEventItem = (props: synoraEventItemProps) => {
             <div className={styles.eventItem__title} >
                 {props.synoraEvent.event_code}
             </div>
-            <button className={styles.eventItem__deleteButton} onClick={(e) => props.onDelete(e)}>
-                <img src={deleteIcon} alt='удалить'/>
-            </button>
+            <DeleteButton onDelete={props.onDelete}/>
         </div>
     );
 };

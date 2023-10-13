@@ -11,7 +11,7 @@ const Layout = () => {
 			<div className={styles.layout__body}>
 				<Header />
 				<main className={styles.outlet__container}>
-					<Outlet />
+					<Outlet/>
 				</main>
 			</div>
 		</div>

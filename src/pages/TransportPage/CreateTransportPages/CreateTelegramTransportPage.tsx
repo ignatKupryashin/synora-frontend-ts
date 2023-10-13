@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import styles from "../TransferPage.module.scss";
+import styles from "../TransportPage.module.scss";
 import AppInput from "components/Input/AppInput";
 import {useTransportStore} from "store/transportStore/useTransportStore";
 import TelegramTransport from "models/Transport/TelegramTransport";
@@ -7,6 +7,7 @@ import {useUserStore} from "store/userStore/useUserStore";
 import {useNavigate} from "react-router-dom";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
+import AppButton from "../../../components/UI/AppButton/AppButton";
 
 const CreateTelegramTransportPage = () => {
 
@@ -68,7 +69,7 @@ const CreateTelegramTransportPage = () => {
                     onChange={changeTelegramToken}
                 />
                 <div className={styles.transfer__create_btn}>
-                    <button type="submit" className={styles.transfer__create_btn_link}>Создать</button>
+                    <AppButton type={'submit'} value={'Создать'}/>
                 </div>
             </form>
         </div>

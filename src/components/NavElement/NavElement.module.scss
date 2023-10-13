@@ -18,15 +18,15 @@
 	}
 
 	&:nth-child(2)::before {
-		content: url('../../assets/svg/Eventpage_logo.svg');
+		content: url('../../assets/svg/EventIcon.svg');
 	}
 
 	&:nth-child(3)::before {
-		content: url('../../assets/svg/Patternspage_logo.svg');
+		content: url('../../assets/svg/TemplateIcon.svg');
 	}
 
 	&:nth-child(4)::before {
-		content: url('../../assets/svg/Transportspage_logo.svg');
+		content: url('../../assets/svg/TransportIcon.svg');
 	}
 
 	&:last-child {

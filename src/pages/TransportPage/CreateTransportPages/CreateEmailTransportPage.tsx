@@ -3,11 +3,12 @@ import {useTransportStore} from "store/transportStore/useTransportStore";
 import {useUserStore} from "store/userStore/useUserStore";
 import EmailTransport from "models/Transport/IEmailTransport";
 import {ITransport} from "models/Transport/ITransport";
-import styles from "../TransferPage.module.scss";
+import styles from "../TransportPage.module.scss";
 import AppInput from "components/Input/AppInput";
 import {useNavigate} from "react-router-dom";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
+import AppButton from "../../../components/UI/AppButton/AppButton";
 
 const CreateEmailTransportPage = () => {
 
@@ -164,7 +165,7 @@ const CreateEmailTransportPage = () => {
                     </div>
                 </div>
                 <div className={styles.transfer__create_btn}>
-                    <button type="submit" className={styles.transfer__create_btn_link}>Создать</button>
+                    <AppButton type={'submit'} value={'Создать'}/>
                 </div>
 
             </form>

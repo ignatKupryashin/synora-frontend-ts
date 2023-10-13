@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import {Link} from "react-router-dom";
-import styles from "../../transferspage/TransferPage.module.scss";
+import styles from "../../TransportPage/TransportPage.module.scss";
 import CreateTelegramTemplatePage from "./CreateTelegramTemplatePage";
 import CreateEmailTemplatePage from "./CreateEmailTemplatePage";
 

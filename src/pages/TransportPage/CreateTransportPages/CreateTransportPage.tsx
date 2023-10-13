@@ -1,10 +1,10 @@
 import React, {FC, useState} from 'react';
-import styles from '../TransferPage.module.scss';
+import styles from '../TransportPage.module.scss';
 import {Link} from "react-router-dom";
 import CreateTelegramTransportPage from "./CreateTelegramTransportPage";
 import CreateEmailTransportPage from "./CreateEmailTransportPage";
 
-const CreateTransferPage:FC = () => {
+const CreateTransportPage:FC = () => {
 
 	const [transport, setTransport] = useState('');
 
@@ -57,4 +57,4 @@ const CreateTransferPage:FC = () => {
 		)
 };
 
-export default CreateTransferPage;
+export default CreateTransportPage;

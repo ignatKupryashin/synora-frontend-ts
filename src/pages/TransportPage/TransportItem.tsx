@@ -1,7 +1,7 @@
 import React, {MouseEventHandler} from 'react';
-import styles from "./TransferPage.module.scss";
+import styles from "./TransportPage.module.scss";
 import {ITransport} from "../../models/Transport/ITransport";
-import deleteIcon from 'assets/svg/delete-icon.svg'
+import DeleteButton from "../../components/UI/FunctionalButtons/DeleteButton/DeleteButton";
 
 interface transferItemProps {
     transport: ITransport;
@@ -10,7 +10,7 @@ interface transferItemProps {
 }
 
 
-const TransferItem = (props: transferItemProps) => {
+const TransportItem = (props: transferItemProps) => {
     return (
         <div className={styles.transferItem}>
             <div className={styles.transferItem__wrapper}>
@@ -19,10 +19,9 @@ const TransferItem = (props: transferItemProps) => {
                     {props.transport.protocol_name}
                 </div>
             </div>
-            <button className={styles.transferItem__deleteButton} onClick={(e) => props.onDelete(e)}><img
-                src={deleteIcon} alt='удалить'/></button>
+            <DeleteButton onDelete={props.onDelete}/>
         </div>
     );
 };
 
-export default TransferItem;
+export default TransportItem;

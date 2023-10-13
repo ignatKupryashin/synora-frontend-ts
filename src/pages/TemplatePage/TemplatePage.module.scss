@@ -1,0 +1,224 @@
+@import 'styles/variables';
+
+%flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%btn-style {
+  padding: 12px 52px;
+  display: inline-block;
+  font-family: $font-roboto-bold;
+  font-size: 18px;
+  color: $color-white;
+  border-radius: 16px;
+  background: $color-blue-btn;
+  box-shadow: 4px 4px 6px 0 rgba(60, 61, 64, 0.25);
+}
+
+
+.remove-btn {
+  margin-right: 0.5rem;
+}
+
+.transfers {
+  padding-top: 0;
+  //@extend %flex-column;
+
+  &__title {
+    padding-bottom: 8px;
+    font-family: $font-roboto-bold;
+    font-size: 24px;
+    letter-spacing: 0.96px;
+    background: $color-white;
+    color: $color-black-dark;
+    position: sticky;
+    top: 0;
+  }
+
+  &__btn {
+    // width: 260px;
+    margin: 0 18px 16px 0;
+    display: flex;
+    justify-content: flex-end;
+    background: $color-white;
+    position: sticky;
+    top: 33px;
+    z-index: 10;
+  }
+
+  &__list {
+    padding-top: 40px;
+    @extend %flex-column;
+    gap: 54px;
+
+    & > li:nth-child(even) {
+      background: grey;
+    }
+  }
+
+
+}
+
+
+.transfer {
+  &__heading {
+    font-size: 20px;
+  }
+
+  &_back {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    font-family: $font-mulish-bold;
+    font-size: 14px;
+    color: $color-black-dark;
+
+    &::before {
+      content: url('../../assets/svg/ArrowToBack.svg');
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+  }
+
+  &__title {
+    margin-bottom: 28px;
+    font-family: $font-roboto-bold;
+    font-size: 24px;
+    letter-spacing: 0.96px;
+    color: $color-black-dark;
+  }
+
+  &__form_radio {
+    margin-bottom: 20px;
+    @extend %flex-column;
+    gap: 16px;
+
+    &_label {
+      font-family: $font-mulish-light;
+      font-size: 16px;
+      line-height: 20px;
+      color: $color-black-dark;
+    }
+
+    &_input {
+      margin-right: 12px;
+    }
+  }
+
+  &__flexWrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__flexWrapperItem {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__create {
+    @extend %flex-column;
+    gap: 40px;
+
+    &_btn {
+      margin-bottom: 40px;
+
+      &_link {
+        @extend %btn-style;
+        width: 260px;
+      }
+    }
+
+
+  }
+
+
+  .transferItem {
+    display: flex;
+    justify-content: space-between;
+
+    &__title {
+      font-family: $font-roboto-bold;
+      font-size: 20px;
+      letter-spacing: 0.6px;
+      color: $color-black-dark;
+    }
+
+    &__text {
+      font-family: $font-mulish-light;
+      font-size: 16px;
+      line-height: 20px;
+      color: $color-grey-dark;
+
+      &_red {
+        color: $color-red;
+      }
+    }
+
+    &__deleteButton {
+      width: 50px;
+      height: 50px;
+      visibility: visible;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: $color-red solid 1px;
+      border-radius: 16px;
+      background: none;
+
+      & > svg {
+        fill: $color-red;
+        width: 24px;
+        height: 24px;
+      }
+
+      &:hover {
+        background: $color-red;
+        > svg {
+          fill: white;
+        }
+      }
+
+      &:active {
+        background: $color-dark-red;
+        > svg {
+          fill: white;
+        }
+      }
+    }
+  }
+
+  .transferItem:hover {
+    .transferItem {
+      &__title {
+        color: $color-blue-btn;
+      }
+    ;
+
+      &__deleteButton {
+        visibility: visible;
+      }
+    ;
+    }
+  }
+
+  .createTransfer {
+    &__textInput {
+      width: 100%;
+      height: 300px;
+      //text-align: top-left;
+      font-family: $font-mulish-light;
+      font-size: 18px;
+      color: $color-black-dark;
+      border-radius: 10px;
+      border: 1px solid $color-grey-light;
+      background: #F2F6F8;
+      padding: 12px 16px;
+      line-height: 24px;
+    }
+  }
+}
+

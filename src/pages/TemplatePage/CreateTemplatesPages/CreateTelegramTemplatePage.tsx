@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import {useUserStore} from "../../../store/userStore/useUserStore";
 import {useNavigate} from "react-router-dom";
-import styles from "../../transferspage/TransferPage.module.scss";
+import styles from "../../TransportPage/TransportPage.module.scss";
 import AppInput from "../../../components/Input/AppInput";
 import {useTemplateStore} from "../../../store/templateStore/useTemplateStore";
 import {TelegramTemplate} from "../../../models/Template/TelegramTemplate";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import AppTextArea from "../../../components/UI/AppTextArea/AppTextArea";
 import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
+import AppButton from "../../../components/UI/AppButton/AppButton";
 
 const CreateTelegramTemplatePage = () => {
     const [templateName, setTemplateName] = useState('');
@@ -69,7 +70,7 @@ const CreateTelegramTemplatePage = () => {
                     className={styles.createTransfer__textInput}
                 />
                 <div className={styles.transfer__create_btn}>
-                    <button type="submit" className={styles.transfer__create_btn_link}>Создать</button>
+                    <AppButton type={'submit'} value={'Создать'}/>
                 </div>
             </form>
         </div>

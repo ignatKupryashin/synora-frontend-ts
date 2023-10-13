@@ -1,0 +1,67 @@
+@import 'styles/variables';
+
+.appDeleteConfirm {
+  width: 700px;
+  height: 300px;
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  font-family: $font-mulish-regular;
+
+  &__buttonBlock {
+    display: flex;
+    gap: 64px;
+    align-items: center;
+  }
+
+  &__applyButton {
+    background: $color-red;
+    padding: 12px 52px;
+    display: inline-block;
+    font-size: 18px;
+    color: $color-white;
+    border-radius: 16px;
+    box-shadow: 4px 4px 6px 0 rgba(60, 61, 64, 0.25);
+
+    &:hover {
+      background: $color-dark-red;
+    }
+
+    &:active {
+      background: $color-dark-red;
+      box-shadow: none;
+    }
+
+  }
+
+  &__declineButton {
+    background: none;
+    box-shadow: none;
+    color: black;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 14px;
+    font-family: $font-mulish-light;
+    display: inline-block;
+    border-radius: 16px;
+
+    &:hover {
+      background: none;
+      color: $color-dark-red;
+    }
+
+    &:active {
+      background: none;
+      color: black;
+      box-shadow: none;
+    }
+
+
+  }
+
+}

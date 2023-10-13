@@ -9,5 +9,14 @@
     border-radius: 16px;
     background: $color-blue-btn;
     box-shadow: 4px 4px 6px 0 rgba(60, 61, 64, 0.25);
+
+    &:hover {
+        background: $mainColorDarker;
+    }
+
+    &:active {
+        background: $mainColorDarker;
+        box-shadow: none;
+    }
   }
 

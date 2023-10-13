@@ -3,6 +3,7 @@ import styles from "./HomePage.module.scss";
 import {Link} from "react-router-dom";
 import {loadActions} from "../../tools/loaders";
 import {IAction} from "../../models/IAction";
+import StandardFade from "../../components/Animations/StandardFade";
 
 const HomePage: FC = () => {
 
@@ -14,6 +15,7 @@ const HomePage: FC = () => {
 			<div className={styles.homepage__content}>
 				<section className={styles.homepage__steps}>
 					{actionArr.map(step => (
+						<StandardFade>
 							<article key={step.id} className={styles.homepage__step}>
 								<div className={styles.homepage__step_title}>{step.title}</div>
 								<div className={styles.homepage__step_body}>
@@ -28,6 +30,7 @@ const HomePage: FC = () => {
 									</div>
 								</div>
 							</article>
+							</StandardFade>
 						)
 					)}
 				</section>

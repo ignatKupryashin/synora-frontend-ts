@@ -8,6 +8,7 @@ import AppInput from "../../../components/Input/AppInput";
 import {useFetching} from "../../../hooks/useFetching";
 import {successful, unsuccessful} from "components/UI/Toast/Toast";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
+import AppButton from "../../../components/UI/AppButton/AppButton";
 
 const CreateSynoraEventPage = () => {
 	const [eventName, setEventName] = useState('');
@@ -64,7 +65,7 @@ const CreateSynoraEventPage = () => {
 					/>
 
 					<div className={styles.event__form_btn}>
-						<button type="submit" className={styles.event__form_btn_link}>Создать</button>
+						<AppButton type={'submit'} value={'Создать'}/>
 					</div>
 					{
 						sendEventIsLoading && <h1>Идет отправка</h1>

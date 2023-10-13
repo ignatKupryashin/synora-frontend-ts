@@ -51,6 +51,10 @@
 		padding-top: 40px;
 		@extend %flex-column;
 		gap: 54px;
+
+		& > li:nth-child(even) {
+			background: grey;
+		}
 	}
 
 
