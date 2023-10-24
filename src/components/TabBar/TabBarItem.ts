@@ -1,6 +1,6 @@
 import {ReactNode} from "react";
 
-export interface BarItem {
+export interface TabBarItem {
     title: string,
     content: ReactNode
 }

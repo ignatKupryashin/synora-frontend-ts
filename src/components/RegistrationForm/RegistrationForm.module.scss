@@ -1,0 +1,24 @@
+.registrationForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__inputWrapper {
+    display: flex;
+    gap: 30px;
+  }
+
+  &__errorLabel {
+    color: red;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 30px;
+  }
+
+
+}

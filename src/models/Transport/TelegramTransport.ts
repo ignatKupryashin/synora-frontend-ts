@@ -1,7 +1,7 @@
 import {ITransport} from "./ITransport";
 import {Protocol} from "../Protocol";
 
-interface ITelegramTransportConfig {
+export interface ITelegramTransportConfig {
     TOKEN: string;
 }
 

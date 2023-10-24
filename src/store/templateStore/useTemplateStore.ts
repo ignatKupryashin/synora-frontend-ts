@@ -12,6 +12,7 @@ type templateStore = {
     fetchTemplates: (userId: string, projectId: string) => Promise<void>;
     sendTemplate: (template: ITemplate) => Promise<ITemplate>;
     deleteTemplate: (template: ITemplate) => Promise<ITemplate>;
+    getTemplateById: (templateId: string) => ITemplate | undefined;
 }
 export const useTemplateStore = create<templateStore>((set) => ({
     templates: [],
@@ -65,4 +66,10 @@ export const useTemplateStore = create<templateStore>((set) => ({
             unsuccessful((e as Error).message)
         }
     },
+
+    getTemplateById: (templateId: string) => {
+        const data: ITemplate[] = useTemplateStore.getState().templates.filter((item) => item.id === templateId);
+        return data.length > 0 ? data[0] : undefined;
+    }
+
 }));

@@ -2,8 +2,7 @@ import axios, {AxiosRequestConfig} from "axios";
 
 //Тестовые
 export const MAIN_API_URL = 'https://test.restoratika.notification.skroy.ru';
-export const REGISTRY_API_URL = 'https://test.raida.notification.skroy.ru/api';
-export const NOTIFICATION_API_URL = 'https://restoratika.notification.skroy.ru'
+export const NOTIFICATION_API_URL = 'https://restoratika.notification.skroy.ru';
 
 //Боевые
 // export const MAIN_API_URL = 'https://auth.synora.ru';
@@ -19,11 +18,6 @@ export const $mainApi = axios.create({
 
 export const $notificationApi = axios.create({
     baseURL: NOTIFICATION_API_URL
-})
-
-export const $registryApi = axios.create({
-    // withCredentials: true,
-    baseURL: REGISTRY_API_URL
 })
 
 $mainApi.interceptors.request.use((config:AxiosRequestConfig) => {

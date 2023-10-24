@@ -4,7 +4,7 @@ import MessageBody from "../MessageBody";
 export interface ITemplate {
     "id": string; // id_template
     "template_name": string;
-    "body": MessageBody; //что-то не уверен, что это string
+    "body": MessageBody; //
     "protocol_name": Protocol,
     "project_identifier": string, // project_id
     "user_identifier": string, // user_id

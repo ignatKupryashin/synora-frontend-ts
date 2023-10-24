@@ -81,6 +81,23 @@ const SynoraEventItemPage: FC = () => {
     const [currentEmailTransport, setCurrentEmailTransport] = useState<ITransport | undefined>(undefined);
 
 
+    useEffect(() => {
+
+    }, [synoraEvent]);
+
+
+    const getTransport = (transportId: string) => {
+        const currentTelegramTransport = telegramTransports.filter((item) => item.id === transportId);
+        if (currentTelegramTransport.length > 0) {
+            return currentTelegramTransport[0];
+        }
+        const currentEmailTransport = emailTransports.filter((item) => item.id === transportId);
+        if (currentTelegramTransport.length > 0) {
+            return currentTelegramTransport[0];
+        }
+    }
+
+
     //Чтобы при изменении проекта возвращало на страницу events
     useEffect(() => {
         if (!firstRender.current) {

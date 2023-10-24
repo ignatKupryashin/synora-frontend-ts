@@ -1,0 +1,20 @@
+@import 'styles/variables';
+
+.tabContent {
+
+  &__heading {
+    font-size: 20px;
+    line-height: 23px;
+    font-family: $font-mulish-bold;
+    padding-bottom: 28px;
+  }
+
+  &__title {
+    padding-bottom: 16px;
+  }
+
+  &__paragrah {
+    max-height: 450px;
+    overflow-y: auto;
+  }
+}

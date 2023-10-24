@@ -38,7 +38,10 @@ const LoginForm = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     className={styles.loginForm__input}
                     ></AppInput>
+                <div className={styles.loginForm__buttonBlock}>
                 <AppButton type="submit" value="Логин"></AppButton>
+                <AppButton type={"button"} value={"Регистрация"} onClick={() => navigate('/registration')} className={styles.loginForm__registrationButton}/>
+                </div>
             </form>
     );
 };

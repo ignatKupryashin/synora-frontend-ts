@@ -13,6 +13,7 @@ import LoginPage from "../../pages/loginpage/LoginPage";
 import SynoraEventItemPage from "../../pages/eventpage/EventItemPage/SynoraEventItemPage";
 import SendNotificationPage from "../../pages/sendnotificationpage/SendNotificationPage";
 import CreateTransportPage from "../../pages/TransportPage/CreateTransportPages/CreateTransportPage";
+import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
 
 const AppRouter = () => {
     const isLogin = useUserStore(state => state.isLogin);
@@ -20,7 +21,7 @@ const AppRouter = () => {
         <Routes>
             {isLogin
                 ?
-            <Route path='/' element={<Layout/>}>
+                <Route path='/' element={<Layout/>}>
                     <Route index element={<HomePage/>}/>
                     <Route path='events' element={<SynoraEventPage/>}/>
                     <Route path='events/:synoraEventId' element={<SynoraEventItemPage/>}/>
@@ -32,9 +33,12 @@ const AppRouter = () => {
                     <Route path='events/sendnotification/:currentEventId' element={<SendNotificationPage/>}/>
                     <Route path='*' element={<NotFoundPage/>}/>
 
-            </Route>
+                </Route>
                 :
-            <Route index path="*" element={<LoginPage/>}/>
+                <>
+                    <Route index path="*" element={<LoginPage/>}/>
+                    <Route path="registration" element={<RegistrationPage/>}/>
+                </>
             }
         </Routes>
 

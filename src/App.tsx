@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 import {useProjectStore} from "./store/projectStore/useProjectStore";
 import {unsuccessful} from "./components/UI/Toast/Toast";
+import {IProject} from "./models/Project/IProject";
 
 function App() {
 
@@ -18,22 +19,51 @@ function App() {
 	const userId: string | undefined = useUserStore((state) => state.user?.id);
 	const projectId: string | undefined = useProjectStore((state) => state.currentProject?.id);
 	const fetchProjects = useProjectStore(state => state.fetchProjects);
-	const fetchLinks = useProjectStore(state => state.fetchLinks);
+	// const fetchLinks = useProjectStore(state => state.fetchLinks);
 	const projects = useProjectStore(state => state.projects);
 	const setProjects = useProjectStore(state => state.setProjects);
 	const setCurrentProject = useProjectStore(state => state.setCurrentProject);
+	const createProject = useProjectStore(state => state.createProject);
+	const logout = useUserStore(state => state.logout);
+
+	const loadProjects = async (currentUser: string, firstTry: boolean) => {
+		let data = await (fetchProjects(currentUser))
+		console.log(data)
+		if (data.length > 0) {
+			acceptProjects(data);
+		}
+		else {
+			if (firstTry){
+			createProject(currentUser).then(async (response) => {
+				if (response) {
+					await loadProjects(currentUser, false);
+				}
+				else {
+					unsuccessful("Ошибка создания первого проекта. Свяжитесь с поддержкой")
+					logout();
+				}
+			})}
+		else {
+				unsuccessful("Ошибка загрузки проекта. Свяжитесь с поддержкой")
+				logout();
+		}
+		}
+	}
+
+	const acceptProjects = (data: IProject[]) => {
+		setProjects(data)
+		setCurrentProject(data[0])
+	}
 
 	useEffect(() => {
 		try {
 		if (userId !== undefined) {
-			(fetchLinks(userId)).then((response) => fetchProjects(response)).then(
-				(response) => (
-					setProjects(response),
-				setCurrentProject(response[0]))
-		)}}
+			loadProjects(userId, true);
+		}}
 		catch (e) {
 			unsuccessful((e as Error).message)
 		}
+		console.log(projects);
 	}, [userId]);
 
 	useEffect(() => {
@@ -50,7 +80,7 @@ function App() {
 	}, [projectId])
 
   return (
-	  <div className={styles.wrapper}>
+	  <div className={styles.app}>
 		<AppRouter/>
 		  <ToastContainer />
 	  </div>

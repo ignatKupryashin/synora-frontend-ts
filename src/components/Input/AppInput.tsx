@@ -7,7 +7,7 @@ interface IAppInput {
     labelClassName? : string;
     width?: string;
     height?: string;
-    type: string;
+    type: React.HTMLInputTypeAttribute;
     name: string;
     value?: string;
     defaultValue?: string;

@@ -8,6 +8,8 @@ import {successful, unsuccessful} from "../../components/UI/Toast/Toast";
 import AppButton from "../../components/UI/AppButton/AppButton";
 import StandardFade from "../../components/Animations/StandardFade";
 import AppDeleteConfirm from "../../components/AppDeleteConfirm/AppDeleteConfirm";
+import AppModal from "../../components/UI/AppModal/AppModal";
+import TransportViewPage from "./TransportViewPage/TransportViewPage";
 
 
 const TransportPage = () => {
@@ -17,6 +19,10 @@ const TransportPage = () => {
     const [deleteIsVisible, setDeleteIsVisible] = useState(false);
     const [deleteTransportState, setDeleteTransportState] = useState<ITransport | undefined>(undefined)
     const [deleteQuestion, setDeleteQuestion] = useState<ReactNode>(<></>)
+
+    const [viewItemIsVisible, setViewItemIsVisible] = useState(false);
+    const [viewItem, setViewItem] = useState<ITransport | undefined>(undefined);
+
 
     const navigate = useNavigate();
 
@@ -41,26 +47,36 @@ const TransportPage = () => {
         <div className={styles.transfers}>
             <h1 className={styles.transfers__title}>Транспорты</h1>
             <div className={styles.transfers__btn}>
-                <AppButton type={'button'} value={'Создать транспорт'} onClick={() => navigate('/transfers/new_transfer')}/>
+                <AppButton type={'button'} value={'Создать транспорт'}
+                           onClick={() => navigate('/transfers/new_transfer')}/>
             </div>
             <div className={styles.transfers__list}>
                 {
                     transportList.length > 0
                         ? transportList.map(transport => (
                             <StandardFade>
-                            <TransportItem key={transport.id} transport={transport} onDelete={
-                                (event) => {
-                                    event.stopPropagation();
-                                    setDeleteTransportState(transport);
-                                    setDeleteIsVisible(true);
-                                    setDeleteQuestion(
-                                        <p>Вы уверены, что хотите удалить транспорт {transport.transport_name}?</p>
-                                    )}
-                            }
-                            />
+                                <TransportItem key={transport.id}
+                                               transport={transport}
+                                               onDelete={
+                                                   (event) => {
+                                                       event.stopPropagation();
+                                                       setDeleteTransportState(transport);
+                                                       setDeleteIsVisible(true);
+                                                       setDeleteQuestion(
+                                                           <p>Вы уверены, что хотите удалить
+                                                               транспорт {transport.transport_name}?</p>
+                                                       )
+                                                   }
+                                               }
+                                               onView={(e) => {
+                                                   setViewItem(transport);
+                                                   setViewItemIsVisible(true);
+
+                                               }}
+                                />
                             </StandardFade>
                         ))
-                        : <div className={styles.transfers__item_text}>Пока что у Вас нет созданных шаблонов</div>
+                        : <div className={styles.transfers__item_text}>Пока что у Вас нет созданных транспортов</div>
                 }
             </div>
             <AppDeleteConfirm
@@ -68,6 +84,12 @@ const TransportPage = () => {
                 onConfirm={() => deleteTransportHandler(deleteTransportState)}
                 isVisible={deleteIsVisible}
                 setIsVisible={setDeleteIsVisible}/>
+
+            <AppModal visible={viewItemIsVisible} setVisible={setViewItemIsVisible}>
+                {/*<TabBar barArray={tabsArray}/>*/}
+                <TransportViewPage viewItem={viewItem}/>
+            </AppModal>
+
         </div>
     )
 };

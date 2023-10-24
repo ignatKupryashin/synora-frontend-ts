@@ -7,12 +7,13 @@ interface transferItemProps {
     transport: ITransport;
     onDelete: MouseEventHandler;
     onEdit?: MouseEventHandler;
+    onView?: MouseEventHandler;
 }
 
 
 const TransportItem = (props: transferItemProps) => {
     return (
-        <div className={styles.transferItem}>
+        <div className={styles.transferItem} onClick={props.onView}>
             <div className={styles.transferItem__wrapper}>
                 <div className={styles.transferItem__title}>{props.transport.transport_name}</div>
                 <div className={styles.transferItem__text}>

@@ -9,18 +9,22 @@ import AppButton from "../../components/UI/AppButton/AppButton";
 import styles from './TemplatePage.module.scss';
 import StandardFade from "../../components/Animations/StandardFade";
 import AppDeleteConfirm from "../../components/AppDeleteConfirm/AppDeleteConfirm";
+import AppModal from "../../components/UI/AppModal/AppModal";
+import TemplateViewPage from "./TemplateViewPage/TemplateViewPage";
 
 const TemplatePage = () => {
-
-
 
 
     const templateList: ITemplate[] = useTemplateStore(state => state.templates);
     const deleteTemplate = useTemplateStore(state => state.deleteTemplate)
     const removeTemplate = useTemplateStore(state => state.removeTemplate)
+
     const [deleteIsVisible, setDeleteIsVisible] = useState(false);
     const [deleteTemplateState, setDeleteTemplateState] = useState<ITemplate | undefined>(undefined)
-    const [deleteQuestion, setDeleteQuestion] = useState<ReactNode>(<></>)
+    const [deleteQuestion, setDeleteQuestion] = useState<ReactNode>(<></>);
+
+    const [viewItemIsVisible, setViewItemIsVisible] = useState(false);
+    const [viewItem, setViewItem] = useState<ITemplate | undefined>(undefined);
 
     const navigate = useNavigate();
 
@@ -53,16 +57,25 @@ const TemplatePage = () => {
                         ?
 
                         templateList.map(template => (
-                           <StandardFade>
-                                <TemplateItem template={template} onDelete={(e) => {
-                                    e.stopPropagation()
-                                    setDeleteTemplateState(template);
-                                    setDeleteIsVisible(true);
-                                    setDeleteQuestion(
-                                        <p>Вы уверены, что хотите удалить шаблон {template.template_name}?</p>
-                                    )
-                                }}/>
-                           </StandardFade>
+                            <StandardFade key={template.id}>
+                                <TemplateItem
+                                    template={template}
+                                    onDelete={(e) => {
+                                        e.stopPropagation()
+                                        setDeleteTemplateState(template);
+                                        setDeleteIsVisible(true);
+                                        setDeleteQuestion(
+                                            <p>Вы уверены, что хотите удалить шаблон {template.template_name}?</p>
+                                        )
+                                        }}
+                                    onView={(e) => {
+                                        setViewItem(template);
+                                        setViewItemIsVisible(true);
+
+                                    }}
+
+                                />
+                            </StandardFade>
                         ))
 
                         : <div className={styles.transfers__item_text}>Пока что у Вас нет созданных шаблонов</div>
@@ -72,7 +85,12 @@ const TemplatePage = () => {
                 question={deleteQuestion}
                 onConfirm={() => deleteTemplateHandler(deleteTemplateState)}
                 isVisible={deleteIsVisible}
-                setIsVisible={setDeleteIsVisible}/>
+                setIsVisible={setDeleteIsVisible}
+            />
+            <AppModal visible={viewItemIsVisible} setVisible={setViewItemIsVisible}>
+                {/*<TabBar barArray={tabsArray}/>*/}
+                <TemplateViewPage viewItem={viewItem}/>
+            </AppModal>
         </div>
     )
 };

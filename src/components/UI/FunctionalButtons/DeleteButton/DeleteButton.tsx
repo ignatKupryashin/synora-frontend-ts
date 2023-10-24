@@ -9,7 +9,11 @@ interface DeleteButtonProps {
 
 const DeleteButton = (props: DeleteButtonProps) => {
     return (
-        <div className={styles.deleteButton} onClick={(e) => props.onDelete(e)}>
+        <div className={styles.deleteButton} onClick={(e) =>
+        {
+            e.stopPropagation();
+            props.onDelete(e)}
+        }>
             <DeleteIcon width={25} height={25} color=""/>
         </div>
     );

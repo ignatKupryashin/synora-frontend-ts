@@ -19,6 +19,7 @@ const SynoraEventPage = () => {
 
     const navigate = useNavigate();
 
+    console.log(eventsList);
 
     const deleteSynoraEventHandler = (synoraEvent: ISynoraEvent | undefined) => {
         if (synoraEvent) {

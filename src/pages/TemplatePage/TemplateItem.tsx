@@ -6,13 +6,14 @@ import DeleteButton from "../../components/UI/FunctionalButtons/DeleteButton/Del
 interface templateItemProps {
     template: ITemplate;
     onDelete: MouseEventHandler;
+    onView?: MouseEventHandler;
     onEdit?: MouseEventHandler;
 }
 
 const TemplateItem = (props: templateItemProps) => {
     return (
-        <div className={styles.transferItem}>
-            <div className={styles.transferItem__wrapper}>
+        <div className={styles.transferItem} onClick={props.onView}>
+            <div className={styles.transferItem__wrapper} >
                 <div className={styles.transferItem__title}>{props.template.template_name}</div>
                 <div className={styles.transferItem__text}>
                     {props.template.protocol_name}

@@ -12,6 +12,7 @@ type transportStore = {
     fetchTransports: (userId: string, projectId: string) => Promise<void>;
     sendTransport: (transport: ITransport) => Promise<ITransport>;
     deleteTransport: (transport: ITransport) => Promise<ITransport>;
+    getTransportById: (templateId: string) => ITransport | undefined;
 }
 
 export const useTransportStore = create<transportStore>((set) => ({
@@ -73,7 +74,11 @@ export const useTransportStore = create<transportStore>((set) => ({
             }
         },
 
-
+    getTransportById: (templateId: string) => {
+        const data: ITransport[] = useTransportStore.getState().transports.filter((item) => item.id === templateId);
+        return data.length > 0 ? data[0] : undefined;
+    }
+    
     }),
 
 

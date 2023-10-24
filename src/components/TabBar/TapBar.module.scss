@@ -1,0 +1,53 @@
+@import "styles/variables";
+
+.tabBar {
+  width: 820px;
+  border-radius: 16px;
+  background: white;
+  padding: 20px;
+  font-size: 16px;
+  line-height: 20px;
+  font-family: $font-mulish-regular;
+
+
+  &__labelBox {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  &__label {
+    padding: 16px 20px 8px 20px;
+    border-radius: 16px 16px 0 0;
+
+
+    &_disabled {
+      background: white;
+    }
+
+    &_active {
+      background: $color-grey-light;
+    }
+
+    &:hover {
+      color: $color-blue-btn;
+    }
+  }
+
+  &__contendBox {
+    background: $color-grey-light;
+
+    padding: 40px 20px;
+    overflow-x: auto;
+  }
+
+  &__firstTab {
+    border-radius: 0 10px 10px 10px;
+  }
+
+  &__secondTab {
+    border-radius: 10px;
+  }
+
+}
+

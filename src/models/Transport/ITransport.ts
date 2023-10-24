@@ -6,5 +6,5 @@ export interface ITransport {
     "protocol_name": Protocol,
     "project_identifier": string,
     "user_identifier": string,
-    "transport_configs": any
+    "transport_configs": any,
 }

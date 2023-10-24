@@ -29,4 +29,32 @@
     font-size: 14px;
     line-height: 18px;
   }
+
+  &__registrationButton {
+    background: none;
+    color: $color-blue-btn;
+    padding: 12px 40px;
+    display: inline-block;
+    font-family: $font-mulish-bold;
+    font-size: 14px;
+    border-radius: 16px;
+
+    &:hover {
+      color: $mainColorDarker;
+    }
+
+    &:active {
+      color: white;
+    }
+
+  }
+
+  &__buttonBlock {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+
+
+  }
 }

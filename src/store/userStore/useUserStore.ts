@@ -1,7 +1,5 @@
-import {AxiosResponse} from "axios";
 import {create} from "zustand";
 import {IUser} from "../../models/User/IUser";
-import {$registryApi} from "../../http";
 import {unsuccessful} from "../../components/UI/Toast/Toast";
 import AuthService from "../../services/AuthService";
 
@@ -10,7 +8,6 @@ interface IUserStore {
     isLogin: boolean;
     setUser: (newUser: IUser | undefined) => void;
     setIsLogin: () => void;
-    getUser: (login: string) => Promise<AxiosResponse<IUser>>;
     userId: () => string;
     login: (login: string, password: string) => Promise<void>;
     logout: () => void;
@@ -53,10 +50,6 @@ export const useUserStore = create<IUserStore>((set) => ({
                 useUserStore.getState().setUser(undefined);
             },
 
-
-            getUser: async (login: string) => {
-                return await $registryApi.get(`/users/?data=login__exact=${login}`)
-            }
         }
 
     )

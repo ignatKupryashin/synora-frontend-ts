@@ -1,13 +1,15 @@
 import React, {FC} from 'react';
 import styles from "./HomePage.module.scss";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {loadActions} from "../../tools/loaders";
 import {IAction} from "../../models/IAction";
 import StandardFade from "../../components/Animations/StandardFade";
+import AppButton from "../../components/UI/AppButton/AppButton";
 
 const HomePage: FC = () => {
 
 	const actionArr:IAction[] = loadActions();
+	const navigate = useNavigate();
 
 	return (
 		<div className={styles.homepage}>
@@ -24,9 +26,7 @@ const HomePage: FC = () => {
 										<p className={styles.homepage__step_block_text}>{step.actionText}.</p>
 									</div>
 									<div className={styles.homepage__step_btn}>
-										<Link to={step.actionLink} className={styles.homepage__step_btn_link}>
-											{step.actionBtn}
-										</Link>
+										<AppButton type={'button'} value={step.actionBtn} onClick={() => navigate(step.actionLink)}/>
 									</div>
 								</div>
 							</article>

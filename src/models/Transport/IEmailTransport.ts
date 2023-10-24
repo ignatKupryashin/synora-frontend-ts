@@ -1,7 +1,7 @@
 import {ITransport} from "./ITransport";
 import {Protocol} from "../Protocol";
 
-interface IEmailTransportConfig {
+export interface IEmailTransportConfig {
     USERNAME: string, // ??
     EMAIL_FROM: string, //Исходящий email
     EMAIL_PORT: number, // Порт сервера
