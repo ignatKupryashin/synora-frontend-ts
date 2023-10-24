@@ -20,7 +20,6 @@ function App() {
 	const projectId: string | undefined = useProjectStore((state) => state.currentProject?.id);
 	const fetchProjects = useProjectStore(state => state.fetchProjects);
 	// const fetchLinks = useProjectStore(state => state.fetchLinks);
-	const projects = useProjectStore(state => state.projects);
 	const setProjects = useProjectStore(state => state.setProjects);
 	const setCurrentProject = useProjectStore(state => state.setCurrentProject);
 	const createProject = useProjectStore(state => state.createProject);
@@ -28,7 +27,6 @@ function App() {
 
 	const loadProjects = async (currentUser: string, firstTry: boolean) => {
 		let data = await (fetchProjects(currentUser))
-		console.log(data)
 		if (data.length > 0) {
 			acceptProjects(data);
 		}
@@ -63,7 +61,6 @@ function App() {
 		catch (e) {
 			unsuccessful((e as Error).message)
 		}
-		console.log(projects);
 	}, [userId]);
 
 	useEffect(() => {

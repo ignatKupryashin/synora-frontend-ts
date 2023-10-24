@@ -19,8 +19,6 @@ const SynoraEventPage = () => {
 
     const navigate = useNavigate();
 
-    console.log(eventsList);
-
     const deleteSynoraEventHandler = (synoraEvent: ISynoraEvent | undefined) => {
         if (synoraEvent) {
             try {
@@ -47,7 +45,7 @@ const SynoraEventPage = () => {
             <div className={styles.events__list}>
                 {eventsList.length > 0 ?
                     eventsList.map(event => (
-                        <StandardFade>
+                        <StandardFade key={event.id}>
                             <SynoraEventItem key={event.id} synoraEvent={event}
                                              onDelete={
                                                  (e) => {

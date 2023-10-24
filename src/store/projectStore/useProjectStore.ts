@@ -15,29 +15,13 @@ interface IProjectStore {
 
 }
 
-//тип с сервера
-type Link =  {
-    "id": string,
-    "link_type": string,
-    "object1": string,
-    "object2": string,
-    "weight": number,
-    "direction": 0 | 1 | 2 | 3,
-    "created_date": Date,
-    "modified_date": Date,
-    "meta": any, // узнать после
-    "data": any, // узнать после
-    "project_id": string,
-    "account_id": string,
-    "user_id": string
-}
 
 export const useProjectStore = create<IProjectStore>((set) => ({
     currentProject: undefined,
     projects: [],
 
     setCurrentProject: (newProject: IProject) =>
-        set((state) => ({currentProject: newProject})),
+        set(() => ({currentProject: newProject})),
 
     setProjects: function (inputProjects) {
         set({projects: []});
@@ -61,10 +45,9 @@ export const useProjectStore = create<IProjectStore>((set) => ({
     //     }
     // },
 
-    fetchProjects: async  (userId) => {
+    fetchProjects: async  () => {
             const response = await $mainApi.get(`/projects/`);
             if (response.status >= 200 && response.status < 300) {
-                console.log(response)
                 return (response as AxiosResponse<IProject[]>).data;
             } else {
                 throw new Error('Invalid response status (projects))');

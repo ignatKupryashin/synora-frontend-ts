@@ -1,0 +1,22 @@
+@import 'styles/variables';
+
+.appRadio {
+  display: flex;
+  gap: 16px;
+
+  &__item {
+    display: flex;
+    gap: 5px;
+  }
+
+  &__label {
+    font-family: $font-mulish-light;
+    font-size: 16px;
+    line-height: 20px;
+    color: $color-black-dark;
+  }
+
+  &__input {
+    margin-right: 12px;
+  }
+}

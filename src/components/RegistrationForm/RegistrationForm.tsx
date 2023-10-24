@@ -23,7 +23,6 @@ const RegistrationForm = () => {
     const navigate = useNavigate();
 
     const validateAndRegister = async () => {
-        console.log(name);
         nameExpression.test(name) ? setNameIsValid(true) : setNameIsValid(false);
         nameExpression.test(surname) ? setSurnameIsValid(true) : setSurnameIsValid(false);
         emailExpression.test(email) ? setEmailIsValid(true) : setEmailIsValid(false);

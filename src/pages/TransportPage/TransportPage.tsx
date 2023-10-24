@@ -54,7 +54,7 @@ const TransportPage = () => {
                 {
                     transportList.length > 0
                         ? transportList.map(transport => (
-                            <StandardFade>
+                            <StandardFade key={transport.id}>
                                 <TransportItem key={transport.id}
                                                transport={transport}
                                                onDelete={
@@ -68,7 +68,7 @@ const TransportPage = () => {
                                                        )
                                                    }
                                                }
-                                               onView={(e) => {
+                                               onView={() => {
                                                    setViewItem(transport);
                                                    setViewItemIsVisible(true);
 

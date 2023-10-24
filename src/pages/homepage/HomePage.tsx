@@ -17,8 +17,8 @@ const HomePage: FC = () => {
 			<div className={styles.homepage__content}>
 				<section className={styles.homepage__steps}>
 					{actionArr.map(step => (
-						<StandardFade>
-							<article key={step.id} className={styles.homepage__step}>
+						<StandardFade key={step.id}>
+							<article  className={styles.homepage__step}>
 								<div className={styles.homepage__step_title}>{step.title}</div>
 								<div className={styles.homepage__step_body}>
 									<div className={styles.homepage__step_block}>
