@@ -8,8 +8,9 @@ import {useNavigate} from "react-router-dom";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 import AppButton from "../../../components/UI/AppButton/AppButton";
+import {ReturnsProp} from "../../../models/ServiveInterfaces/ReturnsProp";
 
-const CreateTelegramTransportPage = () => {
+const CreateTelegramTransportPage = (props: ReturnsProp) => {
 
     const [transportName, setTransportName] = useState('');
     const [telegramToken, setTelegramToken] = useState('');
@@ -31,11 +32,10 @@ const CreateTelegramTransportPage = () => {
             unsuccessful((error as Error).message)
         }
         finally {
-            navigate('/transfers')
+            !!props.backAction ? props.backAction() : navigate('/transfers')
         }
     }
 
-// : { preventDefault: () => void;}
 
     //middleware
     const changeTransportName = (e: React.FormEvent<HTMLInputElement>) => {

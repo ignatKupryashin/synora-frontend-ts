@@ -1,4 +1,4 @@
-import React, {ChangeEventHandler, FC} from 'react';
+import React, {ChangeEventHandler, FC, FocusEventHandler} from 'react';
 import styles from "./AppInput.module.scss"
 
 interface IAppInput {
@@ -15,6 +15,7 @@ interface IAppInput {
     onChange?: ChangeEventHandler<HTMLInputElement>;
     className?: string;
     maxLength?: number;
+    onBlur?:FocusEventHandler
 }
 
 
@@ -37,6 +38,7 @@ const AppInput: FC<IAppInput>= (props: IAppInput) => {
             onChange={(props.onChange ? props.onChange : undefined)}
             className={props.className ? props.className : styles.appInput}
             maxLength={props.maxLength}
+            onBlur={props.onBlur}
         />
 
         </div>

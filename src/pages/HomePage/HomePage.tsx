@@ -33,38 +33,9 @@ const HomePage: FC = () => {
 							</StandardFade>
 						)
 					)}
+					<AppButton type={"button"} value={"Перейти к созданию рассылки"} onClick={() => navigate('createEventMaster')}/>
 				</section>
 				<section className={styles.homepage__data}>
-					{/*<article className={styles.homepage__infoblock}>*/}
-					{/*	<h3 className={styles.homepage__infoblock_title}>Вам доступно:</h3>*/}
-					{/*	<div className={styles.homepage__infoblock_statistic}>*/}
-					{/*		{statisticData.map(data => (*/}
-					{/*				<div key={data.id} className={styles.homepage__infoblock_info}>*/}
-					{/*					<CircularProgressWithLabel*/}
-					{/*							sx={{*/}
-					{/*								color: '#0093F0',*/}
-					{/*								fontColor:'100'*/}
-					{/*							}}*/}
-					{/*								size={100}*/}
-					{/*								thickness={7}*/}
-					{/*						value={data.rate}*/}
-					{/*					/>*/}
-					{/*					<div className={styles.homepage__infoblock_digit}>{data.amount}</div>*/}
-					{/*					<div className={styles.homepage__infoblock_text}>{data.text}</div>*/}
-					{/*				</div>*/}
-					{/*			)*/}
-					{/*		)}*/}
-					{/*	</div>*/}
-					{/*	<div className={styles.homepage__infoblock_btnblock}>*/}
-					{/*		<button className={styles.homepage__infoblock_btnblock_btn}>Пополнить баланс</button>*/}
-					{/*	</div>*/}
-					{/*</article>*/}
-					{/*<div className={styles.homepage__infoblock_tariff}>*/}
-					{/*	<h3 className={styles.homepage__infoblock_tariff_title}>Ваш тариф: Стандарт</h3>*/}
-					{/*	<div className={styles.homepage__infoblock_tariff_btnblock}>*/}
-					{/*		<button className={styles.homepage__infoblock_tariff_btn}>Изменить тариф</button>*/}
-					{/*	</div>*/}
-					{/*</div>*/}
 					<div className={styles.homepage__infoblock_contact}>
 						<h3 className={styles.homepage__infoblock_contact_title}>Свяжись с нами</h3>
 						<p className={styles.homepage__infoblock_contact_text}>Если у вас возникли вопросы, напишите нам в телеграм:</p>

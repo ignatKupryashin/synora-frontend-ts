@@ -9,8 +9,9 @@ import {useNavigate} from "react-router-dom";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 import AppButton from "../../../components/UI/AppButton/AppButton";
+import {ReturnsProp} from "../../../models/ServiveInterfaces/ReturnsProp";
 
-const CreateEmailTransportPage = () => {
+const CreateEmailTransportPage = (props: ReturnsProp) => {
 
     const [transportName, setTransportName] = useState('');
     const [emailUsername, setEmailUsername] = useState('');
@@ -75,7 +76,7 @@ const CreateEmailTransportPage = () => {
         } catch (e) {
             unsuccessful((e as Error).message)
         } finally {
-            navigate('/transfers')
+            !!props.backAction ? props.backAction() : navigate('/transfers')
         }
     }
 

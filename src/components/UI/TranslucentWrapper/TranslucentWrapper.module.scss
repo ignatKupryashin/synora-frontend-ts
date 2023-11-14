@@ -1,0 +1,15 @@
+.translucentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: linear-gradient(165.66deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 99.38%), radial-gradient(50% 48.66% at 50% 48.66%, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0 0 68px 0 rgba(255, 255, 255, 0.05) inset, 0 4px 15px 0 rgba(137, 160, 193, 0.7);
+  padding: 60px 80px;
+  border: 3px solid;
+  border-image-source: radial-gradient(50% 48.66% at 50% 48.66%, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+  border-radius: 20px;
+  overflow-y: auto;
+  max-height: 100vh;
+}

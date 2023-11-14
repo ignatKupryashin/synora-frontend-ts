@@ -4,18 +4,24 @@
 
   width: 100vw;
   height: 100vh;
+  background: url("/assets/img/loginBackground.jpg") no-repeat center;
+  background-size: cover;
+  //надеюсь от этого избавиться когда переделаю Layout
+  //position: absolute;
+  //top: 0;
+  left: 0;
+  overflow: hidden;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 80px;
-  background: black;
-  position: absolute;
-  top: 0;
-  left: 0;
+
 
   &__image {
-    width: 365px;
+    width: 224px;
+    height: 40px;
+    overflow: visible;
+    margin-bottom: 40px;
   }
 
   &__title {

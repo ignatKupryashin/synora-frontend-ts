@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AppInput from "../Input/AppInput";
-import AppButton from "../UI/AppButton/AppButton";
 import RegistrationService from "../../services/RegistrationService";
 import {successful, unsuccessful} from "../UI/Toast/Toast";
 import {useNavigate} from "react-router-dom";
@@ -13,6 +12,36 @@ const RegistrationForm = () => {
     const [surname, setSurname] = useState("");
     const [password, setPassword] = useState("");
 
+    useEffect(() => {
+        setNameIsValid(nameExpression.test(name) || name.length === 0);
+    }, [name]);
+
+    useEffect(() => {
+        setSurnameIsValid(nameExpression.test(surname) || surname.length === 0);
+    }, [surname]);
+
+    useEffect(() => {
+        setEmailIsValid(emailExpression.test(email));
+    }, [email]);
+
+
+    const nameOnBlur = () => {
+        !nameIsValid && unsuccessful("Имя должно содержать только русские или английские буквы");
+    }
+
+    const surnameOnBlur = () => {
+        !surnameIsValid && unsuccessful("Фамилия должна содержать только русские или английские буквы");
+    }
+
+    const emailOnBlur = () => {
+        !emailIsValid && unsuccessful("Неправильный формат почты");
+    }
+
+
+
+
+
+
     const emailExpression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const nameExpression: RegExp = /^([а-яё]+|[a-z]+)$/i;
 
@@ -20,14 +49,25 @@ const RegistrationForm = () => {
     const [surnameIsValid, setSurnameIsValid] = useState(true);
     const [emailIsValid, setEmailIsValid] = useState(true);
 
+    const [buttonEnabled, setButtonEnabled] = useState(false);
+
+    useEffect(() => {
+        (!!username&&
+        !!password&&
+        emailIsValid &&
+        nameIsValid &&
+        surnameIsValid) ? setButtonEnabled(true) : setButtonEnabled(false);
+    }, [username, password, nameIsValid, surnameIsValid, emailIsValid]);
+
+
     const navigate = useNavigate();
 
     const validateAndRegister = async () => {
-        nameExpression.test(name) ? setNameIsValid(true) : setNameIsValid(false);
-        nameExpression.test(surname) ? setSurnameIsValid(true) : setSurnameIsValid(false);
-        emailExpression.test(email) ? setEmailIsValid(true) : setEmailIsValid(false);
-        !name && setNameIsValid(true);
-        !surname && setSurnameIsValid(true);
+
+        nameOnBlur();
+        surnameOnBlur();
+        emailOnBlur();
+
         if (username &&
             email &&
             password &&
@@ -52,19 +92,22 @@ const RegistrationForm = () => {
         <div className={styles.registrationForm}>
             <div className={styles.registrationForm__inputWrapper}>
                 <div className={styles.registrationForm__group}>
-                <AppInput label=" " id={'userName'} type={"text"} name={"userName"} onChange={(e) => setUsername(e.target.value)}
-                          labelClassName={styles.registrationForm__errorLabel} value={username}   placeholder={"Логин"}/>
-                <AppInput label={emailIsValid ? " " : "Неправильный формат почты"} id={'email'} type={"email"} name={"email"} onChange={(e) => setEmail(e.target.value)}
-                          labelClassName={styles.registrationForm__errorLabel} value={email}  placeholder={"Почта"}/>
-                <AppInput label=" " id={'password'} type={"password"} name={"password"}
-                          labelClassName={styles.registrationForm__errorLabel}  onChange={(e) => setPassword(e.target.value)} placeholder={"Пароль"}/>
-                <AppInput label={nameIsValid ? " " : "Имя должно содержать только русские или английские буквы"} value={name} id={'name'} type={"text"} name={"name"} onChange={(e) => setName(e.target.value)}
-                         labelClassName={styles.registrationForm__errorLabel} placeholder={"Ваше имя (не обязательно)"}/>
-                <AppInput label={surnameIsValid ? " " : "Фамилия должна содержать только русские или английские буквы"} value={surname} id={'surname'} type={"text"} name={"surname"} onChange={(e) => setSurname(e.target.value)}
-                          labelClassName={styles.registrationForm__errorLabel} placeholder={"Ваша фамилия (не обязательно)"}/>
+                <AppInput className={styles.registrationForm__input} label="Логин*" id={'userName'} type={"text"} name={"userName"} onChange={(e) => setUsername(e.target.value)}
+                          labelClassName={styles.registrationForm__label} value={username}   placeholder={"Введите ваш логин"}/>
+                <AppInput className={styles.registrationForm__input} label="Почта*" id={'email'} type={"email"} name={"email"} onChange={(e) => setEmail(e.target.value)}
+                          onBlur={() => emailOnBlur()} labelClassName={styles.registrationForm__label} value={email}  placeholder={"Введите вашу почту"}/>
+                <AppInput className={styles.registrationForm__input} label="Пароль*" id={'password'} type={"password"} name={"password"}
+                          labelClassName={styles.registrationForm__label}  onChange={(e) => setPassword(e.target.value)} placeholder={"Введите ваш пароль"}/>
+                <AppInput className={styles.registrationForm__input} label={"Имя"} value={name} id={'name'} type={"text"} name={"name"} onChange={(e) => setName(e.target.value)}
+                        onBlur={() => nameOnBlur()} labelClassName={styles.registrationForm__label} placeholder={"Введите ваше имя"}/>
+                <AppInput className={styles.registrationForm__input} label={"Фамилия"} value={surname} id={'surname'} type={"text"} name={"surname"} onChange={(e) => setSurname(e.target.value)}
+                          onBlur={() => surnameOnBlur()} labelClassName={styles.registrationForm__label} placeholder={"Введите вашу фамилию"}/>
                 </div>
             </div>
-                <AppButton type={"button"} value={"Зарегистрироваться"} onClick={() => validateAndRegister()}/>
+            <button className={styles.registrationForm__registrationButton} type={"button"} disabled={!buttonEnabled} onClick={() => validateAndRegister()}>Зарегистрироваться</button>
+            <p className={styles.registrationForm__registeredQuestion}>Уже зарегистрированы?</p>
+            <button className={styles.registrationForm__loginButton} onClick={() => navigate("/")}>Войти</button>
+            <p className={styles.registrationForm__comment}>**Поля со знаком * являются обязательными.</p>
         </div>
     );
 };

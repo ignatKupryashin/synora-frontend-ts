@@ -88,7 +88,6 @@ const TemplatePage = () => {
                 setIsVisible={setDeleteIsVisible}
             />
             <AppModal visible={viewItemIsVisible} setVisible={setViewItemIsVisible}>
-                {/*<TabBar barArray={tabsArray}/>*/}
                 <TemplateViewPage viewItem={viewItem}/>
             </AppModal>
         </div>

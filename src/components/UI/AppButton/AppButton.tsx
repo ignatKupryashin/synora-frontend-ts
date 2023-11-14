@@ -10,17 +10,30 @@ interface IAppButton {
     className?: string;
     value: string;
     onClick?: MouseEventHandler<HTMLButtonElement>;
+    disabled?: boolean;
+    appStyle?: "standard" | "warning" | "white" | "transparent"
 }
 
+
 const AppButton: FC<IAppButton> = (props) => {
+
+    let currentStyle;
+
+    switch (props.appStyle) {
+        case "warning": {currentStyle = styles.appButton__warning; break}
+        case "white": {currentStyle = styles.appButton__white; break}
+        case "transparent" : {currentStyle = styles.appButton__transparent; break}
+        default: currentStyle = styles.appButton__standart;
+    }
 
     return (
         <div>
             <button
                 id={props.id}
                 type={props.type}
-                className={props.className ? props.className : styles.appButton}
+                className={props.className ? props.className : `${styles.appButton} ${currentStyle}` }
                 onClick={props.onClick}
+                disabled={props.disabled}
                 >
                 {props.value}
             </button>

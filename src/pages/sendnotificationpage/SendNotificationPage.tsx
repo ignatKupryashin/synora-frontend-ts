@@ -15,12 +15,12 @@ const SendNotificationPage: FC = () => {
     const userId = useUserStore.getState().userId();
     const projectId = useProjectStore.getState().currentProject?.id;
     const emailExpression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    const currentEvent = useSynoraEventStore.getState().events.filter((item) => item.id == currentEventId)[0];
     const navigate = useNavigate();
 
     const [emailInput, setEmailInput] = useState('');
     const [telegramInput, setTelegramInput] = useState('');
-
+    const [currentEvent, setCurrentEvent] = useState(useSynoraEventStore.getState().events.filter((item) => item.id == currentEventId)[0])
+    const synoraEventStore = useSynoraEventStore.getState().events;
     const [emailOutput, setEmailOutput] = useState<string[]>([]);
     const [telegramOutput, setTelegramOutput] = useState<string[]>([]);
     const firstUpdate = useRef(true);
@@ -38,8 +38,9 @@ const SendNotificationPage: FC = () => {
     useEffect(() => {
 
         const data = telegramInput.split(/\r?\n/)
-            .filter((item) => (+item))
-            .filter((item) => (Math.floor(Number(item)) === Number(item)));
+        //Здесь может быть возможен минус в начале
+            // .filter((item) => (+item))
+            // .filter((item) => (Math.floor(Number(item)) === Number(item)));
         setTelegramOutput([...data])
         // data.forEach((item) => {
         //     +item && setTelegramOutput([...telegramOutput, item]);
@@ -72,7 +73,8 @@ const SendNotificationPage: FC = () => {
             }
             const response = await $notificationApi.post('/notification', notification);
             if (response.status >= 200 && response.status < 300) {
-                successful('Рассылка успешно отправлена')
+                successful('Рассылка успешно отправлена');
+                navigate("/")
             }
             else {
                 unsuccessful(response.statusText)
@@ -90,6 +92,9 @@ const SendNotificationPage: FC = () => {
     return (
         <div>
             <h1 className={styles.sendNotificationPage__heading}>Отправка рассылки</h1>
+
+            {/*<p>{currentEvent?.event_code}</p>*/}
+
             <div className={styles.sendNotificationPage__protocolWrapper}>
                 <div>
                     <h2 className={styles.sendNotificationPage__protocolHeading}>Введите список email. Каждый email c новой строки</h2>

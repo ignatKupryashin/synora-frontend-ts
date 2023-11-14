@@ -1,10 +1,11 @@
-import React, {FC, useState} from 'react';
+import React, {useState} from 'react';
 import styles from '../TransportPage.module.scss';
-import {Link} from "react-router-dom";
 import CreateTelegramTransportPage from "./CreateTelegramTransportPage";
 import CreateEmailTransportPage from "./CreateEmailTransportPage";
+import {ReturnsProp} from "../../../models/ServiveInterfaces/ReturnsProp";
+import AppButton from "../../../components/UI/AppButton/AppButton";
 
-const CreateTransportPage:FC = () => {
+const CreateTransportPage = (props: ReturnsProp) => {
 
 	const [transport, setTransport] = useState('');
 
@@ -14,7 +15,7 @@ const CreateTransportPage:FC = () => {
 
 		return (
 			<div>
-				<Link to='/transfers' className={styles.transfer_back}>Назад</Link>
+				<AppButton value={""} onClick={props.backAction} type={"button"} className={styles.transfer_back}/>
 				<h1 className={styles.transfer__title}>Создать транспорт</h1>
 				<div className={styles.transfer__form_radio}>
 					<div className={styles.transfer__form_radio_btn}>
@@ -47,10 +48,10 @@ const CreateTransportPage:FC = () => {
 					</div>
 				</div>
 				{transport === 'email' && (
-					<CreateEmailTransportPage/>)
+					<CreateEmailTransportPage backAction={props.backAction}/>)
 				}
 				{transport === 'telegram' && (
-					<CreateTelegramTransportPage/>
+					<CreateTelegramTransportPage backAction={props.backAction}/>
 				)
 				}
 			</div>

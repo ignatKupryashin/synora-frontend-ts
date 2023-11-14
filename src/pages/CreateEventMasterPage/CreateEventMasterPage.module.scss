@@ -1,0 +1,91 @@
+@import 'styles/variables';
+
+.createEventMasterPage {
+  padding-bottom: 70px;
+  min-height: 100%;
+  overflow-y: visible;
+
+  &__stepperBlock {
+    padding-bottom: 30px;
+  }
+}
+
+.stepper {
+  font-size: 14px;
+  line-height: 20px;
+  font-family: $font-mulish-bold;
+
+}
+
+.choiceItem {
+  width: 100%;
+  height: 71px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  cursor: pointer;
+
+  &__heading {
+    font-family: $font-roboto-bold;
+    font-size: 20px;
+    line-height: 24px;
+
+  }
+  &__discription {
+    font-family: $font-mulish-light;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  &__protocolIsChosen {
+    color: $color-grey-mid
+  }
+
+  &__notProtocolIsChosen {
+    color: $color-black-dark;
+  }
+
+  &__notChosen:hover {
+    background-color: $color-blue-highlight-light;
+  }
+
+  &__chosen {
+    background-color: $color-blue-highlight-dark;
+  }
+}
+
+
+.choicePage {
+  &__createButtonBlock {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 46px;
+  }
+
+  &__discription {
+    font-family: $font-mulish-light;
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+.navigationButtonBlock {
+  width: 100%;
+  background: white;
+  display: flex;
+  padding-bottom: 24px;
+  padding-top: 12px;
+  position: fixed;
+  bottom: 0;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.content {
+  min-height: 100%;
+}

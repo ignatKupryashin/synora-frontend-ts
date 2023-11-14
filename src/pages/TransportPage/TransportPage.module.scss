@@ -71,6 +71,7 @@
 		font-family: $font-mulish-bold;
 		font-size: 14px;
 		color: $color-black-dark;
+		background-color: transparent;
 
 		&::before {
 			content: url('../../assets/svg/ArrowToBack.svg');

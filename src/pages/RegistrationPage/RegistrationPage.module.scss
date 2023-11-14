@@ -1,13 +1,23 @@
 .registrationPage {
-  background: black;
+  background: url("/assets/img/loginBackground.jpg") no-repeat center;
+  background-size: cover;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+
+  @media (max-height: 916px) {
+    justify-content: flex-start;
+    padding-top: 30px;
+  }
 
   &__image {
-    width: 365px;
+    width: 224px;
+    height: 40px;
+    overflow: visible;
+    margin-bottom: 40px;
   }
 
 

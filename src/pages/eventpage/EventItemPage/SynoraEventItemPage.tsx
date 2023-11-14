@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useSynoraEventStore} from "../../../store/eventStore/useSynoraEventStore";
 import {ISynoraEvent} from "../../../models/SynoraEvent/ISynoraEvent";
@@ -81,9 +81,9 @@ const SynoraEventItemPage: FC = () => {
     const [currentEmailTransport, setCurrentEmailTransport] = useState<ITransport | undefined>(undefined);
 
 
-    useEffect(() => {
-
-    }, [synoraEvent]);
+    // useEffect(() => {
+    //
+    // }, [synoraEvent]);
 
 
     const getTransport = (transportId: string) => {
@@ -99,13 +99,13 @@ const SynoraEventItemPage: FC = () => {
 
 
     //Чтобы при изменении проекта возвращало на страницу events
-    useEffect(() => {
-        if (!firstRender.current) {
-            navigate('/events');
-        } else {
-            firstRender.current = false
-        }
-    }, [currentProject]);
+    // useEffect(() => {
+    //     if (!firstRender.current) {
+    //         navigate('/events');
+    //     } else {
+    //         firstRender.current = false
+    //     }
+    // }, [currentProject]);
 
     const addConfigToEvent = useSynoraEventStore.getState().addConfigToEvent;
 

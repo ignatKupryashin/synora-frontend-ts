@@ -6,8 +6,8 @@ import {useSynoraEventStore} from "../../store/eventStore/useSynoraEventStore";
 import SynoraEventItem from "./CreateSynoraEventPage/SynoraEventItem";
 import {successful, unsuccessful} from "../../components/UI/Toast/Toast";
 import AppDeleteConfirm from "../../components/AppDeleteConfirm/AppDeleteConfirm";
-import AppButton from "../../components/UI/AppButton/AppButton";
 import StandardFade from "../../components/Animations/StandardFade";
+import AppButton from "../../components/UI/AppButton/AppButton";
 
 const SynoraEventPage = () => {
     const eventsList: ISynoraEvent[] = useSynoraEventStore(state => state.events);
@@ -16,8 +16,8 @@ const SynoraEventPage = () => {
     const [deleteIsVisible, setDeleteIsVisible] = useState(false);
     const [deleteEventState, setDeleteEventState] = useState<ISynoraEvent | undefined>(undefined)
     const [deleteQuestion, setDeleteQuestion] = useState<ReactNode>(<></>)
-
     const navigate = useNavigate();
+
 
     const deleteSynoraEventHandler = (synoraEvent: ISynoraEvent | undefined) => {
         if (synoraEvent) {
@@ -38,9 +38,9 @@ const SynoraEventPage = () => {
 
     return (
         <div className={styles.events}>
-            <h1 className={styles.events__title}>События</h1>
+            <h1 className={styles.events__title}>Рассылки</h1>
             <div className={styles.events__btn}>
-                <AppButton type={"button"} value={"Создать событие"} onClick={() => navigate('/events/new_event')}/>
+                <AppButton type={"button"} value={"Создать рассылку"} onClick={() => navigate('/events/createeventmaster')}/>
             </div>
             <div className={styles.events__list}>
                 {eventsList.length > 0 ?

@@ -9,9 +9,9 @@
 		font-size: 24px;
 		letter-spacing: 0.96px;
 		background-color: white;
-		color: $color-black; 
+		color: $color-text-dark-grey;
 		position: sticky;
-		top: 0px;
+		top: 0;
 		z-index: 11;
 	}
 
@@ -38,7 +38,7 @@
 			font-family: $font-roboto-bold;
 			font-size: 24px;
 			letter-spacing: 0.96px;
-			color: $color-black;
+			color: $color-text-dark-grey;
 		}
 
 		&_body {
@@ -53,7 +53,7 @@
 				font-family: $font-roboto-bold;
 				font-size: 20px;
 				letter-spacing: 0.6px;
-				color: $color-black; 
+				color: $color-text-dark-grey;
 			}
 
 			&_text {
@@ -78,7 +78,7 @@
 				color: $color-white; 
 				border-radius: 16px;
 				background: $color-blue-btn;
-				box-shadow: 4px 4px 6px 0px rgba(60, 61, 64, 0.25); 
+				box-shadow: 4px 4px 6px 0 rgba(60, 61, 64, 0.25);
 			}
 		}
 	}
@@ -147,7 +147,7 @@
 				border-radius: 16px;
 				background: #FAFDFF;
 				box-shadow: 4px 4px 6px 0px rgba(60, 61, 64, 0.25);
-				color: $color-black;
+				color: $color-text-dark-grey;
 				cursor: pointer;
 			}
 		}
@@ -184,7 +184,7 @@
 				border-radius: 16px;
 				background: $color-white;
 				box-shadow: 4px 4px 6px 0px rgba(60, 61, 64, 0.25);
-				color: $color-black;
+				color: $color-text-dark-grey;
 				cursor: pointer; 
 			}
 		}

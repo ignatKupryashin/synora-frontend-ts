@@ -1,10 +1,12 @@
-import React, {FC, useState} from 'react';
-import {Link} from "react-router-dom";
+import React, {useState} from 'react';
 import styles from "../../TransportPage/TransportPage.module.scss";
 import CreateTelegramTemplatePage from "./CreateTelegramTemplatePage";
 import CreateEmailTemplatePage from "./CreateEmailTemplatePage";
+import {ReturnsProp} from "../../../models/ServiveInterfaces/ReturnsProp";
+import AppButton from "../../../components/UI/AppButton/AppButton";
 
-const CreateTemplatePage:FC = () => {
+
+const CreateTemplatePage = (props: ReturnsProp) => {
 
     const [template, setTemplate] = useState('');
 
@@ -15,7 +17,7 @@ const CreateTemplatePage:FC = () => {
 
     return (
         <div>
-            <Link to='/templates' className={styles.transfer_back}>Назад</Link>
+            <AppButton value={""} onClick={props.backAction} type={"button"} className={styles.transfer_back}/>
             <h1 className={styles.transfer__title}>Создать шаблон</h1>
             <div className={styles.transfer__form_radio}>
                 <div className={styles.transfer__form_radio_btn}>
@@ -48,10 +50,10 @@ const CreateTemplatePage:FC = () => {
                 </div>
             </div>
             {template === 'email' && (
-                <CreateEmailTemplatePage/>)
+                <CreateEmailTemplatePage backAction={props.backAction}/>)
             }
             {template === 'telegram' && (
-                <CreateTelegramTemplatePage/>
+                <CreateTelegramTemplatePage backAction={props.backAction}/>
             )
             }
         </div>

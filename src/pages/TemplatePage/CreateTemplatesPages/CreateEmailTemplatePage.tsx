@@ -11,8 +11,9 @@ import AppTextArea from "../../../components/UI/AppTextArea/AppTextArea";
 import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 import AppButton from "../../../components/UI/AppButton/AppButton";
 import AppRadio from "../../../components/UI/AppRadio/AppRadio";
+import {ReturnsProp} from "../../../models/ServiveInterfaces/ReturnsProp";
 
-const CreateEmailTemplatePage = () => {
+const CreateEmailTemplatePage = (props: ReturnsProp) => {
 
     const [templateName, setTemplateName] = useState('');
     const [letterTopic, setLetterTopic] = useState('');
@@ -66,7 +67,7 @@ const CreateEmailTemplatePage = () => {
         } catch (e) {
             unsuccessful((e as Error).message)
         } finally {
-            navigate('/templates')
+            !!props.backAction ? props.backAction() : navigate('/templates');
         }
     }
 

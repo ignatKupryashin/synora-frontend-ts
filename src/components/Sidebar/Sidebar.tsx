@@ -24,8 +24,8 @@ const Sidebar: FC = () => {
             </header>
             {/*<div className={styles.sidebar__user}>{userName}</div>*/}
             <ul className={styles.sidebar__navbar}>
-                <NavElement to='/'>Главная</NavElement>
-                <NavElement to='/events'>События</NavElement>
+                {/*<NavElement to='/'>Главная</NavElement>*/}
+                <NavElement to='/events'>Рассылки</NavElement>
                 <NavElement to='/templates'>Шаблоны</NavElement>
                 <NavElement to='/transfers'>Транспорты</NavElement>
             </ul>

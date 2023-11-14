@@ -12,7 +12,7 @@ type eventStore = {
     errors: string[],
     addEvent: (event:ISynoraEvent) => void,
     removeEvent: (id:string) => void,
-    fetchEvents: (userId: string, projectId: string) => Promise<void>;
+    fetchEvents: (userId: string, projectId: string) => Promise<boolean>;
     sendEvent: (event: ISynoraEvent) => Promise<AxiosResponse<ISynoraEvent>>;
     deleteEvent: (event: ISynoraEvent) => Promise<ISynoraEvent>;
     addConfigToEvent: (event: ISynoraEvent, transport: ITransport, template: ITemplate) => Promise<ISynoraEvent>;
@@ -41,9 +41,11 @@ export const useSynoraEventStore = create<eventStore>((set) => ({
             const data = await $mainApi.get(`/event/project/${projectId}/user/${userId}/`).then(
                 (response) => (response.data));
             set({events: data})
+            return true;
         } catch (e) {
             unsuccessful((e as Error).message) // Вывод ошибки если не получены события
         }
+        return false
     },
 
     sendEvent: async (event: ISynoraEvent) => {

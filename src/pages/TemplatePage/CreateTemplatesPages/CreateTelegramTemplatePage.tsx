@@ -9,8 +9,9 @@ import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import AppTextArea from "../../../components/UI/AppTextArea/AppTextArea";
 import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 import AppButton from "../../../components/UI/AppButton/AppButton";
+import {ReturnsProp} from "../../../models/ServiveInterfaces/ReturnsProp";
 
-const CreateTelegramTemplatePage = () => {
+const CreateTelegramTemplatePage = (props: ReturnsProp) => {
     const [templateName, setTemplateName] = useState('');
     const [templateBody, setTemplateBody] = useState('');
     const sendTemplate = useTemplateStore(state => state.sendTemplate);
@@ -34,13 +35,16 @@ const CreateTelegramTemplatePage = () => {
             unsuccessful((error as Error).message)
         }
         finally {
-            navigate('/templates')
+            if (!!props.backAction) {
+                props.backAction();
+            }
+            else navigate("/templates")
         }
     }
 
 
     //middleware
-    const changeTemplatetName = (e: React.FormEvent<HTMLInputElement>) => {
+    const changeTemplateName = (e: React.FormEvent<HTMLInputElement>) => {
         setTemplateName(e.currentTarget.value);
     }
 
@@ -58,7 +62,7 @@ const CreateTelegramTemplatePage = () => {
                     type={'text'}
                     name={'templateName'}
                     placeholder={'Введите наименование шаблона'}
-                    onChange={changeTemplatetName}
+                    onChange={changeTemplateName}
                     maxLength={40}
                 />
                 <AppTextArea
