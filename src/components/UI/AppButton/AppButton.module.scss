@@ -29,6 +29,7 @@
         &:disabled {
             opacity: 50%;
             box-shadow: 4px 4px 6px 0 rgba(60, 61, 64, 0.25);
+            color: $color-white;
             &:hover {
                 background: $color-blue-btn;
             }
@@ -53,7 +54,7 @@
     }
 
     &__white {
-        padding: 11px 0px;
+        padding: 11px 0;
         color: black;
         background: white;
 
@@ -82,7 +83,17 @@
             background: $color-dark-blue;
             color: white;
         }
+
+        &:disabled {
+            opacity: 50%;
+
+            &:hover {
+                background: white;
+                border: 1px $color-blue-btn solid;
+                color: $color-blue-btn;
+            }
+
+        }
+
     }
-
-  }
-
+}

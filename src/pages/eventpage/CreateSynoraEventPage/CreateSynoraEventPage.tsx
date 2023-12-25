@@ -129,7 +129,7 @@ const CreateSynoraEventPage = (props: CreateEventPageProps) => {
                 {
                     !!props.chosenEmailTemplate && props.chosenEmailTransport &&
                     <div className={styles.event__protocolBlock}>
-                        <h4 className={styles.event__protocolBlock__heading}>Telegram</h4>
+                        <h4 className={styles.event__protocolBlock__heading}>Email</h4>
                         <div className={styles.event__protocolBlock__item}>
                             <p className={styles.event__protocolBlock__itemName}>
                                 {props.chosenEmailTemplate.template_name}</p>
@@ -176,10 +176,25 @@ const CreateSynoraEventPage = (props: CreateEventPageProps) => {
                 }
 
                 <div className={styles.event__buttonblock}>
-                    <AppButton type={'button'} value={'Предыдущий шаг'} appStyle="white" onClick={props.stepBack}/>
-                    <AppButton type={'button'} value={'Создать без отправки'} appStyle="transparent"
-                               onClick={(e) => createEvent(e, false)}/>
-                    <AppButton type={'button'} value={'Перейти к отправке'} onClick={(e) => createEvent(e, true)}/>
+                    <AppButton
+                        type={'button'}
+                        value={'Предыдущий шаг'}
+                        appStyle="white"
+                        onClick={props.stepBack}
+                    />
+                    <AppButton
+                        type={'button'}
+                        value={'Создать без отправки'}
+                        disabled={!props.synoraEventName}
+                        appStyle="transparent"
+                        onClick={(e) => createEvent(e, false)}
+                    />
+                    <AppButton
+                        type={'button'}
+                        value={'Перейти к отправке'}
+                        disabled={!props.synoraEventName}
+                        onClick={(e) => createEvent(e, true)}
+                    />
                 </div>
                 {
                     sendEventIsLoading && <h1>Идет отправка</h1>

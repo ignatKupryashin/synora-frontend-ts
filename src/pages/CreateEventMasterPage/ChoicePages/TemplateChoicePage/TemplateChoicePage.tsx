@@ -47,7 +47,7 @@ const TemplateChoicePage = (props: TemplateChoicePageProps) => {
                             протокола
                             (E-mail и/или Telegram) для события</p>
                             <div className={styles.choicePage__createButtonBlock}>
-                                <AppButton type={"button"} value={"Создать шаблон"} onClick={() => props.createTemplate(true)}/>
+                                <AppButton appStyle={"transparent"} type={"button"} value={"Создать шаблон"} onClick={() => props.createTemplate(true)}/>
                             </div>
                             <div>
                                 {templates.length > 0 ?

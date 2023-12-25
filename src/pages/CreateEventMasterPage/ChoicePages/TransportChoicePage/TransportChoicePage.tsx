@@ -50,7 +50,7 @@ const transports = useTransportStore(state => state.transports);
         <div>
             <p className={styles.choicePage__discription}>Вы можете выбрать по одному шаблону каждого протокола (E-mail и/или Telegram) для события</p>
             <div className={styles.choicePage__createButtonBlock}>
-                <AppButton type={"button"} value={"Создать транспорт"} onClick={() => props.createTransport(true)}/>
+                <AppButton appStyle={"transparent"} type={"button"} value={"Создать транспорт"} onClick={() => props.createTransport(true)}/>
             </div>
             <div>
                 {transports.length > 0 ?

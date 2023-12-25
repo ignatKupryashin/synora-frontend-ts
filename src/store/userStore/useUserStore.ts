@@ -2,6 +2,9 @@ import {create} from "zustand";
 import {IUser} from "../../models/User/IUser";
 import {unsuccessful} from "../../components/UI/Toast/Toast";
 import AuthService from "../../services/AuthService";
+import axios from "axios";
+import {AuthResponse} from "../../models/AuthResponse";
+import {MAIN_API_URL} from "../../http";
 
 interface IUserStore {
     user: IUser | undefined;
@@ -11,6 +14,7 @@ interface IUserStore {
     userId: () => string;
     login: (login: string, password: string) => Promise<void>;
     logout: () => void;
+    checkAuth: () => void;
 }
 
 export const useUserStore = create<IUserStore>((set) => ({
@@ -49,6 +53,15 @@ export const useUserStore = create<IUserStore>((set) => ({
                 localStorage.removeItem('token');
                 useUserStore.getState().setUser(undefined);
             },
+
+            checkAuth: async () => {
+                try {
+                    const response = await axios.get<AuthResponse>(`${MAIN_API_URL}/`)
+                }
+                catch (e) {
+
+                }
+            }
 
         }
 

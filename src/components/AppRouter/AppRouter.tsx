@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import Layout from "../Layout/Layout";
 import SynoraEventPage from "../../pages/eventpage/SynoraEventPage";
 import TransportPage from "../../pages/TransportPage/TransportPage";
@@ -22,7 +22,7 @@ const AppRouter = () => {
             {isLogin
                 ?
                 <Route path='/' element={<Layout/>}>
-                    <Route index element={<Navigate to='events' replace={true}/>}/>
+                    <Route index element={<SynoraEventPage/>}/>
                     <Route path='events' element={<SynoraEventPage/>}/>
                     <Route path='events/:synoraEventId' element={<SynoraEventItemPage/>}/>
                     {/*<Route path='events/new_event' element={<CreateSynoraEventPage/>}/>*/}

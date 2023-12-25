@@ -9,6 +9,7 @@ import {useSynoraEventStore} from "../../store/eventStore/useSynoraEventStore";
 import {successful, unsuccessful} from "../../components/UI/Toast/Toast";
 import {$notificationApi} from "../../http";
 import styles from "./SendNotificationPage.module.scss"
+import {useTransportStore} from "../../store/transportStore/useTransportStore";
 
 const SendNotificationPage: FC = () => {
     const {currentEventId} = useParams<string>();
@@ -16,6 +17,7 @@ const SendNotificationPage: FC = () => {
     const projectId = useProjectStore.getState().currentProject?.id;
     const emailExpression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const navigate = useNavigate();
+    const transportStore = useTransportStore(state => state);
 
     const [emailInput, setEmailInput] = useState('');
     const [telegramInput, setTelegramInput] = useState('');
@@ -24,6 +26,8 @@ const SendNotificationPage: FC = () => {
     const [emailOutput, setEmailOutput] = useState<string[]>([]);
     const [telegramOutput, setTelegramOutput] = useState<string[]>([]);
     const firstUpdate = useRef(true);
+    const hasTelegram: boolean = !!currentEvent.transports?.find((item: string) => transportStore.getTransportById(item)?.protocol_name == "telegram");
+    const hasEmail: boolean = !!currentEvent.transports?.find((item: string) => transportStore.getTransportById(item)?.protocol_name == "email");
 
     //написать дебаунс
     useEffect(() => {
@@ -96,6 +100,7 @@ const SendNotificationPage: FC = () => {
             {/*<p>{currentEvent?.event_code}</p>*/}
 
             <div className={styles.sendNotificationPage__protocolWrapper}>
+                {hasEmail &&
                 <div>
                     <h2 className={styles.sendNotificationPage__protocolHeading}>Введите список email. Каждый email c новой строки</h2>
                     <AppTextArea
@@ -119,6 +124,8 @@ const SendNotificationPage: FC = () => {
                    }
                    </div>
                 </div>
+                }
+                { hasTelegram &&
                 <div>
                     <h2 className={styles.sendNotificationPage__protocolHeading}>Введите список telegram chat. Каждый чат с новой строки</h2>
                     <AppTextArea
@@ -139,6 +146,7 @@ const SendNotificationPage: FC = () => {
                     }
                     </div>
                 </div>
+                }
             </div>
            <AppButton type={"button"} value={'Отправить'} onClick={sendNotification}/>
         </div>

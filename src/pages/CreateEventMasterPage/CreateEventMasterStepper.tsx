@@ -14,23 +14,18 @@ interface CreateEventMasterStepperProps {
 const CreateEventMasterStepper = (props: CreateEventMasterStepperProps) => {
 
     return (
-        <Stepper
-
-
-            activeStep={props.activeStep}>
+        <Stepper activeStep={props.activeStep}>
             {props.steps.map((step, index) => {
-
                 // надо ли?
                 const stepProps: { completed?: boolean } = {};
-
                 return (
                     <Step
-                    key={step.label} {...stepProps}>
+                        key={step.label} {...stepProps}>
                         <StepLabel
-                            classes={{
-                               label: styles.stepper
-                            }}
-                        >{step.label}</StepLabel>
+                            // classes={{
+                            //     label: styles.stepper,
+                            // }}
+                        ><p className={styles.stepper}>{step.label}</p></StepLabel>
                     </Step>
                 );
             })}
