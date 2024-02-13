@@ -16,7 +16,6 @@ export default class AuthService {
             '/login/token',
             sendData,
         );
-
     }
     //
     // static async logout(): Promise<void> {

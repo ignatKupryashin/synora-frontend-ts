@@ -66,9 +66,9 @@ function App() {
 	useEffect(() => {
 		if (userId !== undefined && projectId !== undefined) {
 			try {
-				fetchTransports(userId, projectId)
-				fetchTemplates(userId, projectId);
-				fetchEvents(userId, projectId);
+				fetchTransports()
+				fetchTemplates();
+				fetchEvents();
 			}
 			catch (e) {
 				unsuccessful((e as Error).message)

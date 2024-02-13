@@ -78,7 +78,7 @@ const transports = useTransportStore(state => state.transports);
                             />
                     )
                     :
-                    <p>У вас пока нет созданных шаблонов</p>
+                    <p>У вас пока нет созданных транспортов</p>
                 }
             </div>
 

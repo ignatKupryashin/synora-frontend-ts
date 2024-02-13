@@ -9,7 +9,6 @@ export const NOTIFICATION_API_URL = 'https://restoratika.notification.skroy.ru';
 // export const NOTIFICATION_API_URL = 'https://api.synora.ru'
 
 
-
 export const $mainApi = axios.create({
     // withCredentials: true,
     baseURL: MAIN_API_URL

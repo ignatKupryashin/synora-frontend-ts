@@ -25,19 +25,19 @@ interface CreateEventPageProps {
     chosenTelegramTransport: TelegramTransport | undefined;
     chosenEmailTransport: EmailTransport | undefined;
     stepBack: () => void;
+    currentEvent?: ISynoraEvent;
 }
 
 
 const CreateSynoraEventPage = (props: CreateEventPageProps) => {
 
-    const sendEvent = useSynoraEventStore(state => state.sendEvent);
+    const sendEvent = useSynoraEventStore(state => state.createEvent);
     const userId = useUserStore(state => state.userId)();
     const projectId = useProjectStore(state => state.currentProject?.id) || '';
     const navigate = useNavigate();
     const addConfigToEvent = useSynoraEventStore(state => state.addConfigToEvent);
     const fetchEvents = useSynoraEventStore(state => state.fetchEvents);
     const [willSend, setWillSend] = useState(false);
-    const addEvent = useSynoraEventStore.getState().addEvent;
 
     const newSynoraEvent: SynoraEvent = new SynoraEvent(
         props.synoraEventName,
@@ -48,8 +48,8 @@ const CreateSynoraEventPage = (props: CreateEventPageProps) => {
     const [currentSynoraEvent, setCurrentSynoraEvent] = useState<ISynoraEvent | undefined>(undefined)
 
     useEffect(() => {
-        saveAllConfigs();
-    }, [currentSynoraEvent]);
+        !!props.currentEvent && setCurrentSynoraEvent(props.currentEvent);
+    }, []);
 
 
     const [mySendEvent,
@@ -57,8 +57,15 @@ const CreateSynoraEventPage = (props: CreateEventPageProps) => {
         () => sendEvent(newSynoraEvent))
 
 
-    const createEvent = async (e: React.MouseEvent<HTMLButtonElement>, sending: boolean) => {
+    const createAndAddConfig  = async (e: React.MouseEvent<HTMLButtonElement>, sending: boolean)=> {
         e.preventDefault();
+        !currentSynoraEvent && await createEvent(sending);
+        await saveAllConfigs();
+    }
+
+
+
+    const createEvent = async (sending: boolean) => {
         await mySendEvent().then(async (response) => {
             if (response) {
                 if (response.status >= 200 && response.status < 300) {
@@ -97,7 +104,7 @@ const CreateSynoraEventPage = (props: CreateEventPageProps) => {
         let telegramConfigSaved = await saveTelegramConfig()
 
         const fetchAndSendEventPromises = [
-            await fetchEvents(userId, projectId)
+            await fetchEvents()
         ]
         const fetched = await Promise.all(fetchAndSendEventPromises)
         fetched && (!!emailConfigSaved || !!telegramConfigSaved) &&
@@ -123,6 +130,7 @@ const CreateSynoraEventPage = (props: CreateEventPageProps) => {
                     type={'text'}
                     name={'eventName'}
                     placeholder={'Введите наименование рассылки'}
+                    value={props.synoraEventName}
                     onChange={changeEventName}
                 />
 
@@ -187,13 +195,13 @@ const CreateSynoraEventPage = (props: CreateEventPageProps) => {
                         value={'Создать без отправки'}
                         disabled={!props.synoraEventName}
                         appStyle="transparent"
-                        onClick={(e) => createEvent(e, false)}
+                        onClick={(e) => createAndAddConfig(e, false)}
                     />
                     <AppButton
                         type={'button'}
                         value={'Перейти к отправке'}
                         disabled={!props.synoraEventName}
-                        onClick={(e) => createEvent(e, true)}
+                        onClick={(e) => createAndAddConfig(e, true)}
                     />
                 </div>
                 {

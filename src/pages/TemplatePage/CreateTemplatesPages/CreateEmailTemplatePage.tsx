@@ -11,7 +11,7 @@ import AppTextArea from "../../../components/UI/AppTextArea/AppTextArea";
 import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 import AppButton from "../../../components/UI/AppButton/AppButton";
 import AppRadio from "../../../components/UI/AppRadio/AppRadio";
-import {ReturnsProp} from "../../../models/ServiveInterfaces/ReturnsProp";
+import {ReturnsProp} from "../../../models/ServiceInterfaces/ReturnsProp";
 
 const CreateEmailTemplatePage = (props: ReturnsProp) => {
 
@@ -21,7 +21,7 @@ const CreateEmailTemplatePage = (props: ReturnsProp) => {
     const [emailTextType, setEmailTextType] = useState<"html" | "text">("text");
 
 
-    const sendTemplate = useTemplateStore(state => state.sendTemplate);
+    const sendTemplate = useTemplateStore(state => state.createTemplate);
     const addTemplate = useTemplateStore(state => state.addTemplate);
     const userId = useUserStore(state => state.user?.id) || '';
     const projectId = useProjectStore(state => state.currentProject?.id) || '';

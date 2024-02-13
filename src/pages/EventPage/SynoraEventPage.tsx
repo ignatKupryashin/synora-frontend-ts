@@ -3,11 +3,11 @@ import styles from "./EventPage.module.scss";
 import {useNavigate} from "react-router-dom";
 import {ISynoraEvent} from "../../models/SynoraEvent/ISynoraEvent";
 import {useSynoraEventStore} from "../../store/eventStore/useSynoraEventStore";
-import SynoraEventItem from "./CreateSynoraEventPage/SynoraEventItem";
 import {successful, unsuccessful} from "../../components/UI/Toast/Toast";
 import AppDeleteConfirm from "../../components/AppDeleteConfirm/AppDeleteConfirm";
 import StandardFade from "../../components/Animations/StandardFade";
 import AppButton from "../../components/UI/AppButton/AppButton";
+import SynoraEventItem from "./CreateSynoraEventPage/SynoraEventItem";
 
 const SynoraEventPage = () => {
     const eventsList: ISynoraEvent[] = useSynoraEventStore(state => state.events);

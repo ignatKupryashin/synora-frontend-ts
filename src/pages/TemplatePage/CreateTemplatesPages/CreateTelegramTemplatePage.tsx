@@ -9,12 +9,12 @@ import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import AppTextArea from "../../../components/UI/AppTextArea/AppTextArea";
 import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 import AppButton from "../../../components/UI/AppButton/AppButton";
-import {ReturnsProp} from "../../../models/ServiveInterfaces/ReturnsProp";
+import {ReturnsProp} from "../../../models/ServiceInterfaces/ReturnsProp";
 
 const CreateTelegramTemplatePage = (props: ReturnsProp) => {
     const [templateName, setTemplateName] = useState('');
     const [templateBody, setTemplateBody] = useState('');
-    const sendTemplate = useTemplateStore(state => state.sendTemplate);
+    const sendTemplate = useTemplateStore(state => state.createTemplate);
     const addTemplate = useTemplateStore(state => state.addTemplate);
     const userId = useUserStore(state => state.user?.id) || '';
     const projectId = useProjectStore(state => state.currentProject?.id) || '';

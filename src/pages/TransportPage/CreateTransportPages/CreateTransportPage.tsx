@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from '../TransportPage.module.scss';
 import CreateTelegramTransportPage from "./CreateTelegramTransportPage";
 import CreateEmailTransportPage from "./CreateEmailTransportPage";
-import {ReturnsProp} from "../../../models/ServiveInterfaces/ReturnsProp";
+import {ReturnsProp} from "../../../models/ServiceInterfaces/ReturnsProp";
 import AppButton from "../../../components/UI/AppButton/AppButton";
 
 const CreateTransportPage = (props: ReturnsProp) => {

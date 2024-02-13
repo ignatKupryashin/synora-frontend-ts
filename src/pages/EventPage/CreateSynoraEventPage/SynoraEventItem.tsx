@@ -3,6 +3,7 @@ import {ISynoraEvent} from "../../../models/SynoraEvent/ISynoraEvent";
 import styles from "../EventPage.module.scss";
 import {useNavigate} from "react-router-dom";
 import DeleteButton from "../../../components/UI/FunctionalButtons/DeleteButton/DeleteButton";
+import ViewButton from "../../../components/UI/FunctionalButtons/VuewButton/ViewButton";
 
 interface synoraEventItemProps {
     synoraEvent: ISynoraEvent;
@@ -19,7 +20,10 @@ const SynoraEventItem = (props: synoraEventItemProps) => {
             <div className={styles.eventItem__title} >
                 {props.synoraEvent.event_code}
             </div>
+            <div>
+            <ViewButton onClick={() => navigate(`events/createeventmaster/${props.synoraEvent.id}`)}/>
             <DeleteButton onDelete={props.onDelete}/>
+            </div>
         </div>
     );
 };

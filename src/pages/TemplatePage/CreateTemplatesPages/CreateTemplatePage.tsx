@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from "../../TransportPage/TransportPage.module.scss";
 import CreateTelegramTemplatePage from "./CreateTelegramTemplatePage";
 import CreateEmailTemplatePage from "./CreateEmailTemplatePage";
-import {ReturnsProp} from "../../../models/ServiveInterfaces/ReturnsProp";
+import {ReturnsProp} from "../../../models/ServiceInterfaces/ReturnsProp";
 import AppButton from "../../../components/UI/AppButton/AppButton";
 
 

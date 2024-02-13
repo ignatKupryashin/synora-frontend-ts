@@ -8,13 +8,13 @@ import {useNavigate} from "react-router-dom";
 import {useProjectStore} from "../../../store/projectStore/useProjectStore";
 import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
 import AppButton from "../../../components/UI/AppButton/AppButton";
-import {ReturnsProp} from "../../../models/ServiveInterfaces/ReturnsProp";
+import {ReturnsProp} from "../../../models/ServiceInterfaces/ReturnsProp";
 
 const CreateTelegramTransportPage = (props: ReturnsProp) => {
 
     const [transportName, setTransportName] = useState('');
     const [telegramToken, setTelegramToken] = useState('');
-    const sendTransport = useTransportStore(state => state.sendTransport);
+    const sendTransport = useTransportStore(state => state.createTransport);
     const addTransport = useTransportStore(state => state.addTransport);
     const userId = useUserStore(state => state.user?.id) || '';
     const projectId = useProjectStore(state => state.currentProject?.id) || '';
