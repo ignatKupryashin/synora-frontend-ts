@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import styles from "./TransportPage.module.scss"
 import {useNavigate} from "react-router-dom";
 import {ITransport} from "../../models/Transport/ITransport";
@@ -10,6 +10,7 @@ import StandardFade from "../../components/Animations/StandardFade";
 import AppDeleteConfirm from "../../components/AppDeleteConfirm/AppDeleteConfirm";
 import AppModal from "../../components/UI/AppModal/AppModal";
 import TransportViewPage from "./TransportViewPage/TransportViewPage";
+import loginPage from "../LoginPage/LoginPage";
 
 
 const TransportPage = () => {
@@ -27,20 +28,25 @@ const TransportPage = () => {
     const navigate = useNavigate();
 
 
-    const deleteTransportHandler = (transport: ITransport | undefined) => {
-        if (transport) {
+    useEffect(() => {
+        // console.log(transportList);
+    }, []);
+
+
+    const deleteTransportHandler = (transport: ITransport) => {
             try {
                 deleteTransport(transport).then((response) => {
                         if (response) {
-                            removeTransport(transport.id);
                             successful(`Транспорт ${transport.transport_name} успешно удалён`)
+                        }
+                        else {
+                            unsuccessful(`Транспорт ${transport.transport_name} не удалось удалить`)
                         }
                     }
                 )
             } catch (e) {
                 unsuccessful((e as Error).message);
             }
-        }
     }
 
     return (
@@ -81,7 +87,7 @@ const TransportPage = () => {
             </div>
             <AppDeleteConfirm
                 question={deleteQuestion}
-                onConfirm={() => deleteTransportHandler(deleteTransportState)}
+                onConfirm={deleteTransportState && (() => deleteTransportHandler(deleteTransportState))}
                 isVisible={deleteIsVisible}
                 setIsVisible={setDeleteIsVisible}/>
 

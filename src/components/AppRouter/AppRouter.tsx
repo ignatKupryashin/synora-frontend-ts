@@ -8,7 +8,7 @@ import CreateTemplatePage from "../../pages/TemplatePage/CreateTemplatesPages/Cr
 import {useUserStore} from "../../store/userStore/useUserStore";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import SynoraEventItemPage from "../../pages/EventPage/EventItemPage/SynoraEventItemPage";
-import SendNotificationPage from "../../pages/sendnotificationpage/SendNotificationPage";
+import SendNotificationPage from "../../pages/SendNotificationPage/SendNotificationPage";
 import CreateTransportPage from "../../pages/TransportPage/CreateTransportPages/CreateTransportPage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
 import CreateEventMasterPage from "../../pages/CreateEventMasterPage/CreateEventMasterPage";

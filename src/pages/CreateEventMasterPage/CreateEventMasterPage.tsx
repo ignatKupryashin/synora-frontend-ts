@@ -74,7 +74,6 @@ const CreateEventMasterPage = () => {
 
 
 
-
     useEffect(() => {
         checkTemplateHeading()
     }, [chosenEmailTemplate, chosenTelegramTemplate]);
@@ -98,6 +97,9 @@ const CreateEventMasterPage = () => {
     const createTransportBack = () => {
         setCreateTransportView(false);
     }
+
+    useEffect(() => {
+    }, []);
 
     useEffect(() => {
         setValidEmailPair((!!chosenEmailTemplate && !!chosenEmailTransport) || (!chosenEmailTemplate && !chosenEmailTransport))

@@ -57,6 +57,7 @@ function App() {
 		try {
 		if (userId !== undefined) {
 			loadProjects(userId, true);
+			console.log("Загружаю проекты")
 		}}
 		catch (e) {
 			unsuccessful((e as Error).message)
@@ -66,7 +67,7 @@ function App() {
 	useEffect(() => {
 		if (userId !== undefined && projectId !== undefined) {
 			try {
-				fetchTransports()
+				fetchTransports();
 				fetchTemplates();
 				fetchEvents();
 			}

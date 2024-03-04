@@ -7,7 +7,7 @@ interface userData {
 
 
 
-export interface IUser {
+export interface InputUser {
     id: string,
     object_type: string,
     name: string,

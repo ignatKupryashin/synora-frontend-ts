@@ -3,8 +3,8 @@ import axios, {AxiosRequestConfig} from "axios";
 //Тестовые
 export const MAIN_API_URL = 'https://test.restoratika.notification.skroy.ru';
 export const NOTIFICATION_API_URL = 'https://restoratika.notification.skroy.ru';
-
-//Боевые
+//
+// //Боевые
 // export const MAIN_API_URL = 'https://auth.synora.ru';
 // export const NOTIFICATION_API_URL = 'https://api.synora.ru'
 

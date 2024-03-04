@@ -7,12 +7,12 @@ type transportStore = {
     transports: ITransport[],
     isLoading: boolean,
     errors: string[],
-    addTransport: (transport:ITransport) => void,
-    removeTransport: (id:string) => void,
+    addTransport: (transport: ITransport) => void,
+    removeTransport: (id: string) => void,
     getTransportById: (transportId: string) => ITransport | undefined;
     fetchTransports: () => Promise<void>;
     createTransport: (transport: ITransport) => Promise<ITransport>;
-    deleteTransport: (transport: ITransport) => Promise<ITransport>;
+    deleteTransport: (transport: ITransport) => Promise<boolean>;
 }
 
 export const useTransportStore = create<transportStore>((set) => ({
@@ -33,16 +33,16 @@ export const useTransportStore = create<transportStore>((set) => ({
             }))
         },
 
-    getTransportById: (transportId: string) => {
-        const data: ITransport[] = useTransportStore.getState().transports.filter((item) => item.id === transportId);
-        return data.length > 0 ? data[0] : undefined;
-    },
+        getTransportById: (transportId: string) => {
+            const data: ITransport[] = useTransportStore.getState().transports.filter((item) => item.id === transportId);
+            return data.length > 0 ? data[0] : undefined;
+        },
 
         fetchTransports: async () => {
             try {
                 const data = await TransportService.getAllTransports()
                     .then(
-                    (response) => (response.data));
+                        (response) => (response.data));
                 set({transports: data})
             } catch (e) {
                 unsuccessful((e as Error).message) // Вывод ошибки если не получены транспорты
@@ -50,44 +50,49 @@ export const useTransportStore = create<transportStore>((set) => ({
         },
 
 
-    createTransport: async (transport: ITransport) => {
+        createTransport: async (transport: ITransport) => {
             const data = await TransportService.createTransport(transport);
             return data.data;
-    },
+        },
 
-    deleteTransport: async (transport: ITransport) => {
-            const data = await TransportService.deleteTransport(transport.id);
-            return data.data as ITransport;
-    },
+        deleteTransport: async (transport: ITransport) => {
+            try {
+                const data = await TransportService.deleteTransport(transport.id);
+                useTransportStore.getState().removeTransport(data.data.id)
+                return true;
+            } catch (e) {
+                return false;
+            }
+        },
 
-    // fetchTransports: async (userId: string, projectId: string) => {
-    //     try {
-    //         const data = await $mainApi.get(`/transport/project/${projectId}/user/${userId}/`)
-    //             .then(
-    //                 (response) => (response.data));
-    //         set({transports: data})
-    //     } catch (e) {
-    //         unsuccessful((e as Error).message) // Вывод ошибки если не получены транспорты
-    //     }
-    // },
-    // createTransport: async (transport: ITransport) => {
-    //     try {
-    //         const data =
-    //             await $mainApi.post(`/transport/project/${transport.project_identifier}/user/${transport.user_identifier}/`, transport)
-    //         return data.data;
-    //     }
-    //     catch (e) {
-    //         unsuccessful((e as Error).message)
-    //     }
-    // },
-    // deleteTransport: async (transport: ITransport) => {
-    //     try {
-    //         const data = await $mainApi.delete(`/transport/project/${transport.project_identifier}/user/${transport.user_identifier}/id/${transport.id}/`)
-    //         return data.data;
-    //     }
-    //     catch (e) {
-    //         unsuccessful((e as Error).message)
-    //     }
-    // },
+        // fetchTransports: async (userId: string, projectId: string) => {
+        //     try {
+        //         const data = await $mainApi.get(`/transport/project/${projectId}/user/${userId}/`)
+        //             .then(
+        //                 (response) => (response.data));
+        //         set({transports: data})
+        //     } catch (e) {
+        //         unsuccessful((e as Error).message) // Вывод ошибки если не получены транспорты
+        //     }
+        // },
+        // createTransport: async (transport: ITransport) => {
+        //     try {
+        //         const data =
+        //             await $mainApi.post(`/transport/project/${transport.project_identifier}/user/${transport.user_identifier}/`, transport)
+        //         return data.data;
+        //     }
+        //     catch (e) {
+        //         unsuccessful((e as Error).message)
+        //     }
+        // },
+        // deleteTransport: async (transport: ITransport) => {
+        //     try {
+        //         const data = await $mainApi.delete(`/transport/project/${transport.project_identifier}/user/${transport.user_identifier}/id/${transport.id}/`)
+        //         return data.data;
+        //     }
+        //     catch (e) {
+        //         unsuccessful((e as Error).message)
+        //     }
+        // },
     }),
 )

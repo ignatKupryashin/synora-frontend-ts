@@ -40,8 +40,10 @@ export const useUserStore = create<IUserStore>((set) => ({
             login: async (login: string, password: string) => {
                 try {
                     const response = await AuthService.login(login, password);
+                    console.log(response);
                     localStorage.setItem('token', response.data.access_token);
-                    useUserStore.getState().setUser(response.data.user[0]);
+                    useUserStore.getState().setUser(response.data.user);
+                    console.log(useUserStore.getState().isLogin);
                 }
                 catch (e) {
                     unsuccessful((e as Error).message)

@@ -16,6 +16,8 @@ import EmailTransport from "../../../models/Transport/IEmailTransport";
 import {ITransport} from "../../../models/Transport/ITransport";
 import {ITemplate} from "../../../models/Template/ITemplate";
 import {ISynoraEvent} from "../../../models/SynoraEvent/ISynoraEvent";
+import SynoraEventService from "../../../services/SynoraEventService";
+import synoraEvent from "../../../models/SynoraEvent/SynoraEvent";
 
 interface CreateEventPageProps {
     synoraEventName: string;
@@ -31,13 +33,11 @@ interface CreateEventPageProps {
 
 const CreateSynoraEventPage = (props: CreateEventPageProps) => {
 
-    const sendEvent = useSynoraEventStore(state => state.createEvent);
     const userId = useUserStore(state => state.userId)();
     const projectId = useProjectStore(state => state.currentProject?.id) || '';
     const navigate = useNavigate();
     const addConfigToEvent = useSynoraEventStore(state => state.addConfigToEvent);
     const fetchEvents = useSynoraEventStore(state => state.fetchEvents);
-    const [willSend, setWillSend] = useState(false);
 
     const newSynoraEvent: SynoraEvent = new SynoraEvent(
         props.synoraEventName,
@@ -45,171 +45,168 @@ const CreateSynoraEventPage = (props: CreateEventPageProps) => {
         projectId
     );
 
-    const [currentSynoraEvent, setCurrentSynoraEvent] = useState<ISynoraEvent | undefined>(undefined)
+    let currentSynoraEvent: ISynoraEvent | undefined = undefined;
 
     useEffect(() => {
-        !!props.currentEvent && setCurrentSynoraEvent(props.currentEvent);
+        !!props.currentEvent && (currentSynoraEvent = props.currentEvent);
     }, []);
 
 
-    const [mySendEvent,
-        sendEventIsLoading] = useFetching(
-        () => sendEvent(newSynoraEvent))
-
-
-    const createAndAddConfig  = async (e: React.MouseEvent<HTMLButtonElement>, sending: boolean)=> {
+    const createAndAddConfig = async (e: React.MouseEvent<HTMLButtonElement>, sending: boolean) => {
         e.preventDefault();
-        !currentSynoraEvent && await createEvent(sending);
-        await saveAllConfigs();
-    }
-
-
-
-    const createEvent = async (sending: boolean) => {
-        await mySendEvent().then(async (response) => {
-            if (response) {
-                if (response.status >= 200 && response.status < 300) {
-                    setCurrentSynoraEvent(response.data);
-                    successful('Событие создано');
-                    setWillSend(sending);
-                } else {
-                    unsuccessful(`Ошибка создания: ${response.data.detail}`)
-                }
-            }
-        })
-    }
-
-
-    const saveConfig = async (transport: ITransport | undefined, template: ITemplate | undefined) => {
-        if (currentSynoraEvent && transport && template)
+        if (!currentSynoraEvent) {
             try {
-                return await addConfigToEvent(currentSynoraEvent, transport, template);
-            } catch (e) {
-                unsuccessful((e as Error).message);
+                await createEvent();
             }
-        return undefined
+            catch(e) {
+                unsuccessful('Не удалось создать event')
+            }
+        }
+        await saveAllConfigs(sending);
     }
 
-    const saveTelegramConfig = async () => {
-        return saveConfig(props.chosenTelegramTransport, props.chosenTelegramTemplate);
 
+    const createEvent = async () => {
+        const response = await SynoraEventService.createEvent(newSynoraEvent);
+        if (response) {
+            if (response.status >= 200 && response.status < 300) {
+                useSynoraEventStore.getState().addEvent(response.data);
+                currentSynoraEvent = response.data;
+                successful('Событие создано');
+            } else {
+                unsuccessful(`Ошибка создания: ${response.statusText}`)
+            }
+        }
     }
 
-    const saveEmailConfig = async () => {
-        return saveConfig(props.chosenEmailTransport, props.chosenEmailTemplate);
-    }
+const saveConfig = async (transport: ITransport | undefined, template: ITemplate | undefined) => {
+    console.log(`event: ${currentSynoraEvent}`)
+    if (currentSynoraEvent && transport && template)
+        try {
+            return await addConfigToEvent(currentSynoraEvent, transport, template);
+        } catch (e) {
+            unsuccessful((e as Error).message);
+            return false
+        }
+    return false
+}
 
-    const saveAllConfigs = async () => {
-        let emailConfigSaved = await saveEmailConfig()
-        let telegramConfigSaved = await saveTelegramConfig()
+const saveTelegramConfig = async () => {
+    return saveConfig(props.chosenTelegramTransport, props.chosenTelegramTemplate);
 
-        const fetchAndSendEventPromises = [
-            await fetchEvents()
-        ]
-        const fetched = await Promise.all(fetchAndSendEventPromises)
-        fetched && (!!emailConfigSaved || !!telegramConfigSaved) &&
+}
+
+const saveEmailConfig = async () => {
+    return saveConfig(props.chosenEmailTransport, props.chosenEmailTemplate);
+}
+
+const saveAllConfigs = async (sending: boolean) => {
+    const emailConfigSaved = await saveEmailConfig()
+    const telegramConfigSaved = await saveTelegramConfig()
+    await fetchEvents();
+    if (emailConfigSaved || telegramConfigSaved) {
         navigate(
-            willSend ?
+            sending ?
                 `/events/sendnotification/${currentSynoraEvent?.id}` :
                 `/events`
         )
+    } else {
+        unsuccessful('Что то не так с навигацией')
     }
+}
 
 
-    const changeEventName = (e: React.FormEvent<HTMLInputElement>) => {
-        props.setSynoraEventName(e.currentTarget.value);
-    }
+const changeEventName = (e: React.FormEvent<HTMLInputElement>) => {
+    props.setSynoraEventName(e.currentTarget.value);
+}
 
 
-    return (
-        <div className={styles.event}>
-            <div className={styles.event__form}>
-                <AppInput
-                    id={'eventName'}
-                    label={'Наименование рассылки:'}
-                    type={'text'}
-                    name={'eventName'}
-                    placeholder={'Введите наименование рассылки'}
-                    value={props.synoraEventName}
-                    onChange={changeEventName}
-                />
+return (
+    <div className={styles.event}>
+        <div className={styles.event__form}>
+            <AppInput
+                id={'eventName'}
+                label={'Наименование рассылки:'}
+                type={'text'}
+                name={'eventName'}
+                placeholder={'Введите наименование рассылки'}
+                value={props.synoraEventName}
+                onChange={changeEventName}
+            />
 
-                {
-                    !!props.chosenEmailTemplate && props.chosenEmailTransport &&
-                    <div className={styles.event__protocolBlock}>
-                        <h4 className={styles.event__protocolBlock__heading}>Email</h4>
-                        <div className={styles.event__protocolBlock__item}>
-                            <p className={styles.event__protocolBlock__itemName}>
-                                {props.chosenEmailTemplate.template_name}</p>
-                            <p className={styles.event__protocolBlock__itemDiscription}>
-                                {props.chosenEmailTemplate.body.body.length > 50 ?
-                                    `${props.chosenEmailTemplate.body.body.slice(0,50)}...` :
-                                    props.chosenEmailTemplate.body.body
-                                }
-                            </p>
-                        </div>
-                        <div className={styles.event__protocolBlock__item}>
-                            <p className={styles.event__protocolBlock__itemName}>
-                                {props.chosenEmailTransport.transport_name}</p>
-                            <p className={styles.event__protocolBlock__itemDiscription}>
-                                {`Тема: ${props.chosenEmailTemplate.letter_topic}`}
-                            </p>
-                        </div>
+            {
+                !!props.chosenEmailTemplate && props.chosenEmailTransport &&
+                <div className={styles.event__protocolBlock}>
+                    <h4 className={styles.event__protocolBlock__heading}>Email</h4>
+                    <div className={styles.event__protocolBlock__item}>
+                        <p className={styles.event__protocolBlock__itemName}>
+                            {props.chosenEmailTemplate.template_name}</p>
+                        <p className={styles.event__protocolBlock__itemDiscription}>
+                            {props.chosenEmailTemplate.body.body.length > 50 ?
+                                `${props.chosenEmailTemplate.body.body.slice(0, 50)}...` :
+                                props.chosenEmailTemplate.body.body
+                            }
+                        </p>
                     </div>
-                }
-
-
-                {
-                    !!props.chosenTelegramTemplate && props.chosenTelegramTransport &&
-                    <div className={styles.event__protocolBlock}>
-                        <h4 className={styles.event__protocolBlock__heading}>Telegram</h4>
-                        <div className={styles.event__protocolBlock__item}>
-                            <p className={styles.event__protocolBlock__itemName}>
-                            {props.chosenTelegramTemplate.template_name}</p>
-                            <p className={styles.event__protocolBlock__itemDiscription}>
-                               {props.chosenTelegramTemplate.body.body.length > 50 ?
-                                   `${props.chosenTelegramTemplate.body.body.slice(0,50)}...` :
-                               props.chosenTelegramTemplate.body.body
-                               }
-                            </p>
-                        </div>
-                        <div className={styles.event__protocolBlock__item}>
-                            <p className={styles.event__protocolBlock__itemName}>
-                                {props.chosenTelegramTransport.transport_name}</p>
-                            <p className={styles.event__protocolBlock__itemDiscription}>
-                                Телеграм
-                            </p>
-                        </div>
+                    <div className={styles.event__protocolBlock__item}>
+                        <p className={styles.event__protocolBlock__itemName}>
+                            {props.chosenEmailTransport.transport_name}</p>
+                        <p className={styles.event__protocolBlock__itemDiscription}>
+                            {`Тема: ${props.chosenEmailTemplate.letter_topic}`}
+                        </p>
                     </div>
-                }
-
-                <div className={styles.event__buttonblock}>
-                    <AppButton
-                        type={'button'}
-                        value={'Предыдущий шаг'}
-                        appStyle="white"
-                        onClick={props.stepBack}
-                    />
-                    <AppButton
-                        type={'button'}
-                        value={'Создать без отправки'}
-                        disabled={!props.synoraEventName}
-                        appStyle="transparent"
-                        onClick={(e) => createAndAddConfig(e, false)}
-                    />
-                    <AppButton
-                        type={'button'}
-                        value={'Перейти к отправке'}
-                        disabled={!props.synoraEventName}
-                        onClick={(e) => createAndAddConfig(e, true)}
-                    />
                 </div>
-                {
-                    sendEventIsLoading && <h1>Идет отправка</h1>
-                }
+            }
 
+
+            {
+                !!props.chosenTelegramTemplate && props.chosenTelegramTransport &&
+                <div className={styles.event__protocolBlock}>
+                    <h4 className={styles.event__protocolBlock__heading}>Telegram</h4>
+                    <div className={styles.event__protocolBlock__item}>
+                        <p className={styles.event__protocolBlock__itemName}>
+                            {props.chosenTelegramTemplate.template_name}</p>
+                        <p className={styles.event__protocolBlock__itemDiscription}>
+                            {props.chosenTelegramTemplate.body.body.length > 50 ?
+                                `${props.chosenTelegramTemplate.body.body.slice(0, 50)}...` :
+                                props.chosenTelegramTemplate.body.body
+                            }
+                        </p>
+                    </div>
+                    <div className={styles.event__protocolBlock__item}>
+                        <p className={styles.event__protocolBlock__itemName}>
+                            {props.chosenTelegramTransport.transport_name}</p>
+                        <p className={styles.event__protocolBlock__itemDiscription}>
+                            Телеграм
+                        </p>
+                    </div>
+                </div>
+            }
+
+            <div className={styles.event__buttonblock}>
+                <AppButton
+                    type={'button'}
+                    value={'Предыдущий шаг'}
+                    appStyle="white"
+                    onClick={props.stepBack}
+                />
+                <AppButton
+                    type={'button'}
+                    value={'Создать без отправки'}
+                    disabled={!props.synoraEventName}
+                    appStyle="transparent"
+                    onClick={(e) => createAndAddConfig(e, false)}
+                />
+                <AppButton
+                    type={'button'}
+                    value={'Перейти к отправке'}
+                    disabled={!props.synoraEventName}
+                    onClick={(e) => createAndAddConfig(e, true)}
+                />
             </div>
         </div>
-    )
-};
+    </div>
+)
+}
+;
 export default CreateSynoraEventPage;

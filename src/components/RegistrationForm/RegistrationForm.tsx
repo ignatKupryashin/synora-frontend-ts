@@ -4,6 +4,7 @@ import RegistrationService from "../../services/RegistrationService";
 import {successful, unsuccessful} from "../UI/Toast/Toast";
 import {useNavigate} from "react-router-dom";
 import styles from "./RegistrationForm.module.scss";
+import axios, {AxiosError} from "axios";
 
 const RegistrationForm = () => {
     const [username, setUsername] = useState("");
@@ -78,9 +79,10 @@ const RegistrationForm = () => {
                 await RegistrationService.registration(username, email, password, name, surname);
                 successful("Вы успешно зарегистрировались");
                 navigate('/');
-            } catch (e) {
-                unsuccessful((e as Error).message);
-            }
+            } catch (error) {
+                        unsuccessful((error as Error).message);
+                }
+
         } else {
             unsuccessful("Необходимо заполнить все обязательные поля")
         }

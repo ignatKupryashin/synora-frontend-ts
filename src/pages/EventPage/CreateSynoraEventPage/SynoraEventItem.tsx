@@ -16,13 +16,14 @@ const SynoraEventItem = (props: synoraEventItemProps) => {
     const navigate = useNavigate();
 
     return (
-        <div key={props.synoraEvent.id} className={styles.eventItem} onClick={event => navigate(`/events/sendnotification/${props.synoraEvent.id}`)}>
-            <div className={styles.eventItem__title} >
+        <div key={props.synoraEvent.id} className={styles.eventItem}
+             onClick={event => navigate(`/events/sendnotification/${props.synoraEvent.id}`)}>
+            <div className={styles.eventItem__title}>
                 {props.synoraEvent.event_code}
             </div>
-            <div>
-            <ViewButton onClick={() => navigate(`events/createeventmaster/${props.synoraEvent.id}`)}/>
-            <DeleteButton onDelete={props.onDelete}/>
+            <div className={styles.eventItem__buttonWrapper}>
+                {/*<ViewButton onClick={() => navigate(`events/createeventmaster/${props.synoraEvent.id}`)}/>*/}
+                <DeleteButton onDelete={props.onDelete}/>
             </div>
         </div>
     );

@@ -5,9 +5,9 @@ import AppModal from "../UI/AppModal/AppModal";
 
 interface AppConfirmProps {
     question: ReactNode,
-    onConfirm: () => void;
     isVisible: boolean;
     setIsVisible(visible: boolean): void;
+    onConfirm?: () => void;
 }
 
 
@@ -15,10 +15,10 @@ interface AppConfirmProps {
 
 const AppDeleteConfirm: FC<AppConfirmProps> = (props) => {
 
-    const applyHandler = () => {
-        props.onConfirm();
-        props.setIsVisible(false);
-    }
+    // const applyHandler = () => {
+    //     props.onConfirm();
+    //     props.setIsVisible(false);
+    // }
 
 
     return (
@@ -29,7 +29,7 @@ const AppDeleteConfirm: FC<AppConfirmProps> = (props) => {
                     <AppButton className={styles.appDeleteConfirm__declineButton} type={'button'} value={'Отменить'} onClick={() => props.setIsVisible(false)}/>
                     <AppButton className={styles.appDeleteConfirm__applyButton} type={'button'} value={'Удалить'} onClick={
                         () => {
-                            props.onConfirm();
+                            props.onConfirm && props.onConfirm();
                             props.setIsVisible(false);
                         }
                     }/>

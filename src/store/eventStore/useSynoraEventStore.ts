@@ -17,7 +17,7 @@ type eventStore = {
     fetchEvents: () => Promise<boolean>;
     createEvent: (event: ISynoraEvent) => Promise<AxiosResponse<ISynoraEvent>>;
     deleteEvent: (event: ISynoraEvent) => Promise<ISynoraEvent>;
-    addConfigToEvent: (event: ISynoraEvent, transport: ITransport, template: ITemplate) => Promise<ISynoraEvent>;
+    addConfigToEvent: (event: ISynoraEvent, transport: ITransport, template: ITemplate) => Promise<boolean>;
 }
 
 export const useSynoraEventStore = create<eventStore>((set) => ({
@@ -48,17 +48,16 @@ export const useSynoraEventStore = create<eventStore>((set) => ({
         try {
             const data = await SynoraEventService.getAllEvents();
             set({events: data.data});
+            console.log(useSynoraEventStore.getState().events);
             return true;
         } catch (e) {
             unsuccessful((e as Error).message) // Вывод ошибки если не получены события
         }
         return false
     },
-    //TODO
-    //Change ISynoraEvent to eventName (string)
 
     createEvent: async (event: ISynoraEvent) => {
-        return SynoraEventService.createEvent(event.id);
+        return SynoraEventService.createEvent(event);
     },
 
     deleteEvent: async (event: ISynoraEvent) => {
@@ -67,14 +66,13 @@ export const useSynoraEventStore = create<eventStore>((set) => ({
     },
 
     addConfigToEvent: async (event: ISynoraEvent, transport: ITransport, template: ITemplate) => {
-        const data = await $mainApi.post(`/event_connections/project/${event.project_identifier}/user/${event.user_identifier}/`,
-            {
-                "event_code": event.event_code,
-                "template_id": template.id,
-                "transport_id": transport.id
-            }
-            )
-        return data.data;
+        try {
+            const data = await SynoraEventService.addConfigToEvent(event, transport, template);
+            return true;
+        }
+        catch (e) {
+            return false
+        }
     },
 
     // fetchEvents: async (userId: string, projectId: string) => {

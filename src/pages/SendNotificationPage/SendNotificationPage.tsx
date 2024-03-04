@@ -7,9 +7,9 @@ import AppButton from "../../components/UI/AppButton/AppButton";
 import {SynoraNotification} from "../../models/Notification/SynoraNotification";
 import {useSynoraEventStore} from "../../store/eventStore/useSynoraEventStore";
 import {successful, unsuccessful} from "../../components/UI/Toast/Toast";
-import {$notificationApi} from "../../http";
 import styles from "./SendNotificationPage.module.scss"
 import {useTransportStore} from "../../store/transportStore/useTransportStore";
+import NotificationService from "../../services/NotificationService";
 
 const SendNotificationPage: FC = () => {
     const {currentEventId} = useParams<string>();
@@ -75,7 +75,7 @@ const SendNotificationPage: FC = () => {
                     email: item
                 }))
             }
-            const response = await $notificationApi.post('/notification', notification);
+            const response = await NotificationService.sendNotification(notification);
             if (response.status >= 200 && response.status < 300) {
                 successful('Рассылка успешно отправлена');
                 navigate("/")
@@ -97,7 +97,7 @@ const SendNotificationPage: FC = () => {
         <div>
             <h1 className={styles.sendNotificationPage__heading}>Отправка рассылки</h1>
 
-            {/*<p>{currentEvent?.event_code}</p>*/}
+            {/*<p>{`Рассылка: ${currentEvent?.event_code}`}</p>*/}
 
             <div className={styles.sendNotificationPage__protocolWrapper}>
                 {hasEmail &&
@@ -118,7 +118,6 @@ const SendNotificationPage: FC = () => {
                             <ol className={styles.sendNotificationPage__list}>
                                 {emailOutput.map((item) => <li>{item}</li>)}
                             </ol>
-
                         :
                         "Валидных email не найдено"
                    }
