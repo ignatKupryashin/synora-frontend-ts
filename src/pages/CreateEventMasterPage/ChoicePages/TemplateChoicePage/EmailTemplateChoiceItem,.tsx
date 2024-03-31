@@ -1,5 +1,5 @@
-import React, {MouseEventHandler} from 'react';
-import EmailTemplate from "../../../../models/Template/EmailTemplate";
+import {MouseEventHandler} from 'react';
+import EmailTemplate from "models/Template/EmailTemplate";
 import styles from "../../CreateEventMasterPage.module.scss";
 import ViewButton from "../../../../components/UI/FunctionalButtons/VuewButton/ViewButton";
 

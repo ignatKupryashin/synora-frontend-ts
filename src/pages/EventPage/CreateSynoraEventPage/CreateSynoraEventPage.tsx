@@ -1,23 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styles from "../EventPage.module.scss"
 import {useNavigate} from "react-router-dom";
-import {useUserStore} from "../../../store/userStore/useUserStore";
-import {useSynoraEventStore} from "../../../store/eventStore/useSynoraEventStore";
+import {useUserStore} from "@/store/userStore/useUserStore.ts";
+import {useSynoraEventStore} from "@/store/eventStore/useSynoraEventStore.ts";
 import SynoraEvent from "../../../models/SynoraEvent/SynoraEvent";
 import AppInput from "../../../components/Input/AppInput";
-import {useFetching} from "../../../hooks/useFetching";
-import {successful, unsuccessful} from "components/UI/Toast/Toast";
-import {useProjectStore} from "../../../store/projectStore/useProjectStore";
+import {successful, unsuccessful} from "@/components/UI/Toast/Toast";
+import {useProjectStore} from "@/store/projectStore/useProjectStore.ts";
 import AppButton from "../../../components/UI/AppButton/AppButton";
-import {TelegramTemplate} from "../../../models/Template/TelegramTemplate";
+import {TelegramTemplate} from "@/models/Template/TelegramTemplate.ts";
 import EmailTemplate from "../../../models/Template/EmailTemplate";
 import TelegramTransport from "../../../models/Transport/TelegramTransport";
 import EmailTransport from "../../../models/Transport/IEmailTransport";
-import {ITransport} from "../../../models/Transport/ITransport";
-import {ITemplate} from "../../../models/Template/ITemplate";
-import {ISynoraEvent} from "../../../models/SynoraEvent/ISynoraEvent";
+import {ITransport} from "@/models/Transport/ITransport.ts";
+import {ITemplate} from "@/models/Template/ITemplate.ts";
+import {ISynoraEvent} from "@/models/SynoraEvent/ISynoraEvent.ts";
 import SynoraEventService from "../../../services/SynoraEventService";
-import synoraEvent from "../../../models/SynoraEvent/SynoraEvent";
 
 interface CreateEventPageProps {
     synoraEventName: string;

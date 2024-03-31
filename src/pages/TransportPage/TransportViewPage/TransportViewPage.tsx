@@ -59,6 +59,6 @@ function TransportViewPage (props: TransportViewPageProps) {
             <TabBar barArray={tabsArray}/>
         </div>
     );
-};
+}
 
 export default TransportViewPage;

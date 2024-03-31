@@ -1,7 +1,6 @@
-import React from 'react';
 import styles from "./LoginPage.module.scss";
 import LoginForm from "../../components/LoginForm/LoginForm";
-import logo from 'assets/svg/logo_grey.svg'
+import logo from '@/assets/svg/logo_grey.svg'
 import TranslucentWrapper from "../../components/UI/TranslucentWrapper/TranslucentWrapper";
 
 const LoginPage = () => {

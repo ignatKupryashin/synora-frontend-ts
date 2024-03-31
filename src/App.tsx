@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import AppRouter from "./components/AppRouter/AppRouter";
-import styles from "App.module.scss"
+import styles from "./App.module.scss"
 import {useUserStore} from "./store/userStore/useUserStore";
 import {useTransportStore} from "./store/transportStore/useTransportStore";
 import {useTemplateStore} from "./store/templateStore/useTemplateStore";

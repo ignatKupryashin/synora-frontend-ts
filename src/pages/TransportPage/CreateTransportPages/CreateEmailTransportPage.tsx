@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import {useTransportStore} from "store/transportStore/useTransportStore";
-import {useUserStore} from "store/userStore/useUserStore";
-import EmailTransport from "models/Transport/IEmailTransport";
-import {ITransport} from "models/Transport/ITransport";
+import {useUserStore} from "@/store/userStore/useUserStore";
+import EmailTransport from "@/models/Transport/IEmailTransport";
+import {ITransport} from "@/models/Transport/ITransport";
 import styles from "../TransportPage.module.scss";
-import AppInput from "components/Input/AppInput";
+import AppInput from "@/components/Input/AppInput";
 import {useNavigate} from "react-router-dom";
-import {useProjectStore} from "../../../store/projectStore/useProjectStore";
-import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
+import {useProjectStore} from "@/store/projectStore/useProjectStore.ts";
+import {successful, unsuccessful} from "@/components/UI/Toast/Toast.tsx";
 import AppButton from "../../../components/UI/AppButton/AppButton";
-import {ReturnsProp} from "../../../models/ServiceInterfaces/ReturnsProp";
+import {ReturnsProp} from "@/models/ServiceInterfaces/ReturnsProp.ts";
+import {useTransportStore} from "@/store/transportStore/useTransportStore.ts";
 
 const CreateEmailTransportPage = (props: ReturnsProp) => {
 

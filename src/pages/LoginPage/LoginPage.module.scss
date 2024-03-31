@@ -1,10 +1,10 @@
-@import 'styles/variables';
+@import '@/styles/variables';
 
 .loginPage {
 
   width: 100vw;
   height: 100vh;
-  background: url("/assets/img/loginBackground.jpg") no-repeat center;
+  background: url("@/assets/img/loginBackground.jpg") no-repeat center;
   background-size: cover;
   //надеюсь от этого избавиться когда переделаю Layout
   //position: absolute;
@@ -35,6 +35,4 @@
     top: 0;
     z-index: 11;
   }
-
-
 }

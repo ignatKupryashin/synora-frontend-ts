@@ -28,8 +28,7 @@ $color-hover: $color-white;
 $mainColor: $color-blue-btn;
 $mainColorDarker: $color-dark-blue;
 
-:export {
-  mainColor: $color-blue-btn;
-  fontMulishLight: $font-mulish-light;
-
+:default {
+  $mainColor: $color-blue-btn;
+  $fontMulishLight: $font-mulish-light;
 }

@@ -1,5 +1,5 @@
-import React, {MouseEventHandler} from 'react';
-import {TelegramTemplate} from "../../../../models/Template/TelegramTemplate";
+import {MouseEventHandler} from 'react';
+import {TelegramTemplate} from "@/models/Template/TelegramTemplate.ts";
 import styles from "../../CreateEventMasterPage.module.scss";
 import ViewButton from "../../../../components/UI/FunctionalButtons/VuewButton/ViewButton";
 

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import AppInput from "../Input/AppInput";
 import AppButton from "../UI/AppButton/AppButton";
 import {useNavigate} from "react-router-dom";
-import {useUserStore} from "../../store/userStore/useUserStore";
+import {useUserStore} from "@/store/userStore/useUserStore.ts";
 import styles from './LoginForm.module.scss'
 
 const LoginForm = () => {

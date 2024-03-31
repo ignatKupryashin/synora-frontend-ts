@@ -1,10 +1,10 @@
 import {create} from "zustand";
-import {IUser} from "../../models/User/IUser";
+import {IUser} from "@/models/User/IUser.ts";
 import {unsuccessful} from "../../components/UI/Toast/Toast";
 import AuthService from "../../services/AuthService";
 import axios from "axios";
-import {AuthResponse} from "../../models/AuthResponse";
-import {MAIN_API_URL} from "../../http";
+import {AuthResponse} from "@/models/AuthResponse.ts";
+import {MAIN_API_URL} from "@/http";
 
 interface IUserStore {
     user: IUser | undefined;
@@ -28,13 +28,13 @@ export const useUserStore = create<IUserStore>((set) => ({
                 },
 
             setUser: (newUser: IUser | undefined) => {
-                set((state) => ({user: newUser}));
+                set(() => ({user: newUser}));
                 useUserStore.getState().setIsLogin();
             },
 
             setIsLogin: () => {
                 const isLogin = useUserStore.getState().user !== undefined;
-                set((state) => ({isLogin: isLogin}));
+                set(() => ({isLogin: isLogin}));
             },
 
             login: async (login: string, password: string) => {
@@ -58,7 +58,7 @@ export const useUserStore = create<IUserStore>((set) => ({
 
             checkAuth: async () => {
                 try {
-                    const response = await axios.get<AuthResponse>(`${MAIN_API_URL}/`)
+                    await axios.get<AuthResponse>(`${MAIN_API_URL}/`)
                 }
                 catch (e) {
 

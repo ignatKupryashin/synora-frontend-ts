@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import styles from "../TransportPage.module.scss";
-import AppInput from "components/Input/AppInput";
-import {useTransportStore} from "store/transportStore/useTransportStore";
-import TelegramTransport from "models/Transport/TelegramTransport";
-import {useUserStore} from "store/userStore/useUserStore";
+import AppInput from "@/components/Input/AppInput";
+import {useTransportStore} from "@/store/transportStore/useTransportStore";
+import TelegramTransport from "@/models/Transport/TelegramTransport";
+import {useUserStore} from "@/store/userStore/useUserStore";
 import {useNavigate} from "react-router-dom";
-import {useProjectStore} from "../../../store/projectStore/useProjectStore";
-import {successful, unsuccessful} from "../../../components/UI/Toast/Toast";
+import {useProjectStore} from "@/store/projectStore/useProjectStore.ts";
+import {successful, unsuccessful} from "@/components/UI/Toast/Toast.tsx";
 import AppButton from "../../../components/UI/AppButton/AppButton";
-import {ReturnsProp} from "../../../models/ServiceInterfaces/ReturnsProp";
+import {ReturnsProp} from "@/models/ServiceInterfaces/ReturnsProp.ts";
 
 const CreateTelegramTransportPage = (props: ReturnsProp) => {
 
@@ -27,11 +27,9 @@ const CreateTelegramTransportPage = (props: ReturnsProp) => {
         );
         try {
             sendTransport(newTelegramTransport).then((response) => addTransport(response)).then(() => successful('Транспорт успешно создан'))
-        }
-        catch (error) {
+        } catch (error) {
             unsuccessful((error as Error).message)
-        }
-        finally {
+        } finally {
             !!props.backAction ? props.backAction() : navigate('/transfers')
         }
     }

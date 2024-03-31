@@ -1,11 +1,10 @@
-import React from 'react';
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Layout from "../Layout/Layout";
 import SynoraEventPage from "../../pages/EventPage/SynoraEventPage";
 import TransportPage from "../../pages/TransportPage/TransportPage";
 import TemplatePage from "../../pages/TemplatePage/TemplatePage";
 import CreateTemplatePage from "../../pages/TemplatePage/CreateTemplatesPages/CreateTemplatePage";
-import {useUserStore} from "../../store/userStore/useUserStore";
+import {useUserStore} from "@/store/userStore/useUserStore.ts";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import SynoraEventItemPage from "../../pages/EventPage/EventItemPage/SynoraEventItemPage";
 import SendNotificationPage from "../../pages/SendNotificationPage/SendNotificationPage";
@@ -15,7 +14,6 @@ import CreateEventMasterPage from "../../pages/CreateEventMasterPage/CreateEvent
 
 const AppRouter = () => {
     const isLogin = useUserStore(state => state.isLogin);
-    const navigate = useNavigate();
 
     return (
         <Routes>

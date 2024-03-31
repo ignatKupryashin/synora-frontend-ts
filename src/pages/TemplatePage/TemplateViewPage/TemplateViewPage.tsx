@@ -43,6 +43,6 @@ function TemplateViewPage (props: TemplateViewPageProps) {
             <TabBar barArray={tabsArray}/>
         </div>
     );
-};
+}
 
 export default TemplateViewPage;

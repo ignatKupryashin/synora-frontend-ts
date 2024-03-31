@@ -42,7 +42,7 @@ const CreateEventMasterPage = () => {
     const getTransport = useTransportStore(state => state.getTransportById);
     const getTemplate = useTemplateStore(state => state.getTemplateById);
     const getSynoraEvent = useSynoraEventStore(state => state.getEventById)
-    const SynoraEvents = useSynoraEventStore(state => state.events)
+    // const SynoraEvents = useSynoraEventStore(state => state.events)
     const [currentSynoraEvent, setCurrentSynoraEvent] = useState<ISynoraEvent | undefined>(undefined);
 
     useEffect(() => {
