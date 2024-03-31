@@ -1,4 +1,4 @@
-import React, {FC, ReactNode} from 'react';
+import {FC, ReactNode} from 'react';
 import styles from "./AppDeleteConfirm.module.scss"
 import AppButton from "../UI/AppButton/AppButton";
 import AppModal from "../UI/AppModal/AppModal";

@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import {ReactNode} from 'react';
 import {animated, useSpring} from "@react-spring/web";
 
 interface StandardFadeProps {
