@@ -1,4 +1,4 @@
-import axios, {AxiosRequestConfig} from "axios";
+import axios, {AxiosRequestHeaders, InternalAxiosRequestConfig} from "axios";
 
 //Тестовые
 export const MAIN_API_URL = 'https://test.restoratika.notification.skroy.ru';
@@ -18,18 +18,18 @@ export const $notificationApi = axios.create({
     baseURL: NOTIFICATION_API_URL
 })
 
-$mainApi.interceptors.request.use((config:AxiosRequestConfig) => {
+$mainApi.interceptors.request.use((config:InternalAxiosRequestConfig) => {
     config.headers = {
         ...config.headers,
         Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
+    } as AxiosRequestHeaders
     return config;
 })
 
-$notificationApi.interceptors.request.use((config: AxiosRequestConfig) => {
+$notificationApi.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     config.headers = {
         ...config.headers,
         Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
+    } as AxiosRequestHeaders
     return config;
 })
