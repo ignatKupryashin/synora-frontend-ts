@@ -1,9 +1,8 @@
-import {ISynoraEvent} from "../../models/SynoraEvent/ISynoraEvent";
+import {ISynoraEvent} from "@/models/SynoraEvent/ISynoraEvent.ts";
 import {create} from "zustand";
 import {AxiosResponse} from "axios";
-import {$mainApi} from "../../http";
-import {ITransport} from "../../models/Transport/ITransport";
-import {ITemplate} from "../../models/Template/ITemplate";
+import {ITransport} from "@/models/Transport/ITransport.ts";
+import {ITemplate} from "@/models/Template/ITemplate.ts";
 import {unsuccessful} from "../../components/UI/Toast/Toast";
 import SynoraEventService from "../../services/SynoraEventService";
 
@@ -20,26 +19,27 @@ type eventStore = {
     addConfigToEvent: (event: ISynoraEvent, transport: ITransport, template: ITemplate) => Promise<boolean>;
 }
 
-export const useSynoraEventStore = create<eventStore>((set) => ({
+export const useSynoraEventStore = create<eventStore>((setState, getState) => ({
     events: [],
     isLoading: false,
     errors: [],
 
     addEvent: (event: ISynoraEvent) => {
-        set((state) => ({
+        setState((state) => ({
             events: [...state.events, event]
         }))
     },
 
     removeEvent: (id: string) => {
-        set((state) => ({
+        setState((state) => ({
             events: state.events.filter((event: ISynoraEvent) => event.id !== id),
         }))
     },
 
 
     getEventById: (synoraEventId: string) => {
-        const data: ISynoraEvent[] = useSynoraEventStore.getState().events.filter((item) => item.id === synoraEventId);
+        // const data: ISynoraEvent[] = useSynoraEventStore.getState().events.filter((item) => item.id === synoraEventId);
+        const data: ISynoraEvent[] = getState().events.filter((item) => item.id === synoraEventId)
         return (data.length > 0) ? data[0] : undefined;
     },
 
@@ -47,7 +47,7 @@ export const useSynoraEventStore = create<eventStore>((set) => ({
     fetchEvents: async () => {
         try {
             const data = await SynoraEventService.getAllEvents();
-            set({events: data.data});
+            setState({events: data.data});
             console.log(useSynoraEventStore.getState().events);
             return true;
         } catch (e) {
@@ -67,7 +67,7 @@ export const useSynoraEventStore = create<eventStore>((set) => ({
 
     addConfigToEvent: async (event: ISynoraEvent, transport: ITransport, template: ITemplate) => {
         try {
-            const data = await SynoraEventService.addConfigToEvent(event, transport, template);
+            await SynoraEventService.addConfigToEvent(event, transport, template);
             return true;
         }
         catch (e) {
